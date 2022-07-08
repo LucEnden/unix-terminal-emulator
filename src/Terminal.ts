@@ -62,8 +62,9 @@ export default class Terminal {
 
     /**
      * Excecutes the command sequence
+     * @param callback Gets called when sequence has finished
      */
-    public run() {
+    public run(callback?: () => void) {
         // if there are commands left in the queue, start writing its text to stdout
         if (this.commandQueue.length > 0) {
             this.writeEnviromentLineToStdout();
@@ -82,7 +83,7 @@ export default class Terminal {
                                 }
                                 this.historyStack.push(this.commandQueue[0]);
                                 this.commandQueue.shift();
-                                this.run();
+                                this.run(callback);
                             },
                             this.commandQueue[0].output,
                             1
@@ -93,12 +94,14 @@ export default class Terminal {
                         }
                         this.historyStack.push(this.commandQueue[0]);
                         this.commandQueue.shift();
-                        this.run();
+                        this.run(callback);
                     }
                 },
                 this.commandQueue[0].text,
                 this.getRandomIntegerInRange(80, 120)
             );
+        } else {
+            callback()
         }
     }
 
