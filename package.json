@@ -1,0 +1,16 @@
+{
+  "name": "unix-terminal-emulator",
+  "version": "0.1.7",
+  "description": "Emulates a Unix terminal inside the DOM!",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "Fully Autistic",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
