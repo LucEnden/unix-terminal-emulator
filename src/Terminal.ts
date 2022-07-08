@@ -66,6 +66,8 @@ export default class Terminal {
     public run() {
         // if there are commands left in the queue, start writing its text to stdout
         if (this.commandQueue.length > 0) {
+            this.writeEnviromentLineToStdout();
+            this.writeInputLineStartToStdout();
             this.writeToStdout(
                 () => {
                     // after COMMAND TEXT was written
@@ -75,9 +77,8 @@ export default class Terminal {
                         this.writeToStdout(
                             () => {
                                 // after COMMAND OUTPUT was written
-                                if (this.commandQueue.length > 1) {
+                                if (this.commandQueue.length >= 1) {
                                     this.writeLineBreakToStdout();
-                                    this.writeInputLineStartToStdout();
                                 }
                                 this.historyStack.push(this.commandQueue[0]);
                                 this.commandQueue.shift();
@@ -87,9 +88,8 @@ export default class Terminal {
                             1
                         );
                     } else {
-                        if (this.commandQueue.length > 1) {
-                            this.writeEnviromentLineToStdout();
-                            this.writeInputLineStartToStdout();
+                        if (this.commandQueue.length >= 1) {
+                            this.writeLineBreakToStdout();
                         }
                         this.historyStack.push(this.commandQueue[0]);
                         this.commandQueue.shift();
@@ -121,13 +121,13 @@ export default class Terminal {
         }
     }
     /**
-     * Adds "$ " to the stdout
+     * Writes "$ " to the stdout
      */
     private writeInputLineStartToStdout() {
         document.getElementById(this.wrapperElement.id).innerHTML += "$ ";
     }
     /**
-     * Adds "\<br />" to the stdout
+     * Writes "\n" (\<br />) to the stdout
      */
     private writeLineBreakToStdout() {
         document.getElementById(this.wrapperElement.id).innerHTML += "<br />";
