@@ -101,7 +101,9 @@ export default class Terminal {
                 this.getRandomIntegerInRange(80, 120)
             );
         } else {
-            callback()
+            if (callback !== undefined) {
+                callback()
+            }
         }
     }
 
