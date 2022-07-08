@@ -1,124 +1,137 @@
-import { Command, TerminalOptions } from "./interfaces";
+import { Command, TerminalOptions, TerminalEnviroment, WrapperElement } from "./interfaces";
 
 export default class Terminal {
     private historyStack = [] as Array<Command>;
     private commandQueue = [] as Array<Command>;
-    private wrapperElementId = "terminal___emulator___wrapper";
-    private wrapperElementClass = "terminal___emulator___wrapper";
-    private hostname?: string;
-    private username?: string;
-    private exitOnFinish = false;
-    
+    private wrapperElement: WrapperElement = {
+        id: "terminal___emulator___wrapper",
+        cssClass: "terminal___emulator___wrapper"
+    };
+    private enviroment?: TerminalEnviroment;
+
     constructor(options?: TerminalOptions) {
         if (options !== undefined) {
             if (options.wrapperElement !== undefined) {
-                this.wrapperElement = options.wrapperElement.element
                 this.wrapperElement.id = options.wrapperElement.id
                 if (options.wrapperElement.cssClass !== undefined) {
-                    this.wrapperElement.classList.add(options.wrapperElement.cssClass)
+                    this.wrapperElement.cssClass = options.wrapperElement.cssClass
                 }
-            } 
+            }
             if (options.enviroment !== undefined) {
-                this.hostname = options.enviroment.hostname
-                this.username = options.enviroment.username
+                this.enviroment = options.enviroment
             }
-            if (options.exitOnFinish !== undefined) {
-                this.exitOnFinish = options.exitOnFinish
-            }
-        } else {
-            this.wrapperElement = document.createElement("div")
-            this.wrapperElement.id = this.wrapperElementId
-            this.wrapperElement.classList.add(this.wrapperElementClass)
         }
     }
-    public wrapperElement: Element;
+
     public addCommand = (command: Command) => {
         this.commandQueue.push(command)
         return this
     }
+
     public addCommands = (commands: Command[]) => {
         commands.forEach((c) => {
             this.commandQueue.push(c);
         });
         return this;
     }
-    public echo: (text: string) => Terminal;
-    public touch: (fileName: string) => Terminal;
-    public mkdir: (dirName: string) => Terminal;
-    public history: () => Terminal;
-    public clear: () => Terminal;
-    public vim: (fileName: string, fileContentToType: string[]) => Terminal;
 
-    // /**
-    //  * Adds a command to the queue of 'to be excecuted commands'
-    //  * @param command Command to add to the queue
-    //  */
-    // public AddCommand(command: Command) {
-    //     this.commandQueue.push(command);
-    //     return this;
-    // }
-
-    // /**
-    //  * Adds a command to the queue of 'to be excecuted commands'
-    //  * @param commands Commands to add to the queue
-    //  */
-    // public AddCommands(...commands: Command[]) {
-    //     commands.forEach((c) => {
-    //         this.commandQueue.push(c);
-    //     });
-    //     return this;
-    // }
+    // todo: implement
+    public echo = (text: string) => {
+        return this;
+    }
+    // todo: implement
+    public touch = (fileName: string) => {
+        return this;
+    }
+    // todo: implement
+    public mkdir = (dirName: string) => {
+        return this;
+    }
+    // todo: implement
+    public history = () => {
+        return this;
+    }
+    // todo: implement
+    public clear = () => {
+        return this;
+    }
+    // todo: implement
+    public vim = (fileName: string, fileContentToType: string[]) => {
+        return this;
+    }
 
     /**
-     * Excecutes all the commands that have been queued
+     * Excecutes the command sequence
      */
-    public Run() {
-    // if there are commands left in the queue, start writing its text to stdout
-    if (this.commandQueue.length > 0) {
-        this.writeToStdout(
-            () => {
-                // after COMMAND TEXT was written
-                this.writeLineBreakToStdout();
-                if (this.commandQueue[0].output !== undefined) {
-                    this.writeToStdout(
-                        () => {
-                            // after COMMAND OUTPUT was written
-                            this.writeLineBreakToStdout();
+    public run() {
+        // if there are commands left in the queue, start writing its text to stdout
+        if (this.commandQueue.length > 0) {
+            this.writeToStdout(
+                () => {
+                    // after COMMAND TEXT was written
+                    this.writeLineBreakToStdout();
+                    // check if command has output and if so, start writing output
+                    if (this.commandQueue[0].output !== undefined) {
+                        this.writeToStdout(
+                            () => {
+                                // after COMMAND OUTPUT was written
+                                if (this.commandQueue.length > 1) {
+                                    this.writeLineBreakToStdout();
+                                    this.writeInputLineStartToStdout();
+                                }
+                                this.historyStack.push(this.commandQueue[0]);
+                                this.commandQueue.shift();
+                                this.run();
+                            },
+                            this.commandQueue[0].output,
+                            1
+                        );
+                    } else {
+                        if (this.commandQueue.length > 1) {
+                            this.writeEnviromentLineToStdout();
                             this.writeInputLineStartToStdout();
-                            this.historyStack.push(this.commandQueue[0]);
-                            this.commandQueue.shift();
-                            this.Run();
-                            return this;
-                        },
-                        this.commandQueue[0].output,
-                        1
-                    );
-                } else {
-                    this.writeInputLineStartToStdout();
-                    this.historyStack.push(this.commandQueue[0]);
-                    this.commandQueue.shift();
-                    this.Run();
-                    return this;
-                }
-            },
-            this.commandQueue[0].text,
-            100
-        );
+                        }
+                        this.historyStack.push(this.commandQueue[0]);
+                        this.commandQueue.shift();
+                        this.run();
+                    }
+                },
+                this.commandQueue[0].text,
+                this.getRandomIntegerInRange(80, 120)
+            );
+        }
     }
-}
 
+    /**
+     * Gets a random integer in the range from min to max, inclusif
+     * @param {Number} min Minimum number to generate
+     * @param {Number} max Maximum number to generate
+     * @returns random integer in the range from min to max, inclusif
+     */
+    private getRandomIntegerInRange(min: number, max: number) {
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+
+    /**
+     * If this.enviroment is not undefined, write "username@hostname:" to the stdout
+     */
+    private writeEnviromentLineToStdout() {
+        if (this.enviroment !== undefined) {
+            document.getElementById(this.wrapperElement.id).innerHTML += this.enviroment.username + "@" + this.enviroment.hostname + ":";
+        }
+    }
     /**
      * Adds "$ " to the stdout
      */
     private writeInputLineStartToStdout() {
-    document.getElementById(this.wrapperElementId).innerHTML += "$ ";
-}
+        document.getElementById(this.wrapperElement.id).innerHTML += "$ ";
+    }
     /**
-     * Adds "<br />" to the stdout
+     * Adds "\<br />" to the stdout
      */
     private writeLineBreakToStdout() {
-    document.getElementById(this.wrapperElementId).innerHTML += "<br />";
-}
+        document.getElementById(this.wrapperElement.id).innerHTML += "<br />";
+    }
     /**
      * Writes the specified text to the terminal wrapper
      * @param callback gets excecuted when writing to stdout has finished
@@ -127,17 +140,17 @@ export default class Terminal {
      * @param i used for recursion purposes
      */
     private writeToStdout = (
-    callback: () => void,
-    text: string,
-    speed: number = 100,
-    i: number = 0
-) => {
-    if (i < text.length) {
-        document.getElementById(this.wrapperElementId).innerHTML += text[i];
-        i++;
-        setTimeout(() => this.writeToStdout(callback, text, speed, i), speed);
-    } else {
-        callback();
-    }
-};
+        callback: () => void,
+        text: string,
+        speed: number,
+        i: number = 0
+    ) => {
+        if (i < text.length) {
+            document.getElementById(this.wrapperElement.id).innerHTML += text[i];
+            i++;
+            setTimeout(() => this.writeToStdout(callback, text, speed, i), speed);
+        } else {
+            callback();
+        }
+    };
 }
