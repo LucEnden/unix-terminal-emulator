@@ -1,25 +1,38 @@
-import { Command, TerminalOptions, TerminalEnviroment, WrapperElement } from "./interfaces";
+import { Command, TerminalOptions, TerminalEnviroment, WrapperElementOptions } from "./interfaces";
 
-export default class Terminal {
-    private historyStack = [] as Array<Command>;
-    private commandQueue = [] as Array<Command>;
-    private wrapperElement: WrapperElement = {
+export class Terminal {
+    private readonly historyStack = [] as Array<Command>;
+    private readonly commandQueue = [] as Array<Command>;
+
+    private wrapperOptions: WrapperElementOptions = {
         id: "terminal___emulator___wrapper",
         cssClass: "terminal___emulator___wrapper"
     };
+    private wrapperElement: HTMLElement;
     private enviroment?: TerminalEnviroment;
 
     constructor(options?: TerminalOptions) {
         if (options !== undefined) {
-            if (options.wrapperElement !== undefined) {
-                this.wrapperElement.id = options.wrapperElement.id
-                if (options.wrapperElement.cssClass !== undefined) {
-                    this.wrapperElement.cssClass = options.wrapperElement.cssClass
+            // set wrapper options
+            if (options.wrapperOptions !== undefined) {
+                this.wrapperOptions.id = options.wrapperOptions.id
+                if (options.wrapperOptions.cssClass !== undefined) {
+                    this.wrapperOptions.cssClass = options.wrapperOptions.cssClass
                 }
             }
+            // set enviroment
             if (options.enviroment !== undefined) {
                 this.enviroment = options.enviroment
             }
+        }
+
+        // check if terminal wrapper exists
+        const wrapper = document.getElementById(this.wrapperOptions.id);
+        if (wrapper === null) {
+            throw new TypeError(`document.getElementbyId(${this.wrapperOptions.id}) is null`)
+        } else {
+            this.wrapperElement = wrapper;
+            this.wrapperElement.classList.add(this.wrapperOptions.cssClass)
         }
     }
 
@@ -122,20 +135,20 @@ export default class Terminal {
      */
     private writeEnviromentLineToStdout() {
         if (this.enviroment !== undefined) {
-            document.getElementById(this.wrapperElement.id).innerHTML += this.enviroment.username + "@" + this.enviroment.hostname + ":";
+            this.wrapperElement.innerHTML += this.enviroment.username + "@" + this.enviroment.hostname + ":";
         }
     }
     /**
      * Writes "$ " to the stdout
      */
     private writeInputLineStartToStdout() {
-        document.getElementById(this.wrapperElement.id).innerHTML += "$ ";
+        this.wrapperElement.innerHTML += "$ ";
     }
     /**
      * Writes "\n" (\<br />) to the stdout
      */
     private writeLineBreakToStdout() {
-        document.getElementById(this.wrapperElement.id).innerHTML += "<br />";
+        this.wrapperElement.innerHTML += "<br />";
     }
     /**
      * Writes the specified text to the terminal wrapper
@@ -151,7 +164,7 @@ export default class Terminal {
         i: number = 0
     ) => {
         if (i < text.length) {
-            document.getElementById(this.wrapperElement.id).innerHTML += text[i];
+            this.wrapperElement.innerHTML += text[i];
             i++;
             setTimeout(() => this.writeToStdout(callback, text, speed, i), speed);
         } else {
@@ -159,3 +172,5 @@ export default class Terminal {
         }
     };
 }
+
+// export default Terminal

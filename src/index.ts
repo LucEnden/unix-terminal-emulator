@@ -1,1 +1,3 @@
-export { default } from './Terminal'
+export { Terminal } from './Terminal';
+
+console.log("foo")

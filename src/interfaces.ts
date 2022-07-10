@@ -37,11 +37,17 @@ export interface TerminalEnviroment {
  * @property {string} id                    - The HTML ID to give to the element. Must be unique.
  * @property {string|undefined} cssClass    - The CSS class to give to the element.
  */
-export interface WrapperElement {
-    /** The HTML ID to give to the element. Must be unique. */
+export interface WrapperElementOptions {
+    /** 
+     * The HTML ID to give to the element. Must be unique. 
+     * @default "terminal___emulator___wrapper"
+     */
     id: string
-    /** The CSS class to give to the element. */
-    cssClass?: string
+    /** 
+     * The CSS class to give to the element. 
+     * @default "terminal___emulator___wrapper"
+     */
+    cssClass: string
 }
 
 /**
@@ -51,7 +57,7 @@ export interface WrapperElement {
  */
 export interface TerminalOptions {
     /** @default undefined */
-    wrapperElement?: WrapperElement
+    wrapperOptions: WrapperElementOptions
     /** @default undefined */
     enviroment?: TerminalEnviroment;
 }
