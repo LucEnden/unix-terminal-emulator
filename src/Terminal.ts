@@ -1,5 +1,8 @@
 import { Command, TerminalOptions, TerminalEnviroment, WrapperElementOptions, TerminalEvent } from "./interfaces";
 
+/**
+ * 
+ */
 export class Terminal {
     private readonly historyStack = [] as Array<Command>;
     private readonly eventQueue = [] as Array<TerminalEvent>;
@@ -33,6 +36,7 @@ export class Terminal {
         } else {
             this.wrapperElement = wrapper;
             this.wrapperElement.classList.add(this.wrapperOptions.cssClass)
+            this.writeInputLineStartToStdout();
         }
     }
 
@@ -94,28 +98,33 @@ export class Terminal {
         // If there are events left in the queue, continue running.
         this.currentEvent = this.eventQueue.shift()
         if (this.currentEvent !== undefined) {
-
             if (this.currentEvent.command !== undefined) {
-                // Start writing the command text to the stdout
-                this.writeEnviromentLineToStdout();
-                this.writeInputLineStartToStdout();
+                // Add command to history stack, then start writing the command text to the stdout
+                this.historyStack.push(this.currentEvent.command)
                 this.writeToStdout(
                     this.currentEvent.command.text,
                     this.currentEvent.command.writeSpeed,
-                    () => { // Check if the command has an output after command text was written...
+                    () => { // After command text was written, check if the command has an output...
                         this.writeLineBreakToStdout();
                         if (this.currentEvent!.command!.output !== undefined) {
-                            this.writeToStdout(
-                                this.currentEvent!.command!.output,
-                                0,
-                                () => { // After command output was written...
-                                    this.writeLineBreakToStdout();
-                                    console.log(`Next event! ${this.eventQueue.length} events remaining`, JSON.stringify(this.eventQueue));
-                                    setTimeout(() => this.run(callback), this.currentEvent!.delayAfter);
-                                }
-                            )
+                            setTimeout(() => {
+                                this.writeToStdout(
+                                    this.currentEvent!.command!.output!,
+                                    0,
+                                    () => { // After command output was written...
+                                        this.writeLineBreakToStdout();
+                                        this.writeEnviromentLineToStdout();
+                                        this.writeInputLineStartToStdout();
+                                        // console.log(`Next event! ${this.eventQueue.length} events remaining`, JSON.stringify(this.eventQueue));
+                                        setTimeout(() => this.run(callback), this.currentEvent!.delayAfter);
+                                    }
+                                )
+                            }, this.currentEvent!.command!.pauseBeforeOutput)
                         } else {
-                            console.log(`Next event! ${this.eventQueue.length} events remaining`, JSON.stringify(this.eventQueue));
+                            this.writeLineBreakToStdout();
+                            this.writeEnviromentLineToStdout();
+                            this.writeInputLineStartToStdout();
+                            // console.log(`Next event! ${this.eventQueue.length} events remaining`, JSON.stringify(this.eventQueue));
                             setTimeout(() => this.run(callback), this.currentEvent!.delayAfter);
                         }
                     }

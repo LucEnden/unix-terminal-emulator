@@ -1,8 +1,14 @@
 /**
- * To be internaly used by the terminal emulator for running the sequence of set commands.
+ * To be internaly used by the terminal emulator for running a sequence of set commands.
  */
 export interface TerminalEvent {
+    /**
+     * The delay before starting to the next event in miliseconds
+     */
     delayAfter: number
+    /**
+     * The command associated with this event
+     */
     command?: Command
 }
 
@@ -30,6 +36,10 @@ export interface Command {
      *  @type {string|undefined}
      */
     output?: string;
+    /**
+     * The time to pause before writing the output in miliseconds
+     */
+    pauseBeforeOutput?: number
 }
 
 /**
