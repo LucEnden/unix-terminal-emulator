@@ -1,9 +1,9 @@
-import { Command, TerminalOptions, TerminalEnviroment, WrapperElementOptions } from "./interfaces";
+import { Command, TerminalOptions, TerminalEnviroment, WrapperElementOptions, TerminalEvent } from "./interfaces";
 
 export class Terminal {
     private readonly historyStack = [] as Array<Command>;
-    private readonly commandQueue = [] as Array<Command>;
-
+    private readonly eventQueue = [] as Array<TerminalEvent>;
+    private currentEvent: TerminalEvent | undefined;
     private wrapperOptions: WrapperElementOptions = {
         id: "terminal___emulator___wrapper",
         cssClass: "terminal___emulator___wrapper"
@@ -37,14 +37,27 @@ export class Terminal {
     }
 
     public addCommand = (command: Command) => {
-        this.commandQueue.push(command)
-        return this
+        this.eventQueue.push({
+            delayAfter: 0,
+            command: command
+        } as TerminalEvent)
+        return this;
     }
 
     public addCommands = (commands: Command[]) => {
         commands.forEach((c) => {
-            this.commandQueue.push(c);
+            this.eventQueue.push({
+                delayAfter: 0,
+                command: c
+            } as TerminalEvent)
         });
+        return this;
+    }
+
+    public pause = (ms: number) => {
+        this.eventQueue.push({
+            delayAfter: ms
+        } as TerminalEvent)
         return this;
     }
 
@@ -78,44 +91,45 @@ export class Terminal {
      * @param callback Gets called when sequence has finished
      */
     public run(callback?: () => void) {
-        // if there are commands left in the queue, start writing its text to stdout
-        if (this.commandQueue.length > 0) {
-            this.writeEnviromentLineToStdout();
-            this.writeInputLineStartToStdout();
-            this.writeToStdout(
-                () => {
-                    // after COMMAND TEXT was written
-                    this.writeLineBreakToStdout();
-                    // check if command has output and if so, start writing output
-                    if (this.commandQueue[0].output !== undefined) {
-                        this.writeToStdout(
-                            () => {
-                                // after COMMAND OUTPUT was written
-                                if (this.commandQueue.length >= 1) {
+        // If there are events left in the queue, continue running.
+        this.currentEvent = this.eventQueue.shift()
+        if (this.currentEvent !== undefined) {
+
+            if (this.currentEvent.command !== undefined) {
+                // Start writing the command text to the stdout
+                this.writeEnviromentLineToStdout();
+                this.writeInputLineStartToStdout();
+                this.writeToStdout(
+                    this.currentEvent.command.text,
+                    this.currentEvent.command.writeSpeed,
+                    () => { // Check if the command has an output after command text was written...
+                        this.writeLineBreakToStdout();
+                        if (this.currentEvent!.command!.output !== undefined) {
+                            this.writeToStdout(
+                                this.currentEvent!.command!.output,
+                                0,
+                                () => { // After command output was written...
                                     this.writeLineBreakToStdout();
+                                    console.log(`Next event! ${this.eventQueue.length} events remaining`, JSON.stringify(this.eventQueue));
+                                    setTimeout(() => this.run(callback), this.currentEvent!.delayAfter);
                                 }
-                                this.historyStack.push(this.commandQueue[0]);
-                                this.commandQueue.shift();
-                                this.run(callback);
-                            },
-                            this.commandQueue[0].output,
-                            1
-                        );
-                    } else {
-                        if (this.commandQueue.length >= 1) {
-                            this.writeLineBreakToStdout();
+                            )
+                        } else {
+                            console.log(`Next event! ${this.eventQueue.length} events remaining`, JSON.stringify(this.eventQueue));
+                            setTimeout(() => this.run(callback), this.currentEvent!.delayAfter);
                         }
-                        this.historyStack.push(this.commandQueue[0]);
-                        this.commandQueue.shift();
-                        this.run(callback);
                     }
-                },
-                this.commandQueue[0].text,
-                this.getRandomIntegerInRange(80, 120)
-            );
-        } else {
+                )
+
+            } else { // If the current events command is undefined, continue running...
+                setTimeout(() => {
+                    this.run(callback);
+                }, this.currentEvent.delayAfter)
+            }
+
+        } else { // If no event is left in the queue, call calback...
             if (callback !== undefined) {
-                callback()
+                callback();
             }
         }
     }
@@ -158,17 +172,27 @@ export class Terminal {
      * @param i used for recursion purposes
      */
     private writeToStdout = (
-        callback: () => void,
         text: string,
-        speed: number,
+        speed: "neutral" | number,
+        callback: () => void,
         i: number = 0
     ) => {
-        if (i < text.length) {
-            this.wrapperElement.innerHTML += text[i];
-            i++;
-            setTimeout(() => this.writeToStdout(callback, text, speed, i), speed);
-        } else {
-            callback();
+        if (speed === 0) {
+            this.wrapperElement.innerHTML += text
+            callback()
+        }
+        else {
+            if (i < text.length) {
+                this.wrapperElement.innerHTML += text[i];
+                i++;
+                if (speed === "neutral") {
+                    setTimeout(() => this.writeToStdout(text, speed, callback, i), this.getRandomIntegerInRange(80, 120));
+                } else {
+                    setTimeout(() => this.writeToStdout(text, speed, callback, i), speed);
+                }
+            } else {
+                callback();
+            }
         }
     };
 }

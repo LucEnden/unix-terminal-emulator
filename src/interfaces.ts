@@ -1,7 +1,16 @@
 /**
+ * To be internaly used by the terminal emulator for running the sequence of set commands.
+ */
+export interface TerminalEvent {
+    delayAfter: number
+    command?: Command
+}
+
+/**
  * A customizable command.
- * @property {string} text              - The full command text to write
- * @property {string|undefined} output  - The output of the command
+ * @property {string} text                          - The full command text to write
+ * @property {string|undefined} output              - The output of the command
+ * @property {string|number|undefined} writeSpeed   - The speed at which to write the command
  */
 export interface Command {
     /**
@@ -9,6 +18,13 @@ export interface Command {
      *  @type {string}
      */
     text: string;
+    /**
+     * The pause length between each charater being written in miliseconds.  
+     * "neutral" = random integer between 80 and 120 miliseconds.  
+     * 0 = instant
+     * @type {string|number}
+     */
+    writeSpeed: "neutral" | number
     /**
      * The output of the command
      *  @type {string|undefined}
