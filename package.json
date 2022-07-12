@@ -16,8 +16,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "serve": "webpack-dev-server",
-    "build:dev": "webpack --config webpack.config.js --mode=development --node-env=development",
-    "build:prod": "webpack --config webpack.config.js --mode=production --node-env=production",
+    "build:dev": "webpack --config ./webpack/webpack.dom.config.js --mode=development --node-env=development && webpack --config ./webpack/webpack.node.config.js --mode=development --node-env=development && tsc --emitDeclarationOnly",
+    "build:prod": "webpack --config ./webpack/webpack.node.config.js --mode=production --node-env=production && webpack --config ./webpack/webpack.node.config.js --mode=production --node-env=production && tsc --emitDeclarationOnly",
     "test": "jest --env=jsdom"
   },
   "devDependencies": {

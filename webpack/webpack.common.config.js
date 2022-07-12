@@ -3,9 +3,12 @@ const path = require("path");
 module.exports = {
 	entry: "./src/index.ts",
 	output: {
-		path: path.resolve(__dirname, "dist"),
-		filename: "bundle.js",
+		path: path.resolve(__dirname, "../dist"),
 		library: "TerminalEmulatorLib",
+	},
+	devtool: "inline-source-map",
+	resolve: {
+		extensions: [".ts", ".tsx"],
 	},
 	module: {
 		rules: [
@@ -27,8 +30,4 @@ module.exports = {
 			},
 		],
 	},
-	resolve: {
-		extensions: [".ts", ".tsx"],
-	},
-	devtool: "eval-source-map",
 };
