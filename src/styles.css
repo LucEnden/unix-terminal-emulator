@@ -1,0 +1,24 @@
+@keyframes terminal___cursor___fluid {
+    0% { opacity: 100% }
+    50% { opacity: 0% }
+    100% { opacity: 100% }
+}
+.terminal___cursor___fluid {
+    animation: terminal___cursor___fluid 1s infinite;
+}
+
+@keyframes terminal___cursor___static {
+    0% { opacity: 100% }
+    39% { opacity: 100% }
+    40% { opacity: 0% }
+    59% { opacity: 0% }
+    60% { opacity: 100% }
+    100% { opacity: 100% }
+}
+.terminal___cursor___static {
+    animation: terminal___cursor___static 1s infinite;
+}
+
+.terminal___cursor___none {
+    animation: none;
+}

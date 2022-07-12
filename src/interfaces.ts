@@ -63,7 +63,7 @@ export interface TerminalEnviroment {
  * @property {string} id                    - The HTML ID to give to the element. Must be unique.
  * @property {string|undefined} cssClass    - The CSS class to give to the element.
  */
-export interface WrapperElementOptions {
+export interface TerminalWrapperOptions {
     /** 
      * The HTML ID to give to the element. Must be unique. 
      * @default "terminal___emulator___wrapper"
@@ -76,14 +76,23 @@ export interface WrapperElementOptions {
     cssClass: string
 }
 
+export interface TerminalCursorOptions {
+    id: string
+    char: string
+    animate: "fluid" | "static" | "none"
+}
+
 /**
  * Customization options for the terminal.
- * @property {object|undefined} wrapperElement  - The root element the terminal writes its text to. 
- * @property {object|undefined} enviroment      - The enviroment where the terminal runs in.
+ * @property {TerminalWrapperOptions|undefined} wrapperElement  - The root element the terminal writes its text to. 
+ * @property {TerminalCursorOptions|undefined} wrapperElement   - The cursor element shown within the terminal. 
+ * @property {TerminalEnviroment|undefined} enviroment          - The enviroment where the terminal runs in.
  */
 export interface TerminalOptions {
     /** @default undefined */
-    wrapperOptions: WrapperElementOptions
+    wrapper?: TerminalWrapperOptions
+    /** @default undefined */
+    cursor?: TerminalCursorOptions
     /** @default undefined */
     enviroment?: TerminalEnviroment;
 }
