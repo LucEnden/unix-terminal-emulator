@@ -1,3 +1,1 @@
-export { Terminal } from './Terminal';
-
-console.log("foo")
+export { Terminal } from "./Terminal";
