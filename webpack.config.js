@@ -1,10 +1,13 @@
-const path = require("path");
+const path = require("path")
 
 module.exports = {
 	entry: "./src/index.ts",
 	output: {
-		path: path.resolve(__dirname, "../dist"),
-		library: "TerminalEmulatorLib",
+		path: path.resolve(__dirname, "./dist"),
+		filename: "index.js",
+		library: "UnixTerminalEmulator",
+		libraryExport: "default",
+		libraryTarget: "umd",
 	},
 	devtool: "inline-source-map",
 	resolve: {
@@ -30,4 +33,4 @@ module.exports = {
 			},
 		],
 	},
-};
+}
