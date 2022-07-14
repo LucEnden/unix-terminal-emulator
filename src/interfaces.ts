@@ -5,11 +5,11 @@ export interface TerminalEvent {
 	/**
 	 * The delay before starting to the next event in miliseconds
 	 */
-	delayAfter: number;
+	delayAfter: number
 	/**
 	 * The command associated with this event
 	 */
-	command?: TerminalCommand;
+	command?: TerminalCommand
 }
 
 /**
@@ -24,24 +24,24 @@ export interface TerminalCommand {
 	 * The full command text to write
 	 *  @type {string}
 	 */
-	text: string;
+	text: string
 	/**
 	 * The pause length between each charater being written in miliseconds.
 	 * "neutral" = random integer between 80 and 120 miliseconds.
 	 * 0 = instant
 	 * @type {"neutral"|number}
 	 */
-	writeSpeed: "neutral" | number;
+	writeSpeed: "neutral" | number
 	/**
 	 * The output of the command
 	 *  @type {string|undefined}
 	 */
-	output?: string;
+	output?: string
 	/**
 	 * The time to pause before writing the output in miliseconds
 	 *  @type {number|undefined}
 	 */
-	pauseBeforeOutput?: number;
+	pauseBeforeOutput?: number
 }
 
 /**
@@ -55,9 +55,9 @@ export interface TerminalCommand {
  */
 export interface TerminalEnviroment {
 	/** The hostname to set at the start of every new line */
-	hostname: string;
+	hostname: string
 	/** The username to set at the start of every new line */
-	username: string;
+	username: string
 }
 
 /**
@@ -70,18 +70,18 @@ export interface TerminalWrapperOptions {
 	 * The HTML ID to give to the element. Must be unique.
 	 * @default "terminal___emulator___wrapper"
 	 */
-	id: string;
+	id: string
 	/**
 	 * The CSS class to give to the element.
 	 * @default "terminal___emulator___wrapper"
 	 */
-	cssClass: string;
+	cssClass: string
 }
 
 export interface TerminalCursorOptions {
-	id: string;
-	char: string;
-	animate: "fluid" | "static" | "none";
+	id: string
+	char: string
+	animate: "fluid" | "static" | "none"
 }
 
 /**
@@ -92,9 +92,9 @@ export interface TerminalCursorOptions {
  */
 export interface TerminalOptions {
 	/** @default undefined */
-	wrapper?: TerminalWrapperOptions;
+	wrapper?: TerminalWrapperOptions
 	/** @default undefined */
-	cursor?: TerminalCursorOptions;
+	cursor?: TerminalCursorOptions
 	/** @default undefined */
-	enviroment?: TerminalEnviroment;
+	enviroment?: TerminalEnviroment
 }
