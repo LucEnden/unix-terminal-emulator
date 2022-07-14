@@ -9,16 +9,17 @@ export interface TerminalEvent {
 	/**
 	 * The command associated with this event
 	 */
-	command?: Command;
+	command?: TerminalCommand;
 }
 
 /**
  * A customizable command.
- * @property {string} text                          - The full command text to write
- * @property {string|undefined} output              - The output of the command
- * @property {string|number|undefined} writeSpeed   - The speed at which to write the command
+ * @property {string} text                          	- The full command text to write
+ * @property {"neutral"|number|undefined} writeSpeed	- The speed at which to write the command
+ * @property {string|undefined} output             		- The output of the command
+ * @property {number|undefined} output             		- The time to pause before writing the output in miliseconds
  */
-export interface Command {
+export interface TerminalCommand {
 	/**
 	 * The full command text to write
 	 *  @type {string}
@@ -28,7 +29,7 @@ export interface Command {
 	 * The pause length between each charater being written in miliseconds.
 	 * "neutral" = random integer between 80 and 120 miliseconds.
 	 * 0 = instant
-	 * @type {string|number}
+	 * @type {"neutral"|number}
 	 */
 	writeSpeed: "neutral" | number;
 	/**
@@ -38,6 +39,7 @@ export interface Command {
 	output?: string;
 	/**
 	 * The time to pause before writing the output in miliseconds
+	 *  @type {number|undefined}
 	 */
 	pauseBeforeOutput?: number;
 }

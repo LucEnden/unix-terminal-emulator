@@ -1,13 +1,13 @@
-import { Command, TerminalOptions, TerminalEvent } from "./interfaces";
+import { TerminalCommand, TerminalOptions, TerminalEvent } from "./interfaces";
 import "./styles.css";
 
 /**
  * The main class of the TerminalEmulatorLib. Emulates a unix terminal by typing out commands and there specified outputs.
  * Comes with some basic unix commands out of the box, and a few methods for working with custom commands.
  */
-export class Terminal {
+class UnixTerminalEmulator {
 	// internals
-	private readonly historyStack = [] as Array<Command>;
+	private readonly historyStack = [] as Array<TerminalCommand>;
 	private readonly eventQueue = [] as Array<TerminalEvent>;
 	private currentEvent: TerminalEvent | undefined;
 
@@ -79,14 +79,14 @@ export class Terminal {
 		this.appendCursor();
 	}
 
-	public addCommand = (command: Command) => {
+	public addCommand = (command: TerminalCommand) => {
 		this.eventQueue.push({
 			delayAfter: 0,
 			command: command,
 		} as TerminalEvent);
 		return this;
 	};
-	public addCommands = (commands: Command[]) => {
+	public addCommands = (commands: TerminalCommand[]) => {
 		commands.forEach((c) => {
 			this.eventQueue.push({
 				delayAfter: 0,
@@ -276,4 +276,4 @@ export class Terminal {
 	};
 }
 
-export default Terminal
+export default UnixTerminalEmulator
