@@ -3,10 +3,10 @@
 ![ci (build and test)](https://img.shields.io/github/workflow/status/LucEnden/unix-terminal-emulator/CI?label=CI%20%28build%20and%20test%29&style=flat-square)
 ![coverage](https://img.shields.io/codecov/c/github/LucEnden/unix-terminal-emulator?style=flat-square&token=QHWVZR2MQ5)
 ![issues](https://img.shields.io/github/issues/LucEnden/unix-terminal-emulator?style=flat-square)
-![score](https://img.shields.io/npms-io/final-score/unix-terminal-emulator?style=flat-square)
+![npm score](https://img.shields.io/npms-io/final-score/unix-terminal-emulator?label=npm%20score&style=flat-square)
 ![dependencies](https://img.shields.io/librariesio/release/npm/unix-terminal-emulator?style=flat-square)
 ![minified size](https://img.shields.io/bundlephobia/min/unix-terminal-emulator?label=minified%20size&style=flat-square)
-![downloads](https://img.shields.io/npm/dm/unix-terminal-emulator?style=flat-square)
+![downloads](https://img.shields.io/npm/dw/unix-terminal-emulator?style=flat-square)
 ![license](https://img.shields.io/github/license/LucEnden/unix-terminal-emulator?style=flat-square)
 
 ![](preview.gif)
