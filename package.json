@@ -1,39 +1,42 @@
 {
-  "name": "unix-terminal-emulator",
-  "version": "1.0.0",
-  "description": "Emulates a Unix terminal inside the DOM!",
-  "keywords": [
-    "unix",
-    "terminal",
-    "emulator",
-    "unix terminal emulator"
-  ],
-  "repository": "https://github.com/LucEnden/unix-terminal-emulator",
-  "author": "Luc van den Enden",
-  "license": "MIT",
-  "type": "commonjs",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "serve": "webpack-dev-server",
-    "build:dev": "webpack --config ./webpack.config.js --mode=development --node-env=development && tsc --emitDeclarationOnly",
-    "build:prod": "webpack --config ./webpack.config.js --mode=production --node-env=production && tsc --emitDeclarationOnly",
-    "test": "jest"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.18.6",
-    "@babel/preset-env": "^7.18.6",
-    "@babel/preset-typescript": "^7.18.6",
-    "@types/jest": "^28.1.5",
-    "@types/node": "^18.0.3",
-    "babel-jest": "^28.1.3",
-    "babel-loader": "^8.2.5",
-    "css-loader": "^6.7.1",
-    "jest-environment-jsdom": "^28.1.2",
-    "style-loader": "^3.3.1",
-    "ts-jest": "^28.0.6",
-    "ts-node": "^10.9.1",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.10.0"
-  }
+	"name": "unix-terminal-emulator",
+	"version": "1.0.0",
+	"description": "Emulates a Unix terminal inside the DOM!",
+	"keywords": [
+		"unix",
+		"terminal",
+		"emulator",
+		"unix terminal emulator"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/LucEnden/unix-terminal-emulator"
+	},
+	"author": "Luc van den Enden",
+	"license": "MIT",
+	"type": "commonjs",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"serve": "webpack-dev-server",
+		"build:dev": "webpack --config ./webpack.config.js --mode=development --node-env=development && tsc --emitDeclarationOnly",
+		"build:prod": "webpack --config ./webpack.config.js --mode=production --node-env=production && tsc --emitDeclarationOnly",
+		"test": "jest"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.18.6",
+		"@babel/preset-env": "^7.18.6",
+		"@babel/preset-typescript": "^7.18.6",
+		"@types/jest": "^28.1.5",
+		"@types/node": "^18.0.3",
+		"babel-jest": "^28.1.3",
+		"babel-loader": "^8.2.5",
+		"css-loader": "^6.7.1",
+		"jest-environment-jsdom": "^28.1.2",
+		"style-loader": "^3.3.1",
+		"ts-jest": "^28.0.6",
+		"ts-node": "^10.9.1",
+		"webpack": "^5.73.0",
+		"webpack-cli": "^4.10.0"
+	}
 }
