@@ -1,10 +1,12 @@
 import { TerminalCommand, TerminalOptions, TerminalEvent } from "./interfaces"
 import "./styles.css"
 
+// TODO: add SS64 links to every command jsdoc
+
 /**
  * Emulates a unix terminal by typing out commands and there specified outputs.
  * Allows you to build an event sequence of commands and timings which gets excecuted when the run method is called.
- * 
+ *
  * {@link https://github.com/LucEnden/unix-terminal-emulator}
  */
 class UnixTerminalEmulator {
@@ -54,14 +56,12 @@ class UnixTerminalEmulator {
 		if (wrapper === null) {
 			wrapper = document.createElement("div")
 			wrapper.id = this.options.wrapperId!
-			if (this.options.wrapperClassName!.length > 0) {
-				wrapper.classList.add(this.options.wrapperClassName!)
-			}
-			this.wrapperElement = wrapper
-			document.body.appendChild(this.wrapperElement)
-		} else {
-			this.wrapperElement = wrapper
 		}
+		if (this.options.wrapperClassName!.length > 0) {
+			wrapper.classList.add(this.options.wrapperClassName!)
+		}
+		this.wrapperElement = wrapper
+		document.body.appendChild(this.wrapperElement)
 
 		this.cursorElement = document.createElement("span")
 		this.cursorElement.id = this.options.cursorId!
@@ -114,7 +114,7 @@ class UnixTerminalEmulator {
 	/**
 	 * Adds a pause in the event sequence.
 	 * @param {number} ms The time to pause for in miliseconds
-	 * @returns 
+	 * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
 	 */
 	public pause = (ms: number) => {
 		this.eventQueue.push({
@@ -123,10 +123,60 @@ class UnixTerminalEmulator {
 		return this
 	}
 
-	// todo: implement
-	public echo = (text: string) => {
+	/**
+	 * Emulates the echo command.
+	 *
+	 * @param {string} text 						The text to echo
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds 
+	 * @example
+	 * echo("Hello, World") =>
+	 * $ echo Hello, World!
+	 * Hello, World!
+	 * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
+	 */
+	public echo = (text: string, writeSpeed: "neutral"|number = "neutral", pauseBeforeOutput? : number) => {
+		this.eventQueue.push({
+			command: {
+				text: "echo " + text,
+				writeSpeed: writeSpeed,
+				output: text,
+				pauseBeforeOutput: pauseBeforeOutput
+			},
+		} as TerminalEvent)
 		return this
 	}
+
+	/**
+	 * Emulates the history command.
+	 *
+	 * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
+	 */
+	public history = () => {
+		// var output = ""
+		// const HISTSIZE = 500
+		// // default value based on: echo $HISTSIZE
+		// // see: https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answer-19454838
+		// for (var i = 0; i < this.historyStack.length; i++) {
+		// 	if (i < 10) output += "   "
+		// 	else output += "  "
+		// 	output += `${i}  ${this.historyStack[i].text}<br></br>`
+
+		// 	if (i >= HISTSIZE) break
+		// }
+		// this.eventQueue.push({
+		// 	command: {
+		// 		text: "history",
+		// 		output: output,
+		// 	},
+		// } as TerminalEvent)
+		return this
+	}
+	// todo: implement
+	public clear = () => {
+		return this
+	}
+
 	// todo: implement
 	public touch = (fileName: string) => {
 		return this
@@ -136,13 +186,7 @@ class UnixTerminalEmulator {
 		return this
 	}
 	// todo: implement
-	public history = () => {
-		return this
-	}
-	// todo: implement
-	public clear = () => {
-		return this
-	}
+	public pwd = () => {}
 	// todo: implement
 	public vim = (fileName: string, fileContentToType: string[]) => {
 		return this
@@ -266,7 +310,7 @@ class UnixTerminalEmulator {
 					/* istanbul ignore next */
 					setTimeout(() => this.writeToStdout(text, speed, callback, i), speed)
 				}
-			} else /* istanbul ignore next */ {
+			} /* istanbul ignore next */ else {
 				callback()
 			}
 		}

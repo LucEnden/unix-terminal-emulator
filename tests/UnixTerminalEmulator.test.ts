@@ -309,3 +309,19 @@ test("addCommands + run => multiple commands text and output are written to the 
 
 	// assert (see assertCallback)
 })
+
+test("echo + run => expect 'echo {text}' to be written to the wrapper and {text} to appear twice", () => {
+	// arange
+	const terminal = new UnixTerminalEmulator()
+	const echoText = "Hello, World!"
+
+	// act
+	const wrapper = document.getElementById(defaultTerminalWrapperId)
+	const assertCallback = () => {
+		expect(wrapper?.innerHTML).toContain(echoText)
+		expect(wrapper?.innerHTML.split(echoText).length).toBe(2)
+	}
+	terminal.echo(echoText).run(assertCallback)
+
+	// asset (see assertCallback)
+})

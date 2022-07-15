@@ -47,14 +47,32 @@ declare class UnixTerminalEmulator {
     /**
      * Adds a pause in the event sequence.
      * @param {number} ms The time to pause for in miliseconds
-     * @returns
+     * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
      */
     pause: (ms: number) => this;
-    echo: (text: string) => this;
-    touch: (fileName: string) => this;
-    mkdir: (dirName: string) => this;
+    /**
+     * Emulates the echo command.
+     *
+     * @param {string} text 						The text to echo
+     * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+     * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+     * @example
+     * echo("Hello, World") =>
+     * $ echo Hello, World!
+     * Hello, World!
+     * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
+     */
+    echo: (text: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => this;
+    /**
+     * Emulates the history command.
+     *
+     * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
+     */
     history: () => this;
     clear: () => this;
+    touch: (fileName: string) => this;
+    mkdir: (dirName: string) => this;
+    pwd: () => void;
     vim: (fileName: string, fileContentToType: string[]) => this;
     /**
      * Excecutes the created event sequence

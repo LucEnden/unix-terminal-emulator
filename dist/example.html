@@ -7,20 +7,7 @@
 	<script>
 		var terminal = new UnixTerminalEmulator();
 		terminal
-		    .pause(1000)
-		    .addCommand({ 
-				text: "echo Hello, World!", 
-				writeSpeed: "neutral", output: 
-				"Hello, World!", 
-				pauseBeforeOutput: 1000 
-			})
-		    .pause(1000)
-		    .addCommand({ 
-				text: "echo foo", 
-				writeSpeed: 20, 
-				output: "bar", 
-				pauseBeforeOutput: 3000
-			})
+			.echo("foo")
 		    .run(() => console.log("Done!"))
 	</script>
 </html>

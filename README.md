@@ -12,7 +12,7 @@
 ![](preview.gif)
 
 ![NPM Repository](https://www.npmjs.com/package/unix-terminal-emulator)
-![Codesandbox example](https://codesandbox.io/s/unix-terminal-emulator-example-5n9ylu?file=/src/index.js)
+![Codesandbox example](https://codesandbox.io/s/unix-terminal-emulator-example-5n9ylu?file=index.html)
 
 Inspired by ![TypewriterJS](https://www.npmjs.com/package/typewriter-effect).
 
@@ -81,7 +81,7 @@ terminal.addCommand(command).run()
 | addCommand | ``command: TerminalCommand`` The command to add to the queue | Adds a command to the to queue. |
 | addCommands | ``commands: TerminalCommand[]`` The commands to add to the queue | Adds multiple commands to the to queue. |
 | pause | ``ms: number`` The time to pause for in miliseconds | Adds a pause in the event sequence. |
-| echo |  |  |
+| echo | ``text: string`` The text to echo, ``writeSpeed: "neutral"|number`` The speed at which to write each character of the command, ``pauseBeforeOutput: number|undefined`` The time to pause before writing the output in miliseconds | Emulates the echo command. |
 | touch |  |  |
 | mkdir |  |  |
 | history |  |  |
