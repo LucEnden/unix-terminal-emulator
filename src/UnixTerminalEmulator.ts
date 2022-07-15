@@ -3,14 +3,27 @@ import "./styles.css"
 
 /**
  * Emulates a unix terminal by typing out commands and there specified outputs.
- * Comes with some basic unix commands out of the box, and a few methods for customization.
+ * Allows you to build an event sequence of commands and timings which gets excecuted when the run method is called.
+ * 
+ * {@link https://github.com/LucEnden/unix-terminal-emulator}
  */
 class UnixTerminalEmulator {
-	// internals
+	/**
+	 * Contains all commands executed so far by run.
+	 */
 	private readonly historyStack = [] as Array<TerminalCommand>
+	/**
+	 * Contains all events to be executed by run.
+	 */
 	private readonly eventQueue = [] as Array<TerminalEvent>
+	/**
+	 * Used in run to determine if there are any events left to be executed.
+	 */
 	private currentEvent: TerminalEvent | undefined
 
+	/**
+	 * Default values for TerminalOptions.
+	 */
 	private options: TerminalOptions = {
 		wrapperId: "terminal___emulator___wrapper",
 		wrapperClassName: "terminal___emulator___wrapper",
@@ -20,7 +33,13 @@ class UnixTerminalEmulator {
 		cursorAnimation: "fluid",
 		enviroment: undefined,
 	}
+	/**
+	 * The HTML element to which all text should be written to.
+	 */
 	private wrapperElement: HTMLElement
+	/**
+	 * The HTML element that acts as the cursor
+	 */
 	private cursorElement: HTMLElement
 
 	constructor(options?: TerminalOptions) {
@@ -65,6 +84,11 @@ class UnixTerminalEmulator {
 		this.appendCursor()
 	}
 
+	/**
+	 * Adds a command to the to queue
+	 * @param {TerminalCommand} command 	The command to add the the queue
+	 * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
+	 */
 	public addCommand = (command: TerminalCommand) => {
 		this.eventQueue.push({
 			delayAfter: 0,
@@ -72,6 +96,11 @@ class UnixTerminalEmulator {
 		} as TerminalEvent)
 		return this
 	}
+	/**
+	 * Adds multiple commands to the to queue
+	 * @param {TerminalCommand[]} commands 	The commands to add the the queue
+	 * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
+	 */
 	public addCommands = (commands: TerminalCommand[]) => {
 		commands.forEach((c) => {
 			this.eventQueue.push({
@@ -82,6 +111,11 @@ class UnixTerminalEmulator {
 		return this
 	}
 
+	/**
+	 * Adds a pause in the event sequence.
+	 * @param {number} ms The time to pause for in miliseconds
+	 * @returns 
+	 */
 	public pause = (ms: number) => {
 		this.eventQueue.push({
 			delayAfter: ms,
@@ -115,8 +149,8 @@ class UnixTerminalEmulator {
 	}
 
 	/**
-	 * Excecutes the command sequence
-	 * @param callback Gets called when sequence has finished
+	 * Excecutes the created event sequence
+	 * @param callback Gets called when the sequence has finished
 	 */
 	public run = (callback?: () => void) => {
 		// If there are events left in the queue, continue running.
