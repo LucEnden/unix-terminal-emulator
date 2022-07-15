@@ -12,7 +12,7 @@
 ![](preview.gif)
 
 ![NPM Repository](https://www.npmjs.com/package/unix-terminal-emulator)
-![Codesandbox example](https://codesandbox.io/s/unix-terminal-emulator-example-5n9ylu)
+![Codesandbox example](https://codesandbox.io/s/unix-terminal-emulator-example-5n9ylu?file=/src/index.js)
 
 Inspired by ![TypewriterJS](https://www.npmjs.com/package/typewriter-effect).
 
