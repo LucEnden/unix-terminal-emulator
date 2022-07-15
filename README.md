@@ -99,7 +99,7 @@ Below are a few examples of do's and dont's regarding building a command sequenc
 ```javascript
 const terminal = new UnixTerminalEmulator();
 ```
-
+---
 :heavy_check_mark: Chain the commands you want to run in sequence before calling run (this is by design):
 ```javascript
 // Chaining commands is by design
@@ -109,7 +109,7 @@ terminal
     .addCommand({ text: "echo bar", writeSpeed: "neutral", output: "bar", pauseBeforeOutput: 500 })
     .run()
 ```
-
+---
 :heavy_check_mark: Call the sequence building commands in a non-chain fashion, as long as the run method is called last (this is by design):
 ```javascript
 terminal.addCommand({ text: "echo foo", writeSpeed: "neutral", output: "foo", pauseBeforeOutput: 500 })
@@ -117,7 +117,7 @@ terminal.pause(1000)
 terminal.addCommand({ text: "echo bar", writeSpeed: "neutral", output: "bar", pauseBeforeOutput: 500 })
 terminal.run()
 ```
-
+---
 :warning: Adding commands to the sequence BEFORE run has finished will queue them for the current sequence.
 ```javascript
 terminal
@@ -130,7 +130,7 @@ setTimeout(() => {
     terminal.addCommand({ text: "echo baz", writeSpeed: "neutral", output: "baz", pauseBeforeOutput: 500 })
 }, 10000)
 ```
-
+---
 :x: Calling the run method on a terminal instance before the previous call has finished will result in unexpected behaviour
 ```javascript
 terminal
