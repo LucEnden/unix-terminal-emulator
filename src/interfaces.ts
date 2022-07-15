@@ -45,56 +45,26 @@ export interface TerminalCommand {
 }
 
 /**
- * The enviroment variables to set at the start of the line.
- *
- * Examples:
- * - { hostname: "website", user: "root" } => root@website
- *
- * @property {string} hostname the hostname to set at the start of every new line
- * @property {string} username the username to set at the start of every new line
- */
-export interface TerminalEnviroment {
-	/** The hostname to set at the start of every new line */
-	hostname: string
-	/** The username to set at the start of every new line */
-	username: string
-}
-
-/**
- * A HTML wrapper element
- * @property {string} id                    - The HTML ID to give to the element. Must be unique.
- * @property {string|undefined} cssClass    - The CSS class to give to the element.
- */
-export interface TerminalWrapperOptions {
-	/**
-	 * The HTML ID to give to the element. Must be unique.
-	 * @default "terminal___emulator___wrapper"
-	 */
-	id: string
-	/**
-	 * The CSS class to give to the element.
-	 * @default "terminal___emulator___wrapper"
-	 */
-	cssClass: string
-}
-
-export interface TerminalCursorOptions {
-	id: string
-	char: string
-	animate: "fluid" | "static" | "none"
-}
-
-/**
  * Customization options for the terminal.
- * @property {TerminalWrapperOptions|undefined} wrapperElement  - The root element the terminal writes its text to.
- * @property {TerminalCursorOptions|undefined} wrapperElement   - The cursor element shown within the terminal.
- * @property {TerminalEnviroment|undefined} enviroment          - The enviroment where the terminal runs in.
  */
 export interface TerminalOptions {
+	/** @default "terminal___emulator___wrapper" */
+	wrapperId?: string
+	/** @default "terminal___emulator___wrapper" */
+	wrapperClassName?: string
+	/** @default "|" */
+	cursor?: string
+	/** @default "terminal___emulator___cursor" */
+	cursorId?: string
+	/** @default "terminal___emulator___cursor" */
+	cursorClassName?: string
+	/** @default "fluid" */
+	cursorAnimation?: "fluid" | "static"
 	/** @default undefined */
-	wrapper?: TerminalWrapperOptions
-	/** @default undefined */
-	cursor?: TerminalCursorOptions
-	/** @default undefined */
-	enviroment?: TerminalEnviroment
+	enviroment?: {
+		/** The hostname to set at the start of every new line */
+		hostname: string
+		/** The username to set at the start of every new line */
+		username: string
+	}
 }

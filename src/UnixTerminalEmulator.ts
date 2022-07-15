@@ -12,69 +12,55 @@ class UnixTerminalEmulator {
 	private currentEvent: TerminalEvent | undefined
 
 	private options: TerminalOptions = {
-		wrapper: {
-			id: "terminal___emulator___wrapper",
-			cssClass: "terminal___emulator___wrapper",
-		},
-		cursor: {
-			id: "terminal___emulator___cursor",
-			char: "|",
-			animate: "fluid",
-		},
+		wrapperId: "terminal___emulator___wrapper",
+		wrapperClassName: "terminal___emulator___wrapper",
+		cursor: "|",
+		cursorId: "terminal___emulator___cursor",
+		cursorClassName: "terminal___emulator___cursor",
+		cursorAnimation: "fluid",
 		enviroment: undefined,
 	}
 	private wrapperElement: HTMLElement
 	private cursorElement: HTMLElement
 
 	constructor(options?: TerminalOptions) {
-		// first: overwrite the default options if user specified other options
-		if (options !== undefined) {
-			// set wrapper options
-			if (options.wrapper !== undefined) {
-				this.options.wrapper!.id = options.wrapper.id
-				if (options.wrapper.cssClass !== undefined) {
-					this.options.wrapper!.cssClass = options.wrapper.cssClass
-				}
-			}
-			// set cursor options
-			if (options.cursor !== undefined) {
-				this.options.cursor!.id = options.cursor.id
-				this.options.cursor!.char = options.cursor.char
-				this.options.cursor!.animate = options.cursor.animate
-			}
-			// set enviroment
-			if (options.enviroment !== undefined) {
-				this.options.enviroment = options.enviroment
+		if (options) {
+			this.options = {
+				...this.options,
+				...options,
 			}
 		}
 
-		// second: check if the wrapper exists, if not, throw error and exit
-		const wrapper = document.getElementById(this.options.wrapper!.id)
+		var wrapper = document.getElementById(this.options.wrapperId!)
 		if (wrapper === null) {
-			throw new TypeError(
-				`document.getElementbyId(${this.options.wrapper!.id}) is null`
-			)
+			wrapper = document.createElement("div")
+			wrapper.id = this.options.wrapperId!
+			if (this.options.wrapperClassName!.length > 0) {
+				wrapper.classList.add(this.options.wrapperClassName!)
+			}
+			this.wrapperElement = wrapper
+			document.body.appendChild(this.wrapperElement)
+		} else {
+			this.wrapperElement = wrapper
 		}
-		this.wrapperElement = wrapper
-		this.wrapperElement.classList.add(this.options.wrapper!.cssClass)
-		this.wrapperElement.innerHTML
 
 		this.cursorElement = document.createElement("span")
-		this.cursorElement.id = this.options.cursor!.id
-		this.cursorElement.innerText = this.options.cursor!.char
-		switch (this.options.cursor!.animate) {
+		this.cursorElement.id = this.options.cursorId!
+		this.cursorElement.innerText = this.options.cursor!
+		this.cursorElement.classList.add(this.options.cursorClassName!)
+		switch (this.options.cursorAnimation) {
 			case "fluid":
 				this.cursorElement.classList.add("terminal___cursor___fluid")
 				break
 			case "static":
 				this.cursorElement.classList.add("terminal___cursor___static")
 				break
-			case "none":
+			case undefined:
 				this.cursorElement.classList.add("terminal___cursor___none")
 				break
 		}
 
-		// initialize terminal with emtpy input line
+		this.writeEnviromentLineToStdout()
 		this.writeInputLineStartToStdout()
 		this.appendCursor()
 	}
@@ -139,51 +125,42 @@ class UnixTerminalEmulator {
 			if (this.currentEvent.command !== undefined) {
 				// Add command to history stack, then start writing the command text to the stdout
 				this.historyStack.push(this.currentEvent.command)
-				this.writeToStdout(
-					this.currentEvent.command.text,
-					this.currentEvent.command.writeSpeed,
-					() => {
-						// After command text was written, check if the command has an output...
-						if (this.currentEvent!.command!.output !== undefined) {
-							setTimeout(() => {
-								this.removeCursor()
-								this.writeLineBreakToStdout()
-								this.writeToStdout(
-									this.currentEvent!.command!.output!,
-									0,
-									() => {
-										// After command output was written...
-										this.writeLineBreakToStdout()
-										this.writeEnviromentLineToStdout()
-										this.writeInputLineStartToStdout()
-										// console.log(`Next event! ${this.eventQueue.length} events remaining`, JSON.stringify(this.eventQueue))
-										setTimeout(() => {
-											this.appendCursor()
-											this.run(callback)
-										}, this.currentEvent!.delayAfter)
-									}
-								)
-							}, this.currentEvent!.command!.pauseBeforeOutput)
-						} else {
+				this.writeToStdout(this.currentEvent.command.text, this.currentEvent.command.writeSpeed, () => {
+					// After command text was written, check if the command has an output...
+					if (this.currentEvent!.command!.output !== undefined) {
+						/* istanbul ignore next */
+						setTimeout(() => {
+							this.removeCursor()
 							this.writeLineBreakToStdout()
-							this.writeEnviromentLineToStdout()
-							this.writeInputLineStartToStdout()
-							// console.log(`Next event! ${this.eventQueue.length} events remaining`, JSON.stringify(this.eventQueue))
-							setTimeout(
-								() => this.run(callback),
-								this.currentEvent!.delayAfter
-							)
-						}
+							this.writeToStdout(this.currentEvent!.command!.output!, 0, () => {
+								// After command output was written...
+								this.writeLineBreakToStdout()
+								this.writeEnviromentLineToStdout()
+								this.writeInputLineStartToStdout()
+								/* istanbul ignore next */
+								setTimeout(() => {
+									this.appendCursor()
+									this.run(callback)
+								}, this.currentEvent!.delayAfter)
+							})
+						}, this.currentEvent!.command!.pauseBeforeOutput)
+					} else {
+						this.writeLineBreakToStdout()
+						this.writeEnviromentLineToStdout()
+						this.writeInputLineStartToStdout()
+						/* istanbul ignore next */
+						setTimeout(() => this.run(callback), this.currentEvent!.delayAfter)
 					}
-				)
+				})
 			} else {
 				// If the current events command is undefined, continue running...
+				/* istanbul ignore next */
 				setTimeout(() => {
 					this.run(callback)
 				}, this.currentEvent.delayAfter)
 			}
 		} else {
-			// If no event is left in the queue, call calback...
+			// If no event is left in the queue, run calback...
 			if (callback !== undefined) {
 				callback()
 			}
@@ -211,12 +188,8 @@ class UnixTerminalEmulator {
 	 * If this.enviroment is not undefined, write "username@hostname:" to the stdout
 	 */
 	private writeEnviromentLineToStdout = () => {
-		if (this.options.enviroment !== undefined) {
-			this.wrapperElement.innerHTML +=
-				this.options.enviroment.username +
-				"@" +
-				this.options.enviroment.hostname +
-				":"
+		if (this.options.enviroment !== undefined && this.options.enviroment.hostname.length > 0 && this.options.enviroment.username.length > 0) {
+			this.wrapperElement.innerHTML += this.options.enviroment.username + "@" + this.options.enviroment.hostname + ":"
 		}
 	}
 	/**
@@ -231,23 +204,17 @@ class UnixTerminalEmulator {
 	private writeLineBreakToStdout = () => {
 		this.wrapperElement.innerHTML += "<br />"
 	}
-
 	/**
 	 * Writes the specified text to the terminal wrapper.
 	 *
 	 * If speed === 0, it will remove the cursor from the wrapper.
 	 * If speed > 0, the cursor will remove before and appended after every character.
-	 * @param callback gets excecuted when writing to stdout has finished
 	 * @param text text to write to stdout
 	 * @param speed speed at which each character is written to stdout
+	 * @param callback gets excecuted when writing to stdout has finished
 	 * @param i used for recursion purposes
 	 */
-	private writeToStdout = (
-		text: string,
-		speed: "neutral" | number,
-		callback: () => void,
-		i: number = 0
-	) => {
+	private writeToStdout = (text: string, speed: "neutral" | number, callback: () => void, i: number = 0) => {
 		if (speed === 0) {
 			this.removeCursor()
 			this.wrapperElement.innerHTML += text
@@ -259,17 +226,13 @@ class UnixTerminalEmulator {
 				this.appendCursor()
 				i++
 				if (speed === "neutral") {
-					setTimeout(
-						() => this.writeToStdout(text, speed, callback, i),
-						this.getRandomIntegerInRange(80, 120)
-					)
+					/* istanbul ignore next */
+					setTimeout(() => this.writeToStdout(text, speed, callback, i), this.getRandomIntegerInRange(80, 120))
 				} else {
-					setTimeout(
-						() => this.writeToStdout(text, speed, callback, i),
-						speed
-					)
+					/* istanbul ignore next */
+					setTimeout(() => this.writeToStdout(text, speed, callback, i), speed)
 				}
-			} else {
+			} else /* istanbul ignore next */ {
 				callback()
 			}
 		}
