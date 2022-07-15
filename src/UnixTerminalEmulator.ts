@@ -30,7 +30,7 @@ class UnixTerminalEmulator {
 		cursor: "|",
 		cursorId: "terminal___emulator___cursor",
 		cursorClassName: "terminal___emulator___cursor",
-		cursorAnimation: "fluid",
+		cursorAnimation: "static",
 		enviroment: undefined,
 	}
 	/**
@@ -66,7 +66,6 @@ class UnixTerminalEmulator {
 		this.cursorElement = document.createElement("span")
 		this.cursorElement.id = this.options.cursorId!
 		this.cursorElement.innerText = this.options.cursor!
-		this.cursorElement.classList.add(this.options.cursorClassName!)
 		switch (this.options.cursorAnimation) {
 			case "fluid":
 				this.cursorElement.classList.add("terminal___cursor___fluid")
@@ -78,6 +77,7 @@ class UnixTerminalEmulator {
 				this.cursorElement.classList.add("terminal___cursor___none")
 				break
 		}
+		this.cursorElement.classList.add(this.options.cursorClassName!)
 
 		this.writeEnviromentLineToStdout()
 		this.writeInputLineStartToStdout()
@@ -85,7 +85,7 @@ class UnixTerminalEmulator {
 	}
 
 	/**
-	 * Adds a command to the to queue
+	 * Adds a command to the to queue.
 	 * @param {TerminalCommand} command 	The command to add the the queue
 	 * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
 	 */
@@ -97,7 +97,7 @@ class UnixTerminalEmulator {
 		return this
 	}
 	/**
-	 * Adds multiple commands to the to queue
+	 * Adds multiple commands to the to queue.
 	 * @param {TerminalCommand[]} commands 	The commands to add the the queue
 	 * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
 	 */

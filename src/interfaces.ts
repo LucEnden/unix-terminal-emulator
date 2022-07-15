@@ -48,19 +48,54 @@ export interface TerminalCommand {
  * Customization options for the terminal.
  */
 export interface TerminalOptions {
-	/** @default "terminal___emulator___wrapper" */
+	/** 
+	 * The HTML id of the element to which the text should be written.  
+	 * Must be unique. If the element does not exist one will be created  
+	 * and appended to the body at the end.
+	 * @default "terminal___emulator___wrapper" 
+	 */
 	wrapperId?: string
-	/** @default "terminal___emulator___wrapper" */
+	/** 
+	 * The CSS class to give to the wrapper element.
+	 * @default "terminal___emulator___wrapper" 
+	 */
 	wrapperClassName?: string
-	/** @default "|" */
+	/** 
+	 * The character(s) to use as the cursor inside the terminal.
+	 * @default "|" 
+	 */
 	cursor?: string
-	/** @default "terminal___emulator___cursor" */
+	/** 
+	 * The HTML id of the element which functions as the terminal cursor.  
+	 * Must be unique. The element will always be created on initialization.
+	 * @default "terminal___emulator___cursor"
+	 */
 	cursorId?: string
-	/** @default "terminal___emulator___cursor" */
+	/** 
+	 * The CSS class to give to the cursor element.  
+	 * 
+	 * Note: if the animation property is set within the CSS class, it will overwrite the cursor blinking animation.
+	 * @default "terminal___emulator___cursor" 
+	 */
 	cursorClassName?: string
-	/** @default "fluid" */
+	/** 
+	 * The type of animation to give to the cursor.
+	 * 
+	 * Fluid = 		the opacity oscillates between 0 and 100.  
+	 * Static = 	the cursor blinks (like it does in a real unix terminal).  
+	 * Undefined =	no animation is applied.
+	 * @default "static" 
+	 */
 	cursorAnimation?: "fluid" | "static"
-	/** @default undefined */
+	/** 
+	 * When defined, everytime a new input line gets added to the terminal,  
+	 * it will prepend a unix like enviroment text to the start of the new line.
+	 * 
+	 * @example 
+	 * enviroment: undefined => "$ "
+	 * enviroment: { hostname: "localhost", username: "root" } => "root@localhost:$ "
+	 * @default undefined 
+	 */
 	enviroment?: {
 		/** The hostname to set at the start of every new line */
 		hostname: string
