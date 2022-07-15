@@ -26,3 +26,8 @@ jobs:
               run: npm run build:prod --if-present
             - name: Run tests
               run: npm test --if-present
+            - name: Upload build
+              uses: actions/upload-artifact@v3
+              with:
+                name: dist
+                path: ./dist
