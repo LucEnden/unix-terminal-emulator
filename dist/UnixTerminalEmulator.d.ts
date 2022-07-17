@@ -20,13 +20,6 @@ declare class UnixTerminalEmulator {
      */
     private currentEvent;
     /**
-     * Used in getHistoryOutput
-     * based on histsize variable in bash: echo $HISTSIZE
-     *
-     * see: https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answer-19454838
-     */
-    private readonly HISTSIZE;
-    /**
      * Default values for TerminalOptions.
      */
     private options;
@@ -40,29 +33,63 @@ declare class UnixTerminalEmulator {
     private cursorElement;
     constructor(options?: TerminalOptions);
     /**
+     * Based on histsize variable in bash: echo $HISTSIZE
+     *
+     * see: https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answer-19454838
+     */
+    HISTSIZE: number;
+    /**
      * Adds a command to the to queue.
      * @param {TerminalCommand} command 	The command to add the the queue
      * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
      */
-    addCommand: (command: TerminalCommand) => this;
+    addCommand: (command: TerminalCommand) => UnixTerminalEmulator;
     /**
      * Adds multiple commands to the to queue.
      * @param {TerminalCommand[]} commands 	The commands to add the the queue
      * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
      */
-    addCommands: (commands: TerminalCommand[]) => this;
+    addCommands: (commands: TerminalCommand[]) => UnixTerminalEmulator;
     /**
      * Adds a pause in the event sequence.
      * @param {number} ms The time to pause for in miliseconds
      * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
      */
-    pause: (ms: number) => this;
+    pause: (ms: number) => UnixTerminalEmulator;
+    /**
+     * Emulates the echo command.
+     *
+     * @param {string} text 						The text to echo
+     * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+     * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+     * @example
+     * echo("Hello, World") =>
+     * $ echo Hello, World!
+     * Hello, World!
+     * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
+     */
+    echo: (text: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => this;
+    /**
+     * Emulates the history command.
+     *
+     * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+     * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+     * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
+     */
+    history: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => this;
+    private getHistoryOutput;
     /**
      * Excecutes the created event sequence
      * @param callback Gets called when the sequence has finished
      */
     run: (callback?: () => void) => void;
+    /**
+     * Removes the cursor from the wrapper document
+     */
     private removeCursor;
+    /**
+     * Appends the cursor element to the wrapper element
+     */
     private appendCursor;
     /**
      * Gets a random integer in the range from min to max, inclusif

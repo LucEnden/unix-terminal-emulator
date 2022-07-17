@@ -5,7 +5,7 @@ import { randomUUID } from "crypto"
 const defaultTerminalWrapperId = "terminal___emulator___wrapper"
 const defaultTerminalCursorId = "terminal___emulator___cursor"
 jest.useRealTimers()
-jest.setTimeout(60000)
+jest.setTimeout(6000000) // set to one hour because of time out testing
 
 // WRAPPER TESTS
 test("constructor => expect wrapper element to get created during object initialization if it does not already exist in the document", () => {
@@ -327,7 +327,6 @@ test("addCommands + run => expect multiple commands with different write speeds 
 		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand3.output)
 	})
 })
-/*
 
 test("echo + run => expect 'echo {text}' to be written to the wrapper and {text} to appear twice", (done) => {
 	// arange
@@ -338,14 +337,15 @@ test("echo + run => expect 'echo {text}' to be written to the wrapper and {text}
 	const echoText = "Hello, World!"
 
 	// act
-	terminal.echo(echoText).run(done)
-
-	// asset
-	expect(document.getElementById(terminalId)?.innerHTML).toContain(echoText)
-	expect(document.getElementById(terminalId)?.innerHTML.split(echoText).length).toBe(2)
+	terminal.echo(echoText).run(() => {
+		done()
+		// assert
+		expect(document.getElementById(terminalId)?.innerHTML).toContain(echoText)
+		expect(document.getElementById(terminalId)?.innerHTML.match(new RegExp(echoText, "g"))!.length).toBe(2)
+	})
 })
 
-test("addCommand + history + run => add a single command and expect thier texts to appear twice after history run", (done) => {
+test("addCommand + history + run => add a single command and expect thier texts to appear twice", (done) => {
 	// arange
 	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
@@ -358,35 +358,32 @@ test("addCommand + history + run => add a single command and expect thier texts 
 	} as TerminalCommand
 
 	// act
-	const wrapper = document.getElementById(terminalId)
-	terminal.addCommand(command).history().run(done)
-
-	// asset
-	expect(document.getElementById(terminalId)?.innerHTML).toContain(command.text)
-	expect(document.getElementById(terminalId)?.innerHTML.split(command.text).length).toBe(2)
+	terminal.addCommand(command).history().run(() => {
+		done()
+		// assert
+		expect(document.getElementById(terminalId)?.innerHTML.match(new RegExp(command.text, "g"))?.length).toBe(2)
+	})
 })
-test("addCommands + history + run => add 100 commands with each a unique text and expect all thier texts to appear twice after history run", (done) => {
+test("addCommands + history + run => add HISTSIZE - 1 commands, each with unique text, and expect all thier texts to appear twice", (done) => {
 	// arange
 	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
 		wrapperId: terminalId,
 	})
 	const commands = [] as TerminalCommand[]
-
-	// act
-	for (var i = 0; i < 100; i++) {
+	for (var i = 0; i < terminal.HISTSIZE - 1; i++) {
 		commands.push({
 			text: randomUUID(),
 			writeSpeed: 0,
 		})
 	}
-	const wrapper = document.getElementById(terminalId)
-	terminal.addCommands(commands).run(done)
 
-	// asset
-	for (var i = 0; i <= commands.length; i++) {
-		expect(wrapper?.innerHTML).toContain(commands[i].text)
-		expect(wrapper?.innerHTML.split(commands[i].text).length).toBe(2)
-	}
+	// act
+	terminal.addCommands(commands).history().run(() => {
+		done()
+		// assert
+		commands.forEach((command) => {
+			expect(document.getElementById(terminalId)?.innerHTML.match(new RegExp(command.text, "g"))?.length).toBe(2)
+		})
+	})
 })
-*/

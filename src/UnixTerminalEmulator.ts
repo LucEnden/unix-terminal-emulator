@@ -22,13 +22,6 @@ class UnixTerminalEmulator {
 	 * Used in run to determine if there are any events left to be executed.
 	 */
 	private currentEvent: TerminalEvent | undefined
-	/**
-	 * Used in getHistoryOutput
-	 * based on histsize variable in bash: echo $HISTSIZE
-	 *
-	 * see: https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answer-19454838
-	 */
-	private readonly HISTSIZE = 500
 
 	/**
 	 * Default values for TerminalOptions.
@@ -92,11 +85,18 @@ class UnixTerminalEmulator {
 	}
 
 	/**
+	 * Based on histsize variable in bash: echo $HISTSIZE
+	 *
+	 * see: https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answer-19454838
+	 */
+	public HISTSIZE = 500
+
+	/**
 	 * Adds a command to the to queue.
 	 * @param {TerminalCommand} command 	The command to add the the queue
 	 * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
 	 */
-	public addCommand = (command: TerminalCommand) => {
+	public addCommand = (command: TerminalCommand): UnixTerminalEmulator => {
 		this.eventQueue.push({
 			delayAfter: 0,
 			command: command,
@@ -108,7 +108,7 @@ class UnixTerminalEmulator {
 	 * @param {TerminalCommand[]} commands 	The commands to add the the queue
 	 * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
 	 */
-	public addCommands = (commands: TerminalCommand[]) => {
+	public addCommands = (commands: TerminalCommand[]): UnixTerminalEmulator => {
 		commands.forEach((c) => {
 			this.eventQueue.push({
 				delayAfter: 0,
@@ -123,83 +123,83 @@ class UnixTerminalEmulator {
 	 * @param {number} ms The time to pause for in miliseconds
 	 * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
 	 */
-	public pause = (ms: number) => {
+	public pause = (ms: number): UnixTerminalEmulator => {
 		this.eventQueue.push({
 			delayAfter: ms,
 		} as TerminalEvent)
 		return this
 	}
 
-	// /**
-	//  * Emulates the echo command.
-	//  *
-	//  * @param {string} text 						The text to echo
-	//  * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
-	//  * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
-	//  * @example
-	//  * echo("Hello, World") =>
-	//  * $ echo Hello, World!
-	//  * Hello, World!
-	//  * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
-	//  */
-	// public echo = (text: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
-	// 	this.eventQueue.push({
-	// 		command: {
-	// 			text: "echo " + text,
-	// 			writeSpeed: writeSpeed,
-	// 			output: text,
-	// 			pauseBeforeOutput: pauseBeforeOutput,
-	// 		},
-	// 	} as TerminalEvent)
-	// 	return this
-	// }
+	/**
+	 * Emulates the echo command.
+	 *
+	 * @param {string} text 						The text to echo
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	 * @example
+	 * echo("Hello, World") =>
+	 * $ echo Hello, World!
+	 * Hello, World!
+	 * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
+	 */
+	public echo = (text: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
+		this.eventQueue.push({
+			command: {
+				text: "echo " + text,
+				writeSpeed: writeSpeed,
+				output: text,
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
+		} as TerminalEvent)
+		return this
+	}
 
-	// /**
-	//  * Emulates the history command.
-	//  *
-	//  * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
-	//  * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
-	//  * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
-	//  */
-	// public history = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
-	// 	this.eventQueue.push({
-	// 		command: {
-	// 			text: "history",
-	// 			writeSpeed: writeSpeed,
-	// 			output: this.getHistoryOutput,
-	// 			pauseBeforeOutput: pauseBeforeOutput
-	// 		},
-	// 	} as TerminalEvent)
-	// 	return this
-	// }
-	// private getHistoryOutput = () => {
-	// 	var output = [] as string[]
-	// 	var j = 0;
-	// 	for (var i = this.historyStack.length; i > 0; i--) {
-	// 		var newOutputLine = ""
+	/**
+	 * Emulates the history command.
+	 *
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
+	 */
+	public history = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
+		this.eventQueue.push({
+			command: {
+				text: "history",
+				writeSpeed: writeSpeed,
+				output: this.getHistoryOutput,
+				pauseBeforeOutput: pauseBeforeOutput
+			},
+		} as TerminalEvent)
+		return this
+	}
+	private getHistoryOutput = () => {
+		var output = [] as string[]
+		var j = 0;
+		for (var i = this.historyStack.length; i > 0; i--) {
+			var newOutputLine = ""
 
-	// 		// leading spaces are based on decimals
-	// 		// single decimal = 4 spaces
-	// 		// double decimal = 3 spaces
-	// 		// etc...
-	// 		if (i < 10) {
-	// 			newOutputLine += "&nbsp;&nbsp;&nbsp;&nbsp;"
-	// 		} else if (i < 100) {
-	// 			newOutputLine += "&nbsp;&nbsp;&nbsp;"
-	// 		} else if (i < 1000) {
-	// 			newOutputLine += "&nbsp;&nbsp;"
-	// 		} else if (i < 10000) {
-	// 			newOutputLine += "&nbsp;"
-	// 		}
+			// leading spaces are based on decimals
+			// single decimal = 4 spaces
+			// double decimal = 3 spaces
+			// etc...
+			if (i < 10) {
+				newOutputLine += "&nbsp;&nbsp;&nbsp;&nbsp;"
+			} else if (i < 100) {
+				newOutputLine += "&nbsp;&nbsp;&nbsp;"
+			} else if (i < 1000) {
+				newOutputLine += "&nbsp;&nbsp;"
+			} else if (i < 10000) {
+				newOutputLine += "&nbsp;"
+			}
 
-	// 		newOutputLine += `${i}&nbsp;&nbsp;${this.historyStack[i - 1].text}`
-	// 		output.push(newOutputLine)
+			newOutputLine += `${i}&nbsp;&nbsp;${this.historyStack[i - 1].text}`
+			output.push(newOutputLine)
 
-	// 		j++
-	// 		if (j >= this.HISTSIZE) break
-	// 	}
-	// 	return output.reverse().join("<br />");
-	// }
+			j++
+			if (j >= this.HISTSIZE) break
+		}
+		return output.reverse().join("<br />");
+	}
 
 	// // todo: implement
 	// public clear = () => {
@@ -277,9 +277,15 @@ class UnixTerminalEmulator {
 		}
 	}
 
+	/**
+	 * Removes the cursor from the wrapper document
+	 */
 	private removeCursor = () => {
 		this.cursorElement.remove()
 	}
+	/**
+	 * Appends the cursor element to the wrapper element
+	 */
 	private appendCursor = () => {
 		this.wrapperElement.appendChild(this.cursorElement)
 	}
