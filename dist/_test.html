@@ -2,12 +2,17 @@
 <html>
 	<head></head>
 
-	<body></body>
+	<body style="font-family: monospace, monospace;"></body>
 	<script type="text/javascript" src="./index.js"></script>
 	<script>
 		var terminal = new UnixTerminalEmulator();
+		for (var i = 0; i < 1; i++) {
+			terminal.addCommand({
+				text: "foo", output: () => "bar", writeSpeed: 10, pauseBeforeOutput: 1000
+			})
+		}
 		terminal
-			.echo("foo")
+			// .history(0)
 		    .run(() => console.log("Done!"))
 	</script>
 </html>

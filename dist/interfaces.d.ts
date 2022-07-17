@@ -35,7 +35,7 @@ export interface TerminalCommand {
      * The output of the command
      *  @type {string|undefined}
      */
-    output?: string;
+    output?: string | (() => string);
     /**
      * The time to pause before writing the output in miliseconds
      *  @type {number|undefined}

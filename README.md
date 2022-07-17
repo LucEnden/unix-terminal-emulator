@@ -22,6 +22,7 @@ Inspired by ![TypewriterJS](https://www.npmjs.com/package/typewriter-effect).
 - [Example usage](#example-usage)
 - [Options](#options)
 - [Methods](#methods)
+- [Interfaces](#interfaces)
 - [React](#react)
 - [Do's and dont's](#dos-and-donts)
 
@@ -46,7 +47,7 @@ yarn add unix-terminal-emulator
 
 ## Example usage
 
-For more advanced examples, please see the [examples folder](https://github.com/LucEnden/unix-terminal-emulator/examples).
+For more advanced examples, please click [this link](https://codesandbox.io/s/unix-terminal-emulator-example-5n9ylu?file=index.html).
 
 ```javascript
 import UnixTerminalEmulator from "unix-terminal-emulator"
@@ -81,12 +82,16 @@ terminal.addCommand(command).run()
 | addCommand | ``command: TerminalCommand`` The command to add to the queue | Adds a command to the to queue. |
 | addCommands | ``commands: TerminalCommand[]`` The commands to add to the queue | Adds multiple commands to the to queue. |
 | pause | ``ms: number`` The time to pause for in miliseconds | Adds a pause in the event sequence. |
-| echo | ``text: string`` The text to echo, ``writeSpeed: "neutral"|number`` The speed at which to write each character of the command, ``pauseBeforeOutput: number|undefined`` The time to pause before writing the output in miliseconds | Emulates the echo command. |
+| echo | ``text: string`` The text to echo, ``writeSpeed: "neutral"|number = "neutral"`` The speed at which to write each character of the command, ``pauseBeforeOutput: number|undefined = undefined`` The time to pause before writing the output in miliseconds | Emulates the echo command. |
+<!-- | history |  |  |
 | touch |  |  |
 | mkdir |  |  |
-| history |  |  |
 | clear |  |  |
-| vim |  |  |
+| vim |  |  | -->
+
+## Interfaces
+
+...
 
 ## React
 

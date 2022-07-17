@@ -22,6 +22,13 @@ class UnixTerminalEmulator {
 	 * Used in run to determine if there are any events left to be executed.
 	 */
 	private currentEvent: TerminalEvent | undefined
+	/**
+	 * Used in getHistoryOutput  
+	 * based on histsize variable in bash: echo $HISTSIZE  
+	 * 
+	 * see: https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answer-19454838
+	 */
+	private readonly HISTSIZE = 500
 
 	/**
 	 * Default values for TerminalOptions.
@@ -123,74 +130,96 @@ class UnixTerminalEmulator {
 		return this
 	}
 
-	/**
-	 * Emulates the echo command.
-	 *
-	 * @param {string} text 						The text to echo
-	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
-	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds 
-	 * @example
-	 * echo("Hello, World") =>
-	 * $ echo Hello, World!
-	 * Hello, World!
-	 * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
-	 */
-	public echo = (text: string, writeSpeed: "neutral"|number = "neutral", pauseBeforeOutput? : number) => {
-		this.eventQueue.push({
-			command: {
-				text: "echo " + text,
-				writeSpeed: writeSpeed,
-				output: text,
-				pauseBeforeOutput: pauseBeforeOutput
-			},
-		} as TerminalEvent)
-		return this
-	}
+	// /**
+	//  * Emulates the echo command.
+	//  *
+	//  * @param {string} text 						The text to echo
+	//  * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	//  * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	//  * @example
+	//  * echo("Hello, World") =>
+	//  * $ echo Hello, World!
+	//  * Hello, World!
+	//  * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
+	//  */
+	// public echo = (text: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
+	// 	this.eventQueue.push({
+	// 		command: {
+	// 			text: "echo " + text,
+	// 			writeSpeed: writeSpeed,
+	// 			output: text,
+	// 			pauseBeforeOutput: pauseBeforeOutput,
+	// 		},
+	// 	} as TerminalEvent)
+	// 	return this
+	// }
 
-	/**
-	 * Emulates the history command.
-	 *
-	 * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
-	 */
-	public history = () => {
-		// var output = ""
-		// const HISTSIZE = 500
-		// // default value based on: echo $HISTSIZE
-		// // see: https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answer-19454838
-		// for (var i = 0; i < this.historyStack.length; i++) {
-		// 	if (i < 10) output += "   "
-		// 	else output += "  "
-		// 	output += `${i}  ${this.historyStack[i].text}<br></br>`
+	// /**
+	//  * Emulates the history command.
+	//  * 
+	//  * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	//  * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	//  * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
+	//  */
+	// public history = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
+	// 	this.eventQueue.push({
+	// 		command: {
+	// 			text: "history",
+	// 			writeSpeed: writeSpeed,
+	// 			output: this.getHistoryOutput,
+	// 			pauseBeforeOutput: pauseBeforeOutput
+	// 		},
+	// 	} as TerminalEvent)
+	// 	return this
+	// }
+	// private getHistoryOutput = () => {
+	// 	var output = [] as string[]
+	// 	var j = 0;
+	// 	for (var i = this.historyStack.length; i > 0; i--) {
+	// 		var newOutputLine = ""
 
-		// 	if (i >= HISTSIZE) break
-		// }
-		// this.eventQueue.push({
-		// 	command: {
-		// 		text: "history",
-		// 		output: output,
-		// 	},
-		// } as TerminalEvent)
-		return this
-	}
-	// todo: implement
-	public clear = () => {
-		return this
-	}
+	// 		// leading spaces are based on decimals
+	// 		// single decimal = 4 spaces
+	// 		// double decimal = 3 spaces
+	// 		// etc...
+	// 		if (i < 10) {
+	// 			newOutputLine += "&nbsp;&nbsp;&nbsp;&nbsp;"
+	// 		} else if (i < 100) {
+	// 			newOutputLine += "&nbsp;&nbsp;&nbsp;"
+	// 		} else if (i < 1000) {
+	// 			newOutputLine += "&nbsp;&nbsp;"
+	// 		} else if (i < 10000) {
+	// 			newOutputLine += "&nbsp;"
+	// 		}
 
-	// todo: implement
-	public touch = (fileName: string) => {
-		return this
-	}
-	// todo: implement
-	public mkdir = (dirName: string) => {
-		return this
-	}
-	// todo: implement
-	public pwd = () => {}
-	// todo: implement
-	public vim = (fileName: string, fileContentToType: string[]) => {
-		return this
-	}
+	// 		newOutputLine += `${i}&nbsp;&nbsp;${this.historyStack[i - 1].text}`
+	// 		output.push(newOutputLine)
+
+	// 		j++
+	// 		if (j >= this.HISTSIZE) break
+	// 	}
+	// 	return output.reverse().join("<br />");
+	// }
+
+	// // todo: implement
+	// public clear = () => {
+	// 	return this
+	// }
+
+	// // todo: implement
+	// public touch = (fileName: string) => {
+	// 	return this
+	// }
+	// // todo: implement
+	// public mkdir = (dirName: string) => {
+	// 	return this
+	// }
+	// // todo: implement
+	// public pwd = () => {}
+	// // todo: implement
+	// public vim = (fileName: string, fileContentToType: string[]) => {
+	// 	return this
+	// }
 
 	/**
 	 * Excecutes the created event sequence
@@ -206,11 +235,17 @@ class UnixTerminalEmulator {
 				this.writeToStdout(this.currentEvent.command.text, this.currentEvent.command.writeSpeed, () => {
 					// After command text was written, check if the command has an output...
 					if (this.currentEvent!.command!.output !== undefined) {
+						var newOutput = ""
+						if (typeof this.currentEvent!.command!.output === "function") {
+							newOutput = this.currentEvent!.command!.output()
+						} else {
+							newOutput = this.currentEvent!.command!.output
+						}
 						/* istanbul ignore next */
 						setTimeout(() => {
 							this.removeCursor()
 							this.writeLineBreakToStdout()
-							this.writeToStdout(this.currentEvent!.command!.output!, 0, () => {
+							this.writeToStdout(newOutput, 0, () => {
 								// After command output was written...
 								this.writeLineBreakToStdout()
 								this.writeEnviromentLineToStdout()
@@ -310,7 +345,8 @@ class UnixTerminalEmulator {
 					/* istanbul ignore next */
 					setTimeout(() => this.writeToStdout(text, speed, callback, i), speed)
 				}
-			} /* istanbul ignore next */ else {
+			} else {
+				/* istanbul ignore next */ 
 				callback()
 			}
 		}
