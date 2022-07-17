@@ -144,3 +144,15 @@ terminal
     .run()
 terminal.run() // this brakes the sequence and will result in unexpected behaviour
 ```
+---
+:x: Creating 2 terminal instances with the same wrapper and cursor ID will result in unexpected behaviour
+```javascript
+const terminal1 = new UnixTerminalEmulator({ wrapperId: "wrapper", cursorId: "cursor" });
+const terminal2 = new UnixTerminalEmulator({ wrapperId: "wrapper", cursorId: "cursor" });
+terminal1
+    .addCommand({ text: "echo foo", writeSpeed: "neutral", output: "foo", pauseBeforeOutput: 500 })
+    .run()
+terminal2
+    .addCommand({ text: "echo foo", writeSpeed: "neutral", output: "foo", pauseBeforeOutput: 500 })
+    .run()
+```
