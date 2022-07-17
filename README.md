@@ -123,7 +123,7 @@ terminal.addCommand({ text: "echo bar", writeSpeed: "neutral", output: "bar", pa
 terminal.run()
 ```
 ---
-:warning: Adding commands to the sequence BEFORE run has finished will queue them for the current sequence.
+:warning: Adding commands to the sequence BEFORE run has finished will queue them for the current sequence (this is timing depentend and not recomended).
 ```javascript
 terminal
     .addCommand({ text: "echo foo", writeSpeed: "neutral", output: "foo", pauseBeforeOutput: 500 })

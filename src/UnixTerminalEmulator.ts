@@ -23,9 +23,9 @@ class UnixTerminalEmulator {
 	 */
 	private currentEvent: TerminalEvent | undefined
 	/**
-	 * Used in getHistoryOutput  
-	 * based on histsize variable in bash: echo $HISTSIZE  
-	 * 
+	 * Used in getHistoryOutput
+	 * based on histsize variable in bash: echo $HISTSIZE
+	 *
 	 * see: https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answer-19454838
 	 */
 	private readonly HISTSIZE = 500
@@ -156,7 +156,7 @@ class UnixTerminalEmulator {
 
 	// /**
 	//  * Emulates the history command.
-	//  * 
+	//  *
 	//  * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
 	//  * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
 	//  * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
@@ -241,7 +241,6 @@ class UnixTerminalEmulator {
 						} else {
 							newOutput = this.currentEvent!.command!.output
 						}
-						/* istanbul ignore next */
 						setTimeout(() => {
 							this.removeCursor()
 							this.writeLineBreakToStdout()
@@ -250,7 +249,7 @@ class UnixTerminalEmulator {
 								this.writeLineBreakToStdout()
 								this.writeEnviromentLineToStdout()
 								this.writeInputLineStartToStdout()
-								/* istanbul ignore next */
+
 								setTimeout(() => {
 									this.appendCursor()
 									this.run(callback)
@@ -261,13 +260,11 @@ class UnixTerminalEmulator {
 						this.writeLineBreakToStdout()
 						this.writeEnviromentLineToStdout()
 						this.writeInputLineStartToStdout()
-						/* istanbul ignore next */
 						setTimeout(() => this.run(callback), this.currentEvent!.delayAfter)
 					}
 				})
 			} else {
 				// If the current events command is undefined, continue running...
-				/* istanbul ignore next */
 				setTimeout(() => {
 					this.run(callback)
 				}, this.currentEvent.delayAfter)
@@ -339,14 +336,11 @@ class UnixTerminalEmulator {
 				this.appendCursor()
 				i++
 				if (speed === "neutral") {
-					/* istanbul ignore next */
 					setTimeout(() => this.writeToStdout(text, speed, callback, i), this.getRandomIntegerInRange(80, 120))
 				} else {
-					/* istanbul ignore next */
 					setTimeout(() => this.writeToStdout(text, speed, callback, i), speed)
 				}
 			} else {
-				/* istanbul ignore next */ 
 				callback()
 			}
 		}
