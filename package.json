@@ -1,6 +1,6 @@
 {
 	"name": "unix-terminal-emulator",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "Emulates a Unix terminal inside the DOM!",
 	"keywords": [
 		"unix",
