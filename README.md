@@ -82,8 +82,8 @@ terminal.addCommand(command).run()
 | addCommand | ``command: TerminalCommand`` The command to add to the queue | Adds a command to the to queue. |
 | addCommands | ``commands: TerminalCommand[]`` The commands to add to the queue | Adds multiple commands to the to queue. |
 | pause | ``ms: number`` The time to pause for in miliseconds | Adds a pause in the event sequence. |
-| echo | ``text: string`` The text to echo, ``writeSpeed: "neutral"|number = "neutral"`` The speed at which to write each character of the command, ``pauseBeforeOutput: number|undefined = undefined`` The time to pause before writing the output in miliseconds | Emulates the echo command. |
-<!-- | history |  |  |
+<!--| echo | ``text: string`` The text to echo, ``writeSpeed: "neutral"|number = "neutral"`` The speed at which to write each character of the command, ``pauseBeforeOutput: number|undefined = undefined`` The time to pause before writing the output in miliseconds | Emulates the echo command. |
+| history |  |  |
 | touch |  |  |
 | mkdir |  |  |
 | clear |  |  |
