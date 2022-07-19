@@ -27,7 +27,9 @@ Inspired by ![TypewriterJS](https://www.npmjs.com/package/typewriter-effect).
 - [React](#react)
 - [Do's and dont's](#dos-and-donts)
 - [Perfomance](#perfomance)
-	- [N Commands / Run Execution Time](#n-commands--run-execution-time)
+	- [N Commands / Time Per Run](#n-commands--time-per-run)
+	- [N Commands / Time Per Command](#n-commands--time-per-command)
+	- [Implementations:](#implementations)
 
 ## CDN
 
@@ -300,7 +302,7 @@ terminal2
 
 Bellow are performance charts based on different versions of the app, including explenation about how the performance was measured.
 
-### N Commands / Run Execution Time
+### N Commands / Time Per Run
 
 Ive created an in browser performance test for the run method. What it does is as follows:
 
@@ -341,7 +343,42 @@ while (N < maxN_commands):
 averageMetrics.plot()
 ```
 
-Implementations:
+### N Commands / Time Per Command
+
+As for time per individual command, ive implemented the following in browser performance test:
+
+-   Add N ammount of commands to a terminal instance T, where N = 1000
+-   Run N ammount of commands X times, where X = 10
+-   Get the average excecution time per command for N commands X times
+
+This will allow me to plot a timeline graph showing the average time has passed after each command.
+
+The pseudo code for this is:
+
+```
+X = 10
+N = 1000
+I = 0
+averageMetrics = []
+
+while (I < X):
+    terminal = new UnixTerminalEmulator()
+    // add N amount of commands
+    for (i = 0, i < maxN_commands, i++):
+        terminal.addCommand({ text: "foo", writeSpeed: 0, output: () => {
+			var exeTime = new Date().getTime().toString()
+		} })
+
+    metrics = [new Date().getTime()]
+	terminal.run()
+	var metric = <get the terminal content as text and parse it to json, resulting in an array of numbers representing time after each command was excecuted>
+	metrics.push(metric)
+    averageMetrics.push(metrics.average())
+
+averageMetrics.plot()
+```
+
+### Implementations:
 
 -   [Implementation of measering time per run for N commands](./tests/performance/nCommands_timePerRun.html)
 -   [Implementation of measering time per command for N commands](./tests/performance/nCommands_timePerCommand.html)
