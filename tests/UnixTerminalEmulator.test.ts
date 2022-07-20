@@ -187,7 +187,6 @@ test("addCommand + pause + run => expect time diffrence from before and after ru
 	const testCommand: TerminalCommand = {
 		text: "echo foo",
 		writeSpeed: 0,
-		output: "foo",
 	}
 	const pauseTimeInMs = 1000
 
@@ -385,5 +384,57 @@ test("addCommands + history + run => add HISTSIZE - 1 commands, each with unique
 		commands.forEach((command) => {
 			expect(document.getElementById(terminalId)?.innerHTML.match(new RegExp(command.text, "g"))?.length).toBe(2)
 		})
+	})
+})
+
+test("addCommand + clear + run => expect terminal wrapper text, without enviroment specified, to be equal to a new empty input line", (done) => {
+	// arange
+	const emptyInputLineWithoutEnviromentVariable = "$ "
+	const testCommand: TerminalCommand = {
+		text: "echo foo",
+		writeSpeed: 0,
+		output: "bar",
+	}
+	const terminalWithoutEnviromentVariableId = randomUUID()
+	const terminalWithoutEnviromentVariable = new UnixTerminalEmulator({
+		wrapperId: terminalWithoutEnviromentVariableId,
+	})
+
+	// act
+	terminalWithoutEnviromentVariable.addCommand(testCommand).clear().run(() => {
+		done()
+		// assert
+		expect(document.getElementById(terminalWithoutEnviromentVariableId)?.innerHTML).not.toContain(testCommand.text)
+		expect(document.getElementById(terminalWithoutEnviromentVariableId)?.innerHTML).not.toContain(testCommand.output)
+		expect(document.getElementById(terminalWithoutEnviromentVariableId)?.innerHTML).toMatch(emptyInputLineWithoutEnviromentVariable)
+	})
+})
+
+test("addCommand + clear + run => expect terminal wrapper text, with enviroment specified, to be equal to a new empty input line", (done) => {
+	// arange
+	const emptyInputLineWithoutEnviromentVariable = "$ "
+	const enviroment = {
+		username: "root",
+		hostname: "localhost"
+	}
+	const emptyInputLineWithEnviromentVariable = enviroment.username + "@" + enviroment.hostname + ":" + emptyInputLineWithoutEnviromentVariable
+	const testCommand: TerminalCommand = {
+		text: "echo foo",
+		writeSpeed: 0,
+		output: "bar",
+	}
+	const terminalWithEnviromentVariableId = randomUUID()
+	const terminalWithEnviromentVariable = new UnixTerminalEmulator({
+		wrapperId: terminalWithEnviromentVariableId,
+		enviroment: enviroment
+	})
+
+	// act
+	terminalWithEnviromentVariable.addCommand(testCommand).clear().run(() => {
+		done()
+		// assert
+		expect(document.getElementById(terminalWithEnviromentVariableId)?.innerHTML).not.toContain(testCommand.text)
+		expect(document.getElementById(terminalWithEnviromentVariableId)?.innerHTML).not.toContain(testCommand.output)
+		expect(document.getElementById(terminalWithEnviromentVariableId)?.innerHTML).toContain(emptyInputLineWithEnviromentVariable)
 	})
 })

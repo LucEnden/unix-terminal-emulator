@@ -79,8 +79,7 @@ class UnixTerminalEmulator {
 		}
 		this.cursorElement.classList.add(this.options.cursorClassName!)
 
-		this.writeEnviromentLineToStdout()
-		this.writeInputLineStartToStdout()
+		this.writeNewInputLineToStdout()
 		this.appendCursor()
 	}
 
@@ -142,7 +141,7 @@ class UnixTerminalEmulator {
 	 * Hello, World!
 	 * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
 	 */
-	public echo = (text: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
+	public echo = (text: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
 		this.eventQueue.push({
 			command: {
 				text: "echo " + text,
@@ -161,7 +160,7 @@ class UnixTerminalEmulator {
 	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
 	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
 	 */
-	public history = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
+	public history = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
 		this.eventQueue.push({
 			command: {
 				text: "history",
@@ -201,11 +200,30 @@ class UnixTerminalEmulator {
 		return output.reverse().join("<br />");
 	}
 
-	// // todo: implement
-	// public clear = () => {
-	// 	return this
-	// }
+	/**
+	 * Emulates the clear command.
+	 *
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
+	 */
+	public clear = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		this.eventQueue.push({
+			command: {
+				text: "clear",
+				writeSpeed: writeSpeed,
+				pauseBeforeOutput: pauseBeforeOutput
+			},
+			logicAfter: () => {
+				this.wrapperElement.innerHTML = ""
+				this.writeNewInputLineToStdout()
+				this.appendCursor()
+			}
+		} as TerminalEvent)
+		return this
+	}
 
+	// todo: add support for pipeline commands
 	// // todo: implement
 	// public touch = (fileName: string) => {
 	// 	return this
@@ -247,27 +265,34 @@ class UnixTerminalEmulator {
 							this.writeToStdout(newOutput, 0, () => {
 								// After command output was written...
 								this.writeLineBreakToStdout()
-								this.writeEnviromentLineToStdout()
-								this.writeInputLineStartToStdout()
-
+								this.writeNewInputLineToStdout()
+								if (this.currentEvent!.logicAfter !== undefined) {
+									this.currentEvent!.logicAfter()
+								}
+								this.appendCursor()
 								setTimeout(() => {
-									this.appendCursor()
 									this.run(callback)
 								}, this.currentEvent!.delayAfter)
 							})
 						}, this.currentEvent!.command!.pauseBeforeOutput)
 					} else {
+						this.removeCursor()
 						this.writeLineBreakToStdout()
-						this.writeEnviromentLineToStdout()
-						this.writeInputLineStartToStdout()
-						setTimeout(() => this.run(callback), this.currentEvent!.delayAfter)
+						this.writeNewInputLineToStdout()
+						this.appendCursor()
+						if (this.currentEvent!.logicAfter !== undefined) {
+							this.currentEvent!.logicAfter()
+						}
+						setTimeout(() => {
+							this.run(callback)
+						}, this.currentEvent!.delayAfter)
 					}
 				})
 			} else {
 				// If the current events command is undefined, continue running...
 				setTimeout(() => {
 					this.run(callback)
-				}, this.currentEvent.delayAfter)
+				}, this.currentEvent!.delayAfter)
 			}
 		} else {
 			// If no event is left in the queue, run calback...
@@ -301,7 +326,17 @@ class UnixTerminalEmulator {
 	}
 
 	/**
-	 * If this.enviroment is not undefined, write "username@hostname:" to the stdout
+	 * Uses:  
+	 * ```this.writeEnviromentLineToStdout``` and ```this.writeInputLineStartToStdout```
+	 * 
+	 * To write a complete new empty input line to stdout
+	 */
+	private writeNewInputLineToStdout = () => {
+		this.writeEnviromentLineToStdout()
+		this.writeInputLineStartToStdout()
+	}
+	/**
+	 * If this.enviroment is not undefined, write the enviroment line ("username@hostname:") to the stdout
 	 */
 	private writeEnviromentLineToStdout = () => {
 		if (this.options.enviroment !== undefined && this.options.enviroment.hostname.length > 0 && this.options.enviroment.username.length > 0) {

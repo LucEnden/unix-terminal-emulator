@@ -3,13 +3,17 @@
  */
 export interface TerminalEvent {
 	/**
-	 * The delay before starting to the next event in miliseconds
-	 */
-	delayAfter: number
-	/**
 	 * The command associated with this event
 	 */
 	command?: TerminalCommand
+    /**
+     * Function to run after the event was finished
+     */
+    logicAfter?: () => any
+	/**
+	 * Time in ms to wait afters the event
+	 */
+	delayAfter?: number
 }
 
 /**

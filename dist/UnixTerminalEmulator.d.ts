@@ -68,7 +68,7 @@ declare class UnixTerminalEmulator {
      * Hello, World!
      * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
      */
-    echo: (text: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => this;
+    echo: (text: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     /**
      * Emulates the history command.
      *
@@ -76,8 +76,16 @@ declare class UnixTerminalEmulator {
      * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
      * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
      */
-    history: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => this;
+    history: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     private getHistoryOutput;
+    /**
+     * Emulates the clear command.
+     *
+     * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+     * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+     * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
+     */
+    clear: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     /**
      * Excecutes the created event sequence
      * @param callback Gets called when the sequence has finished
@@ -99,7 +107,14 @@ declare class UnixTerminalEmulator {
      */
     private getRandomIntegerInRange;
     /**
-     * If this.enviroment is not undefined, write "username@hostname:" to the stdout
+     * Uses:
+     * ```this.writeEnviromentLineToStdout``` and ```this.writeInputLineStartToStdout```
+     *
+     * To write a complete new empty input line to stdout
+     */
+    private writeNewInputLineToStdout;
+    /**
+     * If this.enviroment is not undefined, write the enviroment line ("username@hostname:") to the stdout
      */
     private writeEnviromentLineToStdout;
     /**
