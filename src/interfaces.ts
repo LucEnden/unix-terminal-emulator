@@ -98,12 +98,20 @@ export interface TerminalOptions {
 	 * @example
 	 * enviroment: undefined => "$ "
 	 * enviroment: { hostname: "localhost", username: "root" } => "root@localhost:$ "
-	 * @default undefined
+	 * @default { hostname: "localhost", username: "root" }
 	 */
-	enviroment?: {
+	enviroment: {
 		/** The hostname to set at the start of every new line */
 		hostname: string
 		/** The username to set at the start of every new line */
 		username: string
 	}
+}
+
+/**
+ * The file system type to use in a terminal instance
+ */
+export interface TerminalFileSystemType {
+	name: string
+	prohibitedFileNameCharecters: string[]
 }
