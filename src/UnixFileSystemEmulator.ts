@@ -1,5 +1,5 @@
 import { Graph } from "graphlib" // https://github.com/dagrejs/graphlib/wiki
-import { TerminalFileSystemType } from "./interfaces"
+import { TerminalFileSystemType, TerminalFileSystemUser } from "./interfaces"
 
 const Ext4 = {
 	name: "ext4",
@@ -12,10 +12,6 @@ class UnixFileSystemEmulator {
 	 */
 	private graph = new Graph({ compound: true, directed: true })
 	/**
-	 * The root user
-	 */
-	private readonly rootUsr = "root"
-	/**
 	 * The root directory of the file system
 	 */
 	private readonly rootDir = "/"
@@ -23,10 +19,20 @@ class UnixFileSystemEmulator {
 	 * The home directory
 	 */
 	private readonly homeDir = this.rootDir + "home/"
+
+	/**
+	 * The root user
+	 */
+	private readonly rootUsr: TerminalFileSystemUser = {
+		name: "root",
+		password: "password",
+		homeDir: this.homeDir,
+	}
 	/**
 	 * An array to keep track of existing users
 	 */
-	private readonly users = [] as string[]
+	private readonly users = [] as TerminalFileSystemUser[]
+	private currentUser: TerminalFileSystemUser
 	/**
 	 * The current working directory
 	 */
@@ -36,16 +42,26 @@ class UnixFileSystemEmulator {
 	 */
 	private fileSystemType: TerminalFileSystemType
 
-	constructor(user?: string) {
+	constructor(user?: TerminalFileSystemUser) {
 		this.newDir(this.rootDir)
 		this.newDir(this.homeDir)
 
 		this.currentDir = this.adduser(this.rootUsr) as string
-		if (user !== undefined && user !== this.rootUsr) {
+		this.currentUser = this.rootUsr
+		if (user !== undefined && user.name !== this.rootUsr.name) {
 			this.currentDir = this.adduser(user) as string
+			this.currentUser = user
 		}
 
 		this.fileSystemType = Ext4
+	}
+
+	/**
+	 *
+	 * @returns {string} "~" if the current directory is inside the users home directroy, otherwise it returns the absolute path to the current directory
+	 */
+	public GetCurrentDirectory = () => {
+		return this.currentDir.startsWith(this.currentUser.homeDir) ? this.currentDir.replace(this.currentUser.homeDir, "~") + this.currentDir : this.currentDir
 	}
 
 	/**
@@ -63,7 +79,8 @@ class UnixFileSystemEmulator {
 
 			dirName = this.replaceRepetetiveForwardslashes(dirName)
 			dirName = this.resolveRelativeDirString(dirName)
-			
+			dirName = dirName.replace("%20", " ")
+
 			// check if the path to the new directory exists
 			var dirSplit = dirName.split("/").filter(s => {
 				return s !== ""
@@ -77,6 +94,8 @@ class UnixFileSystemEmulator {
 				errors.push(new RangeError(`mkdir: cannot create directory ‘${dirName}’: No such file or directory`))
 			} else {
 				this.newDir(dirName, parent)
+				this.newDir(".", dirName)
+				this.newDir("..", dirName)
 			}
 		}
 		return errors
@@ -84,14 +103,18 @@ class UnixFileSystemEmulator {
 
 	/**
 	 * Adds a new user to the filesystem if it doesnt already exist
-	 * @param {string} user the user to add to the file system
-	 * @returns {string|RangeError} the full path to the user directory
-	 * @throws {RangeError} The user '```user```' already exists.
+	 * @param {TerminalFileSystemUser} user the user to add to the file system
+	 * @returns {string|RangeError} range error if the user already exists, else the full path to the user directory
 	 */
-	public adduser = (user: string): string | RangeError => {
-		var output = this.newUserDir(user)
-		if (output === undefined) return new RangeError(`adduser: The user '${user}' already exists.`)
-		return output
+	public adduser = (user: TerminalFileSystemUser): string | RangeError => {
+		if (this.users.some((u) => {
+			return u.name === user.name
+		})) {
+			return new RangeError(`adduser: The user '${user.name}' already exists.`)
+		} else {
+			this.users.push(user)
+			return this.newUserDir(user)
+		}
 	}
 
 	/**
@@ -136,8 +159,8 @@ class UnixFileSystemEmulator {
 	}
 
 	/**
-	 * Resolves directory strings with relative paths and returns the absolute path.  
-	 * If ```dir``` starts with ./, it will be replaced with ```this.currentDir```.  
+	 * Resolves directory strings with relative paths and returns the absolute path.
+	 * If ```dir``` starts with ./, it will be replaced with ```this.currentDir```.
 	 * If ```dir``` doesnt end with /, ```"/"``` will be appended to the resolved directory string.
 	 * @param {string} dir the directory path to resolve
 	 * @returns {string} the resolved relative directory string
@@ -170,44 +193,44 @@ class UnixFileSystemEmulator {
 				output = output.slice(0, output.lastIndexOf("/")) + "/"
 			}
 		}
-		
+
 		if (!output.endsWith("/")) {
 			output = output + "/"
 		}
-		
+
 		return output
 	}
 
 	/**
-	 * If ```this.users``` does not include ```user```, adds a new user directory as child of the parent directory, which defaults to the home directory.
-	 * @param {string} user the user to create the home directory for
-	 * @param {string} parent the parent directory of the new home directory (default is ```this.homeDir```)
-	 * @returns {string|undefined} undefined if user already exists, else the path to the users home directory
+	 * Adds a new user directory as child of the parent directory, which defaults to the home directory.
+	 * @param {TerminalFileSystemUser} user the user to create the home directory for
+	 * @returns {string} the path to the users home directory
 	 */
-	private newUserDir = (user: string, parent: string = this.homeDir): string | undefined => {
-		if (!this.users.includes(user)) {
-			return this.newDir(parent + user, parent)
+	private newUserDir = (user: TerminalFileSystemUser): string => {
+		if (user.homeDir === undefined) {
+			user.homeDir = this.homeDir
+		} else {
+			if (!user.homeDir.endsWith("/")) {
+				user.homeDir = user.homeDir + "/"
+			}
 		}
-		return undefined
+		return this.newDir(user.homeDir + user.name, user.homeDir)
 	}
 
 	/**
 	 * Creates a new directory. Resolves the absolute path before creation.
 	 * @param {string} dir the directory to create
 	 * @param {string} parent the parent of the new directory (default is ```this.rootDir```)
-	 * @returns {string|undefined} ```dir``` if the dir was created, ```undefined``` otherwise
+	 * @returns {string} ```dir``` that was created
 	 */
-	private newDir = (dir: string, parent: string = this.rootDir): string | undefined => {
+	private newDir = (dir: string, parent: string = this.rootDir): string => {
 		dir = this.replaceRepetetiveForwardslashes(dir)
 		dir = this.resolveRelativeDirString(dir)
-		if (!this.dirExists(dir)) {
-			this.graph.setNode(dir, dir)
-			if (dir !== this.rootDir) {
-				this.graph.setParent(dir, parent)
-			}
-			return dir
+		this.graph.setNode(dir, dir)
+		if (dir !== this.rootDir) {
+			this.graph.setParent(dir, parent)
 		}
-		return undefined
+		return dir
 	}
 }
 

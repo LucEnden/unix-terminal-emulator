@@ -24,6 +24,10 @@ declare class UnixTerminalEmulator {
      */
     private options;
     /**
+     * The file system for this terminal instance.
+     */
+    private fileSystem;
+    /**
      * The HTML element to which all text should be written to.
      */
     private wrapperElement;
@@ -86,6 +90,7 @@ declare class UnixTerminalEmulator {
      * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
      */
     clear: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
+    mkdir: (dirNames: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => this;
     /**
      * Excecutes the created event sequence
      * @param callback Gets called when the sequence has finished

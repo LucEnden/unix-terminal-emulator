@@ -100,7 +100,7 @@ export interface TerminalOptions {
 	 * enviroment: { hostname: "localhost", username: "root" } => "root@localhost:$ "
 	 * @default { hostname: "localhost", username: "root" }
 	 */
-	enviroment: {
+	enviroment?: {
 		/** The hostname to set at the start of every new line */
 		hostname: string
 		/** The username to set at the start of every new line */
@@ -114,4 +114,10 @@ export interface TerminalOptions {
 export interface TerminalFileSystemType {
 	name: string
 	prohibitedFileNameCharecters: string[]
+}
+
+export interface TerminalFileSystemUser {
+	name: string
+	password: string
+	homeDir?: string | undefined
 }

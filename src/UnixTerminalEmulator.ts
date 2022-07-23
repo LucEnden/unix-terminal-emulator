@@ -1,7 +1,9 @@
 import { TerminalCommand, TerminalOptions, TerminalEvent } from "./interfaces"
+import UnixFileSystemEmulator from "./UnixFileSystemEmulator"
 import "./styles.css"
 
-// TODO: add SS64 links to every command jsdoc
+// TODO: add SS64 links to every command method jsdoc
+// TODO: implement options for every command
 
 /**
  * Emulates a unix terminal by typing out commands and there specified outputs.
@@ -35,6 +37,11 @@ class UnixTerminalEmulator {
 		cursorAnimation: "static",
 		enviroment: undefined,
 	}
+
+	/**
+	 * The file system for this terminal instance.
+	 */
+	private fileSystem: UnixFileSystemEmulator
 	/**
 	 * The HTML element to which all text should be written to.
 	 */
@@ -51,6 +58,8 @@ class UnixTerminalEmulator {
 				...options,
 			}
 		}
+
+		this.fileSystem = new UnixFileSystemEmulator()
 
 		var wrapper = document.getElementById(this.options.wrapperId!)
 		if (wrapper === null) {
@@ -222,14 +231,33 @@ class UnixTerminalEmulator {
 		} as TerminalEvent)
 		return this
 	}
+	
+	// todo: implement
+	public mkdir = (dirNames: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
+		this.eventQueue.push({
+			command: {
+				text: "mkdir " + dirNames,
+				writeSpeed: writeSpeed,
+				output: () => {
+					var output = ""
+					var errors = this.fileSystem.mkdir(dirNames)
+					for (var i = 0; i < errors.length; i++) {
+						output += errors[i].message
+						if (i != errors.length - 1) {
+							output = output + "<br>"
+						}
+					}
+					return output
+				},
+				pauseBeforeOutput: pauseBeforeOutput
+			}
+		} as TerminalEvent)
+		return this
+	}
 
 	// todo: add support for pipeline commands
 	// // todo: implement
 	// public touch = (fileName: string) => {
-	// 	return this
-	// }
-	// // todo: implement
-	// public mkdir = (dirName: string) => {
 	// 	return this
 	// }
 	// // todo: implement
