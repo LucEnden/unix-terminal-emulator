@@ -26,7 +26,7 @@ class UnixFileSystemEmulator {
 	private readonly rootUsr: TerminalFileSystemUser = {
 		name: "root",
 		password: "password",
-		homeDir: this.homeDir,
+		homeDir: this.homeDir + "root/",
 	}
 	/**
 	 * An array to keep track of existing users
@@ -42,7 +42,7 @@ class UnixFileSystemEmulator {
 	 */
 	private fileSystemType: TerminalFileSystemType
 
-	constructor(user?: TerminalFileSystemUser) {
+	constructor(user?: TerminalFileSystemUser | undefined) {
 		this.newDir(this.rootDir)
 		this.newDir(this.homeDir)
 
@@ -57,11 +57,11 @@ class UnixFileSystemEmulator {
 	}
 
 	/**
-	 *
-	 * @returns {string} "~" if the current directory is inside the users home directroy, otherwise it returns the absolute path to the current directory
+	 * @returns {string} The absolute path to the current directory.  
+	 * If the current directory is inside the current users home folder, the start of the directory is replaced with "~".
 	 */
 	public GetCurrentDirectory = () => {
-		return this.currentDir.startsWith(this.currentUser.homeDir) ? this.currentDir.replace(this.currentUser.homeDir, "~") + this.currentDir : this.currentDir
+		return this.currentDir.startsWith(this.currentUser.homeDir) ? this.currentDir.replace(this.currentUser.homeDir, "~") : this.currentDir
 	}
 
 	/**
@@ -112,14 +112,15 @@ class UnixFileSystemEmulator {
 		})) {
 			return new RangeError(`adduser: The user '${user.name}' already exists.`)
 		} else {
+			user.homeDir = this.newUserDir(user)
 			this.users.push(user)
-			return this.newUserDir(user)
+			return user.homeDir
 		}
 	}
 
 	/**
 	 * Emulates the pwd command.
-	 * @returns Thhe current working directory
+	 * @returns The full absolute path to the current working directory
 	 */
 	public pwd = () => {
 		return this.currentDir
@@ -208,7 +209,7 @@ class UnixFileSystemEmulator {
 	 */
 	private newUserDir = (user: TerminalFileSystemUser): string => {
 		if (user.homeDir === undefined) {
-			user.homeDir = this.homeDir
+			user.homeDir = this.homeDir + user.name + "/"
 		} else {
 			if (!user.homeDir.endsWith("/")) {
 				user.homeDir = user.homeDir + "/"

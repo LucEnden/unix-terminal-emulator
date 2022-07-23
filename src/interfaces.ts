@@ -112,12 +112,30 @@ export interface TerminalOptions {
  * The file system type to use in a terminal instance
  */
 export interface TerminalFileSystemType {
+	/**
+	 * The name of the file system.
+	 */
 	name: string
+	/**
+	 * Prohibited file name charecters for this file system
+	 */
 	prohibitedFileNameCharecters: string[]
 }
 
+/**
+ * A user to be used within the filesystem of the terminal instance.
+ */
 export interface TerminalFileSystemUser {
+	/**
+	 * The name of the user
+	 */
 	name: string
+	/**
+	 * The password of the user
+	 */
 	password: string
+	/**
+	 * The home directory of the user.
+	 */
 	homeDir?: string | undefined
 }

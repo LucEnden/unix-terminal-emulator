@@ -9,7 +9,6 @@ test("adduser => should return an error if adding root user", () => {
 	}
 
 	const adduserOutput = fs.adduser(secondRootUser)
-	// console.log("adding user", adduserOutput)
 
 	expect(adduserOutput).toBeInstanceOf(RangeError)
 })

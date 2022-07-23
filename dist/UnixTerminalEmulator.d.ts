@@ -90,7 +90,19 @@ declare class UnixTerminalEmulator {
      * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
      */
     clear: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
-    mkdir: (dirNames: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => this;
+    /**
+     * Emulates the mkdir command.
+     * @param {string} dirNames 					A space delimited string containing all the directories to create
+     * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+     * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+     * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
+     */
+    mkdir: (dirNames: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
+    /**
+     * Emulates the pwd command.
+     * @returns The full absolute path to the current working directory
+     */
+    pwd: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => this;
     /**
      * Excecutes the created event sequence
      * @param callback Gets called when the sequence has finished
@@ -113,9 +125,13 @@ declare class UnixTerminalEmulator {
     private getRandomIntegerInRange;
     /**
      * Uses:
-     * ```this.writeEnviromentLineToStdout``` and ```this.writeInputLineStartToStdout```
+     * ```
+        this.writeEnviromentLineToStdout()
+        this.writeRelativeWorkingDirectoryToStdout()
+        this.writeInputLineStartToStdout()
+     * ```
      *
-     * To write a complete new empty input line to stdout
+     * to write a complete new empty input line to stdout
      */
     private writeNewInputLineToStdout;
     /**
@@ -126,6 +142,10 @@ declare class UnixTerminalEmulator {
      * Writes "$ " to the stdout
      */
     private writeInputLineStartToStdout;
+    /**
+     * Writes ```this.fileSystem.GetCurrentDirectory()``` to the stdout
+     */
+    private writeRelativeWorkingDirectoryToStdout;
     /**
      * Writes "\n" (\<br />) to the stdout
      */

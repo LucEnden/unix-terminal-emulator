@@ -4,6 +4,7 @@ import "./styles.css"
 
 // TODO: add SS64 links to every command method jsdoc
 // TODO: implement options for every command
+// TODO: add support for pipeline commands
 
 /**
  * Emulates a unix terminal by typing out commands and there specified outputs.
@@ -117,7 +118,7 @@ class UnixTerminalEmulator {
 	 * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
 	 */
 	public addCommands = (commands: TerminalCommand[]): UnixTerminalEmulator => {
-		commands.forEach((c) => {
+		commands.forEach(c => {
 			this.eventQueue.push({
 				delayAfter: 0,
 				command: c,
@@ -175,14 +176,14 @@ class UnixTerminalEmulator {
 				text: "history",
 				writeSpeed: writeSpeed,
 				output: this.getHistoryOutput,
-				pauseBeforeOutput: pauseBeforeOutput
+				pauseBeforeOutput: pauseBeforeOutput,
 			},
 		} as TerminalEvent)
 		return this
 	}
 	private getHistoryOutput = () => {
 		var output = [] as string[]
-		var j = 0;
+		var j = 0
 		for (var i = this.historyStack.length; i > 0; i--) {
 			var newOutputLine = ""
 
@@ -206,7 +207,7 @@ class UnixTerminalEmulator {
 			j++
 			if (j >= this.HISTSIZE) break
 		}
-		return output.reverse().join("<br />");
+		return output.reverse().join("<br />")
 	}
 
 	/**
@@ -221,19 +222,25 @@ class UnixTerminalEmulator {
 			command: {
 				text: "clear",
 				writeSpeed: writeSpeed,
-				pauseBeforeOutput: pauseBeforeOutput
+				pauseBeforeOutput: pauseBeforeOutput,
 			},
 			logicAfter: () => {
 				this.wrapperElement.innerHTML = ""
 				this.writeNewInputLineToStdout()
 				this.appendCursor()
-			}
+			},
 		} as TerminalEvent)
 		return this
 	}
-	
-	// todo: implement
-	public mkdir = (dirNames: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
+
+	/**
+	 * Emulates the mkdir command.
+	 * @param {string} dirNames 					A space delimited string containing all the directories to create
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
+	 */
+	public mkdir = (dirNames: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
 		this.eventQueue.push({
 			command: {
 				text: "mkdir " + dirNames,
@@ -249,19 +256,34 @@ class UnixTerminalEmulator {
 					}
 					return output
 				},
-				pauseBeforeOutput: pauseBeforeOutput
-			}
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
 		} as TerminalEvent)
 		return this
 	}
 
-	// todo: add support for pipeline commands
+	/**
+	 * Emulates the pwd command.
+	 * @returns The full absolute path to the current working directory
+	 */
+	public pwd = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
+		this.eventQueue.push({
+			command: {
+				text: "pwd",
+				writeSpeed: writeSpeed,
+				output: () => {
+					return this.fileSystem.pwd()
+				},
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
+		} as TerminalEvent)
+		return this
+	}
+
 	// // todo: implement
 	// public touch = (fileName: string) => {
 	// 	return this
 	// }
-	// // todo: implement
-	// public pwd = () => {}
 	// // todo: implement
 	// public vim = (fileName: string, fileContentToType: string[]) => {
 	// 	return this
@@ -352,15 +374,19 @@ class UnixTerminalEmulator {
 	private getRandomIntegerInRange = (min: number, max: number) => {
 		return Math.floor(Math.random() * (max - min + 1) + min)
 	}
-
 	/**
 	 * Uses:  
-	 * ```this.writeEnviromentLineToStdout``` and ```this.writeInputLineStartToStdout```
+	 * ```
+		this.writeEnviromentLineToStdout()
+		this.writeRelativeWorkingDirectoryToStdout()
+		this.writeInputLineStartToStdout()
+	 * ```  
 	 * 
-	 * To write a complete new empty input line to stdout
+	 * to write a complete new empty input line to stdout
 	 */
 	private writeNewInputLineToStdout = () => {
 		this.writeEnviromentLineToStdout()
+		this.writeRelativeWorkingDirectoryToStdout()
 		this.writeInputLineStartToStdout()
 	}
 	/**
@@ -376,6 +402,12 @@ class UnixTerminalEmulator {
 	 */
 	private writeInputLineStartToStdout = () => {
 		this.wrapperElement.innerHTML += "$ "
+	}
+	/**
+	 * Writes ```this.fileSystem.GetCurrentDirectory()``` to the stdout
+	 */
+	private writeRelativeWorkingDirectoryToStdout = () => {
+		this.wrapperElement.innerHTML += this.fileSystem.GetCurrentDirectory()
 	}
 	/**
 	 * Writes "\n" (\<br />) to the stdout
