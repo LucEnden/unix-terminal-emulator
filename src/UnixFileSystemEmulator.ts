@@ -25,8 +25,7 @@ class UnixFileSystemEmulator {
 	 */
 	private readonly rootUsr: TerminalFileSystemUser = {
 		name: "root",
-		password: "password",
-		homeDir: this.homeDir + "root/",
+		password: "password"
 	}
 	/**
 	 * An array to keep track of existing users
@@ -112,7 +111,8 @@ class UnixFileSystemEmulator {
 		})) {
 			return new RangeError(`adduser: The user '${user.name}' already exists.`)
 		} else {
-			user.homeDir = this.newUserDir(user)
+			var homeDir = this.newUserDir(user)
+			user.homeDir = homeDir
 			this.users.push(user)
 			return user.homeDir
 		}
@@ -215,7 +215,7 @@ class UnixFileSystemEmulator {
 				user.homeDir = user.homeDir + "/"
 			}
 		}
-		return this.newDir(user.homeDir + user.name, user.homeDir)
+		return this.newDir(user.homeDir/*, parrent TODO: fix this line*/)
 	}
 
 	/**

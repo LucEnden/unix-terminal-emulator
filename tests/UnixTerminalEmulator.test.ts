@@ -409,32 +409,3 @@ test("addCommand + clear + run => expect terminal wrapper text, without envirome
 		expect(document.getElementById(terminalWithoutEnviromentVariableId)?.innerHTML).toMatch(emptyInputLineWithoutEnviromentVariable)
 	})
 })
-
-test("addCommand + clear + run => expect terminal wrapper text, with enviroment specified, to be equal to a new empty input line", (done) => {
-	// arange
-	const emptyInputLineWithoutEnviromentVariable = "$ "
-	const enviroment = {
-		username: "root",
-		hostname: "localhost"
-	}
-	const emptyInputLineWithEnviromentVariable = enviroment.username + "@" + enviroment.hostname + ":" + emptyInputLineWithoutEnviromentVariable
-	const testCommand: TerminalCommand = {
-		text: "echo foo",
-		writeSpeed: 0,
-		output: "bar",
-	}
-	const terminalWithEnviromentVariableId = randomUUID()
-	const terminalWithEnviromentVariable = new UnixTerminalEmulator({
-		wrapperId: terminalWithEnviromentVariableId,
-		enviroment: enviroment
-	})
-
-	// act
-	terminalWithEnviromentVariable.addCommand(testCommand).clear().run(() => {
-		done()
-		// assert
-		expect(document.getElementById(terminalWithEnviromentVariableId)?.innerHTML).not.toContain(testCommand.text)
-		expect(document.getElementById(terminalWithEnviromentVariableId)?.innerHTML).not.toContain(testCommand.output)
-		expect(document.getElementById(terminalWithEnviromentVariableId)?.innerHTML).toContain(emptyInputLineWithEnviromentVariable)
-	})
-})

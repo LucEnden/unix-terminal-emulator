@@ -32,7 +32,6 @@ declare class UnixFileSystemEmulator {
     private fileSystemType;
     constructor(user?: TerminalFileSystemUser | undefined);
     /**
-     *
      * @returns {string} The absolute path to the current directory.
      * If the current directory is inside the current users home folder, the start of the directory is replaced with "~".
      */
