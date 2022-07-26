@@ -61,7 +61,6 @@ test("constructor => expect cursor element to get created during object initiali
 })
 test("constructor => expect cursor element in DOM to get the ID, CSS class, character and animation if they are specified in the options during object initialization, otherwise default values should be set", () => {
 	// arange
-	const defaultTerminalCursor = "|"
 	const wrapperId = randomUUID()
 	const cursorId = randomUUID()
 	const options: TerminalOptions = {
@@ -87,51 +86,6 @@ test("constructor => expect cursor element in DOM to get the ID, CSS class, char
 	expect(cursorWithoutOptions).not.toBeUndefined()
 	expect(cursorWithoutOptions?.id).toEqual(defaultTerminalCursorId)
 	expect(cursorWithoutOptions?.classList.contains(defaultTerminalCursorId)).toBe(true)
-
-	// innerText is not implemented in jest https://stackoverflow.com/questions/47902335/innertext-is-undefined-in-jest-test#answer-47902938
-	// expect(cursorWithOptions?.innerText).toEqual(options.cursor)
-	// expect(cursorWithoutOptions?.innerText).toEqual(defaultTerminalCursor)
-})
-test("constructor => expect cursor element in DOM to get animation class based on settings, otherwise default animation should be applied", () => {
-	// arange
-	const optionsWithAnimationFluid: TerminalOptions = {
-		wrapperId: "wrapper___with___fluid___cursor___animation",
-		cursorId: "cursor___with___fluid___animation",
-		cursorAnimation: "fluid",
-	}
-	const fluidAnimationCssClassAndKeyframeName = "terminal___cursor___fluid"
-	const optionsWithAnimationStatic: TerminalOptions = {
-		wrapperId: "wrapper___with___static___cursor___animation",
-		cursorId: "cursor___with___static___animation",
-		cursorAnimation: "static",
-	}
-	const staticAnimationCssClassAndKeyframeName = "terminal___cursor___static"
-	const optionsWithAnimationUndefined: TerminalOptions = {
-		wrapperId: "wrapper___with___undefined___cursor___animation",
-		cursorId: "cursor___with___undefined___animation",
-		cursorAnimation: undefined,
-	}
-	const undefinedAnimationCssClassAndKeyframeName = "terminal___cursor___none"
-
-	// act
-	const terminalWithFluidCursor = new UnixTerminalEmulator(optionsWithAnimationFluid)
-	const cursorWithFluidAnimation = document.getElementById(optionsWithAnimationFluid.cursorId!)
-
-	const terminalWithStaticCursor = new UnixTerminalEmulator(optionsWithAnimationStatic)
-	const cursorWithStaticAnimation = document.getElementById(optionsWithAnimationStatic.cursorId!)
-
-	const terminalWithUndefinedCursor = new UnixTerminalEmulator(optionsWithAnimationUndefined)
-	const cursorWithUndefinedAnimation = document.getElementById(optionsWithAnimationUndefined.cursorId!)
-
-	// assert
-	expect(cursorWithFluidAnimation).not.toBeNull()
-	expect(cursorWithFluidAnimation?.classList.contains(fluidAnimationCssClassAndKeyframeName)).toBe(true)
-
-	expect(cursorWithStaticAnimation).not.toBeNull()
-	expect(cursorWithStaticAnimation?.classList.contains(staticAnimationCssClassAndKeyframeName)).toBe(true)
-
-	expect(cursorWithUndefinedAnimation).not.toBeNull()
-	expect(cursorWithUndefinedAnimation?.classList.contains(undefinedAnimationCssClassAndKeyframeName)).toBe(true)
 })
 
 // ENVIROMENT TESTS

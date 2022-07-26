@@ -105,6 +105,15 @@ export interface TerminalOptions {
         username: string;
     };
 }
+export interface StdoutCursorElement extends StdoutChildElement {
+    char: string;
+    css: "fluid" | "static" | string | undefined;
+}
+export interface StdoutChildElement {
+    id: string;
+    css?: string;
+    element?: HTMLElement | undefined;
+}
 /**
  * The file system type to use in a terminal instance
  */
@@ -134,4 +143,21 @@ export interface TerminalFileSystemUser {
      * The home directory of the user.
      */
     homeDir?: string | undefined;
+}
+/**
+ *
+ */
+export interface VimFileRow {
+    /**
+     * The new row to insert
+     * @type {string}
+     */
+    text: string;
+    /**
+     * The pause length between each charater being written in miliseconds.
+     * "neutral" = random integer between 80 and 120 miliseconds.
+     * 0 = instant
+     * @type {"neutral"|number}
+     */
+    writeSpeed: "neutral" | number;
 }

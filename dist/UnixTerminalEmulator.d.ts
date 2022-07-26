@@ -23,6 +23,7 @@ declare class UnixTerminalEmulator {
      * Default values for TerminalOptions.
      */
     private options;
+    private stdout;
     /**
      * The file system for this terminal instance.
      */
@@ -31,10 +32,6 @@ declare class UnixTerminalEmulator {
      * The HTML element to which all text should be written to.
      */
     private wrapperElement;
-    /**
-     * The HTML element that acts as the cursor
-     */
-    private cursorElement;
     constructor(options?: TerminalOptions);
     /**
      * Based on histsize variable in bash: echo $HISTSIZE
@@ -100,29 +97,25 @@ declare class UnixTerminalEmulator {
     mkdir: (dirNames: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     /**
      * Emulates the pwd command.
-     * @returns The full absolute path to the current working directory
+     * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+     * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+     * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
      */
-    pwd: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => this;
+    pwd: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
+    /**
+     * Emulates the touch command.
+     * @param {string} fileName 					The file to touch
+     * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+     * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+     * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
+     * @returns
+     */
+    touch: (fileName: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     /**
      * Excecutes the created event sequence
      * @param callback Gets called when the sequence has finished
      */
     run: (callback?: () => void) => void;
-    /**
-     * Removes the cursor from the wrapper document
-     */
-    private removeCursor;
-    /**
-     * Appends the cursor element to the wrapper element
-     */
-    private appendCursor;
-    /**
-     * Gets a random integer in the range from min to max, inclusif
-     * @param {Number} min Minimum number to generate
-     * @param {Number} max Maximum number to generate
-     * @returns random integer in the range from min to max, inclusif
-     */
-    private getRandomIntegerInRange;
     /**
      * Uses:
      * ```
@@ -131,7 +124,9 @@ declare class UnixTerminalEmulator {
         this.writeInputLineStartToStdout()
      * ```
      *
-     * to write a complete new empty input line to stdout
+     * to write a complete new empty input line to stdout.
+     *
+     * Also appends the cursor afterwards
      */
     private writeNewInputLineToStdout;
     /**
@@ -150,16 +145,5 @@ declare class UnixTerminalEmulator {
      * Writes "\n" (\<br />) to the stdout
      */
     private writeLineBreakToStdout;
-    /**
-     * Writes the specified text to the terminal wrapper.
-     *
-     * If speed === 0, it will remove the cursor from the wrapper.
-     * If speed > 0, the cursor will remove before and appended after every character.
-     * @param text text to write to stdout
-     * @param speed speed at which each character is written to stdout
-     * @param callback gets excecuted when writing to stdout has finished
-     * @param i used for recursion purposes
-     */
-    private writeToStdout;
 }
 export default UnixTerminalEmulator;

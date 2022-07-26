@@ -60,7 +60,21 @@ class UnixFileSystemEmulator {
 	 * If the current directory is inside the current users home folder, the start of the directory is replaced with "~".
 	 */
 	public GetCurrentDirectory = () => {
-		return this.currentDir.startsWith(this.currentUser.homeDir) ? this.currentDir.replace(this.currentUser.homeDir, "~") : this.currentDir
+		return this.currentDir.startsWith(this.currentUser.homeDir!) ? this.currentDir.replace(this.currentUser.homeDir!, "~") : this.currentDir
+	}
+
+	/**
+	 * Emulates the touch command.
+	 * @param file file to update timestamps for
+	 */
+	public touch = (file: string) => {
+		if (!file.includes("/")) {
+			this.newFile(file, this.currentDir)
+		} else {
+			var fullPath = this.resolveRelativePathString(file)
+			var parent = this.resolveParentDir(file)
+			this.newFile(fullPath, parent)
+		}
 	}
 
 	/**
@@ -77,7 +91,7 @@ class UnixFileSystemEmulator {
 			var dirName = dirs[i]
 
 			dirName = this.replaceRepetetiveForwardslashes(dirName)
-			dirName = this.resolveRelativeDirString(dirName)
+			dirName = this.resolveRelativePathString(dirName)
 			dirName = dirName.replace("%20", " ")
 
 			// check if the path to the new directory exists
@@ -86,8 +100,8 @@ class UnixFileSystemEmulator {
 			})
 			dirSplit.splice(-1)
 			var parent = dirSplit.join("/")
-			if (!parent.startsWith("/")) parent = "/" + parent
-			if (!parent.endsWith("/")) parent = parent + "/"
+			parent = this.prependSlashToStartOfPath(parent)
+			parent = this.appendSlashToEndOfPath(parent)
 
 			if (!this.graph.hasNode(parent)) {
 				errors.push(new RangeError(`mkdir: cannot create directory ‘${dirName}’: No such file or directory`))
@@ -132,8 +146,8 @@ class UnixFileSystemEmulator {
 	 * @returns {string|RangeError} If the directory exists, returns the new working directory, RangeError otherwise
 	 */
 	public cd = (dir: string): string | RangeError => {
-		dir = this.resolveRelativeDirString(dir)
-		if (!this.dirExists(dir)) {
+		dir = this.resolveRelativePathString(dir)
+		if (!this.pathExists(dir)) {
 			return new RangeError(`-bash: cd: ${dir}: No such file or directory`)
 		}
 		this.currentDir = dir
@@ -141,12 +155,12 @@ class UnixFileSystemEmulator {
 	}
 
 	/**
-	 * Checks if the dir string exists as a node in the filesystem graph
-	 * @param {string} dir The directory path to check if it exsits
-	 * @returns {boolean} ```true``` if the dir string exists as a node in the filesystem graph, ```false``` otherwise
+	 * Checks if the path string exists as a node in the filesystem graph
+	 * @param {string} path The path to check if it exsits
+	 * @returns {boolean} ```true``` if the path string exists as a node in the filesystem graph, ```false``` otherwise
 	 */
-	private dirExists = (dir: string): boolean => {
-		return this.graph.hasNode(dir)
+	private pathExists = (path: string): boolean => {
+		return this.graph.hasNode(path)
 	}
 
 	/**
@@ -160,29 +174,28 @@ class UnixFileSystemEmulator {
 	}
 
 	/**
-	 * Resolves directory strings with relative paths and returns the absolute path.
-	 * If ```dir``` starts with ./, it will be replaced with ```this.currentDir```.
-	 * If ```dir``` doesnt end with /, ```"/"``` will be appended to the resolved directory string.
-	 * @param {string} dir the directory path to resolve
+	 * Resolves path strings with relative paths and returns the absolute path.
+	 * If ```path``` starts with ./, it will be replaced with ```this.currentDir```.
+	 * @param {string} path the directory path to resolve
 	 * @returns {string} the resolved relative directory string
 	 */
-	private resolveRelativeDirString = (dir: string): string => {
-		if (!dir.startsWith("/") && !dir.startsWith("./")) {
-			dir = "./" + dir
+	private resolveRelativePathString = (path: string): string => {
+		if (!path.startsWith("/") && !path.startsWith("./")) {
+			path = "./" + path
 		}
 
-		if (dir.startsWith("./")) {
-			dir = this.currentDir + dir.slice(2)
+		if (path.startsWith("./")) {
+			path = this.currentDir + path.slice(2)
 		}
-		if (dir.startsWith("../")) {
-			dir = this.currentDir.slice(0, this.currentDir.lastIndexOf("/"))
-			dir = dir.slice(0, dir.lastIndexOf("/"))
-			dir = dir.slice(0, dir.lastIndexOf("/")) + "/"
+		if (path.startsWith("../")) {
+			path = this.currentDir.slice(0, this.currentDir.lastIndexOf("/"))
+			path = path.slice(0, path.lastIndexOf("/"))
+			path = path.slice(0, path.lastIndexOf("/")) + "/"
 		}
 
 		var output = ""
-		for (var i = 0; i < dir.length; i++) {
-			output = output + dir[i]
+		for (var i = 0; i < path.length; i++) {
+			output = output + path[i]
 			if (output.match(/(?<=\/)(\.\.\/)+$/)) {
 				// /a/b/../ => /a/
 				output = output.slice(0, output.lastIndexOf("/"))
@@ -195,11 +208,23 @@ class UnixFileSystemEmulator {
 			}
 		}
 
-		if (!output.endsWith("/")) {
-			output = output + "/"
-		}
-
 		return output
+	}
+
+	/**
+	 * Resolves the parent directory of ```path```
+	 * @param {string} path the path to get the parent directory of
+	 * @returns {string} parent directory of ```path```
+	 */
+	private resolveParentDir = (path: string): string => {
+		if (!path.includes("/")) return path
+		path = this.replaceRepetetiveForwardslashes(path)
+		// /home/user/
+		if (path.endsWith("/")) path = path.slice(0, path.lastIndexOf("/"))
+		// /home/user
+		path = path.slice(0, path.lastIndexOf("/"))
+		// /home/
+		return path
 	}
 
 	/**
@@ -211,11 +236,29 @@ class UnixFileSystemEmulator {
 		if (user.homeDir === undefined) {
 			user.homeDir = this.homeDir + user.name + "/"
 		} else {
-			if (!user.homeDir.endsWith("/")) {
-				user.homeDir = user.homeDir + "/"
-			}
+			user.homeDir = this.appendSlashToEndOfPath(user.homeDir)
 		}
-		return this.newDir(user.homeDir/*, parrent TODO: fix this line*/)
+		return this.newDir(user.homeDir, this.resolveParentDir(user.homeDir))
+	}
+
+	/**
+	 * If path does not end with ```"/"```, appends ```"/"``` to path and returns it
+	 * @param {string} path path to append ```"/"``` to
+	 * @returns {string} path with ```"/"``` at the end
+	 */
+	private appendSlashToEndOfPath = (path: string): string => {
+		if (!path.endsWith("/")) path = path + "/"
+		return path
+	}
+
+	/**
+	 * If path does not start with ```"/"```, prepend ```"/"``` to path and returns it
+	 * @param {string} path path to prepend ```"/"``` to
+	 * @returns {string} path with ```"/"``` at the start
+	 */
+	private prependSlashToStartOfPath = (path: string): string => {
+		if (!path.startsWith("/")) path =  "/" + path
+		return path
 	}
 
 	/**
@@ -226,12 +269,21 @@ class UnixFileSystemEmulator {
 	 */
 	private newDir = (dir: string, parent: string = this.rootDir): string => {
 		dir = this.replaceRepetetiveForwardslashes(dir)
-		dir = this.resolveRelativeDirString(dir)
+		dir = this.resolveRelativePathString(dir)
+		dir = this.appendSlashToEndOfPath(dir)
 		this.graph.setNode(dir, dir)
 		if (dir !== this.rootDir) {
 			this.graph.setParent(dir, parent)
 		}
 		return dir
+	}
+
+	private newFile = (file: string, parent: string = this.currentDir): string => {
+		file = this.replaceRepetetiveForwardslashes(file)
+		file = this.resolveRelativePathString(file)
+		this.graph.setNode(file, file)
+		this.graph.setParent(file, parent)
+		return file
 	}
 }
 

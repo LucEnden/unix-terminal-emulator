@@ -1,9 +1,10 @@
 import { TerminalCommand, TerminalOptions, TerminalEvent } from "./interfaces"
+import StdoutEmulator from "./StdoutEmulator"
 import UnixFileSystemEmulator from "./UnixFileSystemEmulator"
 import "./styles.css"
 
 // TODO: add SS64 links to every command method jsdoc
-// TODO: implement options for every command
+// TODO: implement options for every command (check man page on ss64)
 // TODO: add support for pipeline commands
 
 /**
@@ -39,6 +40,7 @@ class UnixTerminalEmulator {
 		enviroment: undefined,
 	}
 
+	private stdout: StdoutEmulator
 	/**
 	 * The file system for this terminal instance.
 	 */
@@ -47,10 +49,6 @@ class UnixTerminalEmulator {
 	 * The HTML element to which all text should be written to.
 	 */
 	private wrapperElement: HTMLElement
-	/**
-	 * The HTML element that acts as the cursor
-	 */
-	private cursorElement: HTMLElement
 
 	constructor(options?: TerminalOptions) {
 		if (options) {
@@ -59,8 +57,6 @@ class UnixTerminalEmulator {
 				...options,
 			}
 		}
-
-		this.fileSystem = new UnixFileSystemEmulator()
 
 		var wrapper = document.getElementById(this.options.wrapperId!)
 		if (wrapper === null) {
@@ -71,26 +67,35 @@ class UnixTerminalEmulator {
 			wrapper.classList.add(this.options.wrapperClassName!)
 		}
 		this.wrapperElement = wrapper
-		document.body.appendChild(this.wrapperElement)
+		if (document.getElementById(this.options.wrapperId!) === null) {
+			document.body.appendChild(this.wrapperElement)
+		}
 
-		this.cursorElement = document.createElement("span")
-		this.cursorElement.id = this.options.cursorId!
-		this.cursorElement.innerText = this.options.cursor!
-		switch (this.options.cursorAnimation) {
+        switch (this.options.cursorClassName) {
 			case "fluid":
-				this.cursorElement.classList.add("terminal___cursor___fluid")
+				this.options.cursorClassName = "terminal___cursor___fluid"
 				break
 			case "static":
-				this.cursorElement.classList.add("terminal___cursor___static")
+				this.options.cursorClassName = "terminal___cursor___static"
 				break
 			case undefined:
-				this.cursorElement.classList.add("terminal___cursor___none")
+				this.options.cursorClassName = "terminal___cursor___none"
+				break
+            default:
 				break
 		}
-		this.cursorElement.classList.add(this.options.cursorClassName!)
+		this.stdout = new StdoutEmulator({
+			id: this.options.wrapperId!,
+			css: this.options.wrapperClassName!,
+			element: this.wrapperElement
+		}, {
+			char: this.options.cursor!,
+			id: this.options.cursorId!,
+			css: this.options.cursorClassName!
+		})
+		this.fileSystem = new UnixFileSystemEmulator()
 
 		this.writeNewInputLineToStdout()
-		this.appendCursor()
 	}
 
 	/**
@@ -227,7 +232,7 @@ class UnixTerminalEmulator {
 			logicAfter: () => {
 				this.wrapperElement.innerHTML = ""
 				this.writeNewInputLineToStdout()
-				this.appendCursor()
+				// this.stdout.AppendCursor()
 			},
 		} as TerminalEvent)
 		return this
@@ -264,9 +269,11 @@ class UnixTerminalEmulator {
 
 	/**
 	 * Emulates the pwd command.
-	 * @returns The full absolute path to the current working directory
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
 	 */
-	public pwd = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number) => {
+	public pwd = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
 		this.eventQueue.push({
 			command: {
 				text: "pwd",
@@ -280,10 +287,25 @@ class UnixTerminalEmulator {
 		return this
 	}
 
-	// // todo: implement
-	// public touch = (fileName: string) => {
-	// 	return this
-	// }
+	/**
+	 * Emulates the touch command.
+	 * @param {string} fileName 					The file to touch
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
+	 * @returns 
+	 */
+	public touch = (fileName: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		this.eventQueue.push({
+			command: {
+				text: "touch " + fileName,
+				writeSpeed: writeSpeed,
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
+		} as TerminalEvent)
+		return this
+	}
+
 	// // todo: implement
 	// public vim = (fileName: string, fileContentToType: string[]) => {
 	// 	return this
@@ -300,7 +322,7 @@ class UnixTerminalEmulator {
 			if (this.currentEvent.command !== undefined) {
 				// Add command to history stack, then start writing the command text to the stdout
 				this.historyStack.push(this.currentEvent.command)
-				this.writeToStdout(this.currentEvent.command.text, this.currentEvent.command.writeSpeed, () => {
+				this.stdout.Write(this.currentEvent.command.text, this.currentEvent.command.writeSpeed, () => {
 					// After command text was written, check if the command has an output...
 					if (this.currentEvent!.command!.output !== undefined) {
 						var newOutput = ""
@@ -310,26 +332,22 @@ class UnixTerminalEmulator {
 							newOutput = this.currentEvent!.command!.output
 						}
 						setTimeout(() => {
-							this.removeCursor()
 							this.writeLineBreakToStdout()
-							this.writeToStdout(newOutput, 0, () => {
+							this.stdout.Write(newOutput, 0, () => {
 								// After command output was written...
 								this.writeLineBreakToStdout()
 								this.writeNewInputLineToStdout()
 								if (this.currentEvent!.logicAfter !== undefined) {
 									this.currentEvent!.logicAfter()
 								}
-								this.appendCursor()
 								setTimeout(() => {
 									this.run(callback)
 								}, this.currentEvent!.delayAfter)
 							})
 						}, this.currentEvent!.command!.pauseBeforeOutput)
 					} else {
-						this.removeCursor()
 						this.writeLineBreakToStdout()
 						this.writeNewInputLineToStdout()
-						this.appendCursor()
 						if (this.currentEvent!.logicAfter !== undefined) {
 							this.currentEvent!.logicAfter()
 						}
@@ -353,28 +371,6 @@ class UnixTerminalEmulator {
 	}
 
 	/**
-	 * Removes the cursor from the wrapper document
-	 */
-	private removeCursor = () => {
-		this.cursorElement.remove()
-	}
-	/**
-	 * Appends the cursor element to the wrapper element
-	 */
-	private appendCursor = () => {
-		this.wrapperElement.appendChild(this.cursorElement)
-	}
-
-	/**
-	 * Gets a random integer in the range from min to max, inclusif
-	 * @param {Number} min Minimum number to generate
-	 * @param {Number} max Maximum number to generate
-	 * @returns random integer in the range from min to max, inclusif
-	 */
-	private getRandomIntegerInRange = (min: number, max: number) => {
-		return Math.floor(Math.random() * (max - min + 1) + min)
-	}
-	/**
 	 * Uses:  
 	 * ```
 		this.writeEnviromentLineToStdout()
@@ -382,12 +378,15 @@ class UnixTerminalEmulator {
 		this.writeInputLineStartToStdout()
 	 * ```  
 	 * 
-	 * to write a complete new empty input line to stdout
+	 * to write a complete new empty input line to stdout.
+	 * 
+	 * Also appends the cursor afterwards
 	 */
 	private writeNewInputLineToStdout = () => {
 		this.writeEnviromentLineToStdout()
 		this.writeRelativeWorkingDirectoryToStdout()
 		this.writeInputLineStartToStdout()
+		this.stdout.AppendCursor()
 	}
 	/**
 	 * If this.enviroment is not undefined, write the enviroment line ("username@hostname:") to the stdout
@@ -413,38 +412,7 @@ class UnixTerminalEmulator {
 	 * Writes "\n" (\<br />) to the stdout
 	 */
 	private writeLineBreakToStdout = () => {
-		this.wrapperElement.innerHTML += "<br />"
-	}
-	/**
-	 * Writes the specified text to the terminal wrapper.
-	 *
-	 * If speed === 0, it will remove the cursor from the wrapper.
-	 * If speed > 0, the cursor will remove before and appended after every character.
-	 * @param text text to write to stdout
-	 * @param speed speed at which each character is written to stdout
-	 * @param callback gets excecuted when writing to stdout has finished
-	 * @param i used for recursion purposes
-	 */
-	private writeToStdout = (text: string, speed: "neutral" | number, callback: () => void, i: number = 0) => {
-		if (speed === 0) {
-			this.removeCursor()
-			this.wrapperElement.innerHTML += text
-			callback()
-		} else {
-			if (i < text.length) {
-				this.removeCursor()
-				this.wrapperElement.innerHTML += text[i]
-				this.appendCursor()
-				i++
-				if (speed === "neutral") {
-					setTimeout(() => this.writeToStdout(text, speed, callback, i), this.getRandomIntegerInRange(80, 120))
-				} else {
-					setTimeout(() => this.writeToStdout(text, speed, callback, i), speed)
-				}
-			} else {
-				callback()
-			}
-		}
+		this.wrapperElement.innerHTML += "<br>"
 	}
 }
 
