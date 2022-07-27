@@ -1,11 +1,12 @@
+import FileSystemUser from "../src/types/FileSystemUser"
 import UnixFileSystemEmulator from "../src/UnixFileSystemEmulator"
-import { TerminalFileSystemUser } from "../src/interfaces"
 
 test("adduser => should return an error if adding root user", () => {
 	const fs = new UnixFileSystemEmulator()
-	const secondRootUser: TerminalFileSystemUser = {
+	const secondRootUser: FileSystemUser = {
 		name: "root",
 		password: "",
+		homeDir: ""
 	}
 
 	const adduserOutput = fs.adduser(secondRootUser)
@@ -13,11 +14,12 @@ test("adduser => should return an error if adding root user", () => {
 	expect(adduserOutput).toBeInstanceOf(RangeError)
 })
 
-test("pwd => expect working directory to be /home/root/ after instanciating without a user specified, or /home/{user}/ if user is specified", () => {
+test("pwd => expect working directory to be /home/root/ after instanciating without a user specified, or /home/{user}/ if user is specified with homeDir = undefined", () => {
 	const fsWithoutUser = new UnixFileSystemEmulator()
-	const user: TerminalFileSystemUser = {
+	const user: FileSystemUser = {
 		name: "user",
 		password: "",
+		homeDir: undefined
 	}
 	const fsWithUser = new UnixFileSystemEmulator(user)
 

@@ -1,38 +1,42 @@
 import UnixTerminalEmulator from "../src/UnixTerminalEmulator"
-import { TerminalCommand, TerminalOptions } from "../src/interfaces"
+import TerminalEmulatorOptions from "../src/types/TerminalEmulatorOptions"
+
 import { randomUUID } from "crypto"
+import TerminalCommand from "../src/types/TerminalCommand"
 
 const defaultTerminalWrapperId = "terminal___emulator___wrapper"
-const defaultTerminalCursorId = "terminal___emulator___cursor"
+const defaultTerminalCursorCss = "terminal___cursor___static"
 jest.useRealTimers()
-jest.setTimeout(6000000) // set to one hour because of time out testing
+// jest.setTimeout(6000000)	// one hour
+// jest.setTimeout(600000)		// 10 minutes
+// jest.setTimeout(60000)		// 1 minutes
+jest.setTimeout(360000) // 5 minutes
 
 // WRAPPER TESTS
 test("constructor => expect wrapper element to get created during object initialization if it does not already exist in the document", () => {
 	// arange
-	const terminalId = randomUUID()
-	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+	const options = {
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions
+	const terminal = new UnixTerminalEmulator(options)
 
 	// act
-	const wrapper = document.getElementById(terminalId)
+	const wrapper = document.getElementById(options.wrapperId)
 
 	// assert
 	expect(wrapper).not.toBeNull()
 })
 test("constructor => expect wrapper element in DOM to get the ID and CSS class if they are specified in the options during object initialization, otherwise default values should be set", () => {
-	const idAndCssClass = randomUUID()
-	const options: TerminalOptions = {
-		wrapperId: idAndCssClass,
-		wrapperClassName: idAndCssClass,
-	}
+	const options = {
+		wrapperId: randomUUID(),
+		wrapperCss: randomUUID(),
+	} as TerminalEmulatorOptions
 
 	// act
 	const terminalWitoutOptions = new UnixTerminalEmulator()
 	const wrapperWithoutOptions = document.getElementById(defaultTerminalWrapperId)
 	const terminalWithOptions = new UnixTerminalEmulator(options)
-	const wrapperWithOptions = document.getElementById(idAndCssClass)
+	const wrapperWithOptions = document.getElementById(options.wrapperId)
 
 	// assert
 	expect(wrapperWithoutOptions).not.toBeNull()
@@ -41,71 +45,73 @@ test("constructor => expect wrapper element in DOM to get the ID and CSS class i
 
 	expect(wrapperWithOptions).not.toBeNull()
 	expect(wrapperWithOptions?.id).toEqual(options.wrapperId)
-	expect(wrapperWithOptions?.classList.contains(options.wrapperClassName!)).toBe(true)
+	expect(wrapperWithOptions?.classList.contains(options.wrapperCss!)).toBe(true)
 })
 
 // CURSOR TESTS
 test("constructor => expect cursor element to get created during object initialization if it does not already exist in the document", () => {
 	// arange
-	const teminalCursorId = randomUUID()
 	const terminalOptions = {
-		cursorId: teminalCursorId,
-	} as TerminalOptions
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions
 
 	// act
 	const terminal = new UnixTerminalEmulator(terminalOptions)
-	const cursor = document.getElementById(teminalCursorId)
+	const cursor = document.getElementById(terminalOptions.wrapperId)?.firstElementChild?.lastElementChild
 
 	// assert
+	expect(cursor).not.toBeUndefined()
 	expect(cursor).not.toBeNull()
 })
 test("constructor => expect cursor element in DOM to get the ID, CSS class, character and animation if they are specified in the options during object initialization, otherwise default values should be set", () => {
 	// arange
 	const wrapperId = randomUUID()
-	const cursorId = randomUUID()
-	const options: TerminalOptions = {
+	const options = {
 		wrapperId: wrapperId,
-		cursor: "#",
-		cursorId: cursorId,
-		cursorClassName: "cursor_Class",
-		cursorAnimation: undefined,
-	}
+		cursorChar: "#",
+		cursorCss: "cursor_Class",
+	} as TerminalEmulatorOptions
 
 	// act
 	const terminalWithOptions = new UnixTerminalEmulator(options)
-	const cursorWithOptions = document.getElementById(options.cursorId!)
+	const cursorWithOptions = document.getElementById(options.wrapperId)?.firstElementChild?.lastElementChild
 
 	const terminalWitoutOptions = new UnixTerminalEmulator()
-	const cursorWithoutOptions = document.getElementById(defaultTerminalCursorId)
+	const cursorWithoutOptions = document.getElementById(defaultTerminalWrapperId)?.firstElementChild?.lastElementChild
 
 	// assert
 	expect(cursorWithOptions).not.toBeUndefined()
-	expect(cursorWithOptions?.id).toEqual(options.cursorId)
-	expect(cursorWithOptions?.classList.contains(options.cursorClassName!)).toBe(true)
+	expect(cursorWithOptions).not.toBeNull()
+	expect(cursorWithOptions?.classList.contains(options.cursorCss!)).toBe(true)
 
 	expect(cursorWithoutOptions).not.toBeUndefined()
-	expect(cursorWithoutOptions?.id).toEqual(defaultTerminalCursorId)
-	expect(cursorWithoutOptions?.classList.contains(defaultTerminalCursorId)).toBe(true)
+	expect(cursorWithoutOptions).not.toBeNull()
+	expect(cursorWithoutOptions?.classList.contains(defaultTerminalCursorCss)).toBe(true)
 })
 
 // ENVIROMENT TESTS
 test("constructor => expect enviroment text to be written to the DOM in a unix enviroment formated way when it is specified in the options, otherwise no enviroment text should be written", () => {
 	// arange
 	const optionsWithoutEnviromentTextTerminalId = randomUUID()
-	const optionsWithEnviromentText: TerminalOptions = {
+	const optionsWithEnviromentText = {
 		wrapperId: randomUUID(),
 		enviroment: {
 			hostname: "hostname",
-			username: "username",
+			user: {
+				name: "username",
+				homeDir: "/home/",
+			},
 		},
-	}
-	const expectedEnviromentText = `${optionsWithEnviromentText.enviroment!.username}@${optionsWithEnviromentText.enviroment!.hostname}:`
+	} as TerminalEmulatorOptions
+	const expectedEnviromentText = `${optionsWithEnviromentText.enviroment!.user.name}@${optionsWithEnviromentText.enviroment!.hostname}:`
 
 	// act
 	const terminalWithEnviromentText = new UnixTerminalEmulator(optionsWithEnviromentText)
 	const wrapperWithEnviromentText = document.getElementById(optionsWithEnviromentText.wrapperId!)
 
-	const terminalWithoutEnviromentText = new UnixTerminalEmulator({ wrapperId: optionsWithoutEnviromentTextTerminalId })
+	const terminalWithoutEnviromentText = new UnixTerminalEmulator({
+		wrapperId: optionsWithoutEnviromentTextTerminalId,
+	} as TerminalEmulatorOptions)
 	const wrapperWithoutEnviromentText = document.getElementById(optionsWithoutEnviromentTextTerminalId)
 
 	// assert
@@ -114,12 +120,11 @@ test("constructor => expect enviroment text to be written to the DOM in a unix e
 })
 
 // RUN TESTS
-test("run => expect callback to be called once", (done) => {
+test("run => expect callback to be called once", done => {
 	// arange
-	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 	const callback = jest.fn()
 
 	// act
@@ -132,12 +137,11 @@ test("run => expect callback to be called once", (done) => {
 	})
 })
 
-test("addCommand + pause + run => expect time diffrence from before and after run to be greater then or equal to the pause time in ms", (done) => {
+test("addCommand + pause + run => expect time diffrence from before and after run to be greater then or equal to the pause time in ms", done => {
 	// arange
-	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 	const testCommand: TerminalCommand = {
 		text: "echo foo",
 		writeSpeed: 0,
@@ -157,27 +161,26 @@ test("addCommand + pause + run => expect time diffrence from before and after ru
 	// assert
 })
 
-test("addCommand + run => expect command text and ouput, where output is of type variable, to appear inside the wrapper", (done) => {
+test("addCommand + run => expect command text and ouput, where output is of type variable, to appear inside the wrapper", done => {
 	// arange
 	const testCommand: TerminalCommand = {
 		text: "echo foo",
 		writeSpeed: 0,
 		output: "bar",
 	}
-	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 
 	// act
 	terminal.addCommand(testCommand).run(() => {
 		done()
 		// assert
-		expect(document.getElementById(terminalId)?.innerHTML).toContain(testCommand.text)
-		expect(document.getElementById(terminalId)?.innerHTML).toContain(testCommand.output)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML).toContain(testCommand.text)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML).toContain(testCommand.output)
 	})
 })
-test("addCommand + run => expect command text and ouput, where output is of type function, to appear inside the wrapper", (done) => {
+test("addCommand + run => expect command text and ouput, where output is of type function, to appear inside the wrapper", done => {
 	// arange
 	const outputFunction = () => "bar"
 	const outputValue = outputFunction()
@@ -186,45 +189,43 @@ test("addCommand + run => expect command text and ouput, where output is of type
 		writeSpeed: 0,
 		output: outputFunction,
 	}
-	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 
 	// act
 	terminal.addCommand(testCommand).run(() => {
 		done()
 		// assert
-		expect(document.getElementById(terminalId)?.innerHTML).toContain(testCommand.text)
-		expect(document.getElementById(terminalId)?.innerHTML).toContain(outputValue)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML).toContain(testCommand.text)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML).toContain(outputValue)
 	})
 })
-test("addCommand + run => expect wrapper to have 2 input line characters after single command run", (done) => {
+
+test("addCommand + run => expect wrapper to have 2 input line characters after single command run", done => {
 	// arange
 	const testCommand: TerminalCommand = {
 		text: "echo foo",
 		writeSpeed: 0,
 	}
-	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 	const inputLineMatch = /\$/g
 
 	// act
 	terminal.addCommand(testCommand).run(() => {
 		done()
 		// assert
-		expect(document.getElementById(terminalId)?.innerHTML).toMatch(inputLineMatch)
-		expect(document.getElementById(terminalId)?.innerHTML.match(inputLineMatch)!.length).toBe(2)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML).toMatch(inputLineMatch)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML.match(inputLineMatch)!.length).toBe(2)
 	})
 })
-test("addCommands + run => expect multiple commands to have thier text and output written to the wrapper after run", (done) => {
+test("addCommands + run => expect multiple commands to have thier text and output written to the wrapper after run", done => {
 	// arange
-	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 	const testCommand1: TerminalCommand = {
 		text: "echo foo1",
 		writeSpeed: 0,
@@ -240,18 +241,17 @@ test("addCommands + run => expect multiple commands to have thier text and outpu
 	terminal.addCommands([testCommand1, testCommand2]).run(() => {
 		done()
 		// assert
-		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand1.text)
-		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand1.output)
-		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand2.text)
-		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand2.output)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand1.text)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand1.output)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand2.text)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand2.output)
 	})
 })
-test("addCommands + run => expect multiple commands with different write speeds to have thier text and output written to the wrapper after run", (done) => {
+test("addCommands + run => expect multiple commands with different write speeds to have thier text and output written to the wrapper after run", done => {
 	// arange
-	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 	const testCommand1: TerminalCommand = {
 		text: "echo foo1",
 		writeSpeed: 0,
@@ -272,38 +272,36 @@ test("addCommands + run => expect multiple commands with different write speeds 
 	terminal.addCommands([testCommand1, testCommand2, testCommand3]).run(() => {
 		done()
 		// assert
-		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand1.text)
-		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand1.output)
-		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand2.text)
-		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand2.output)
-		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand3.text)
-		expect(document.getElementById(terminalId)?.innerHTML!).toContain(testCommand3.output)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand1.text)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand1.output)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand2.text)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand2.output)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand3.text)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand3.output)
 	})
 })
 
-test("echo + run => expect 'echo {text}' to be written to the wrapper and {text} to appear twice", (done) => {
+test("echo + run => expect 'echo {text}' to be written to the wrapper and {text} to appear twice", done => {
 	// arange
-	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 	const echoText = "Hello, World!"
 
 	// act
 	terminal.echo(echoText).run(() => {
 		done()
 		// assert
-		expect(document.getElementById(terminalId)?.innerHTML).toContain(echoText)
-		expect(document.getElementById(terminalId)?.innerHTML.match(new RegExp(echoText, "g"))!.length).toBe(2)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML).toContain(echoText)
+		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML.match(new RegExp(echoText, "g"))!.length).toBe(2)
 	})
 })
 
-test("addCommand + history + run => add a single command and expect thier texts to appear twice", (done) => {
+test("addCommand + history + run => add a single command and expect thier texts to appear twice", done => {
 	// arange
-	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 	const command = {
 		text: "Hello, World!",
 		writeSpeed: 0,
@@ -311,18 +309,20 @@ test("addCommand + history + run => add a single command and expect thier texts 
 	} as TerminalCommand
 
 	// act
-	terminal.addCommand(command).history().run(() => {
-		done()
-		// assert
-		expect(document.getElementById(terminalId)?.innerHTML.match(new RegExp(command.text, "g"))?.length).toBe(2)
-	})
+	terminal
+		.addCommand(command)
+		.history(0)
+		.run(() => {
+			done()
+			// assert
+			expect(document.getElementById(terminal.options.wrapperId)?.innerHTML.match(new RegExp(command.text, "g"))?.length).toBe(2)
+		})
 })
-test("addCommands + history + run => add HISTSIZE - 1 commands, each with unique text, and expect all thier texts to appear twice", (done) => {
+test("addCommands + history + run => add HISTSIZE - 1 commands, each with unique text, and expect all thier texts to appear twice", done => {
 	// arange
-	const terminalId = randomUUID()
 	const terminal = new UnixTerminalEmulator({
-		wrapperId: terminalId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 	const commands = [] as TerminalCommand[]
 	for (var i = 0; i < terminal.HISTSIZE - 1; i++) {
 		commands.push({
@@ -332,16 +332,19 @@ test("addCommands + history + run => add HISTSIZE - 1 commands, each with unique
 	}
 
 	// act
-	terminal.addCommands(commands).history().run(() => {
-		done()
-		// assert
-		commands.forEach((command) => {
-			expect(document.getElementById(terminalId)?.innerHTML.match(new RegExp(command.text, "g"))?.length).toBe(2)
+	terminal
+		.addCommands(commands)
+		.history(0)
+		.run(() => {
+			done()
+			// assert
+			commands.forEach(command => {
+				expect(document.getElementById(terminal.options.wrapperId)?.innerHTML.match(new RegExp(command.text, "g"))?.length).toBe(2)
+			})
 		})
-	})
 })
 
-test("addCommand + clear + run => expect terminal wrapper text, without enviroment specified, to be equal to a new empty input line", (done) => {
+test("addCommand + clear + run => expect terminal wrapper text, without enviroment specified, to be equal to a new empty input line", done => {
 	// arange
 	const emptyInputLineWithoutEnviromentVariable = "$ "
 	const testCommand: TerminalCommand = {
@@ -349,17 +352,19 @@ test("addCommand + clear + run => expect terminal wrapper text, without envirome
 		writeSpeed: 0,
 		output: "bar",
 	}
-	const terminalWithoutEnviromentVariableId = randomUUID()
 	const terminalWithoutEnviromentVariable = new UnixTerminalEmulator({
-		wrapperId: terminalWithoutEnviromentVariableId,
-	})
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
 
 	// act
-	terminalWithoutEnviromentVariable.addCommand(testCommand).clear().run(() => {
-		done()
-		// assert
-		expect(document.getElementById(terminalWithoutEnviromentVariableId)?.innerHTML).not.toContain(testCommand.text)
-		expect(document.getElementById(terminalWithoutEnviromentVariableId)?.innerHTML).not.toContain(testCommand.output)
-		expect(document.getElementById(terminalWithoutEnviromentVariableId)?.innerHTML).toMatch(emptyInputLineWithoutEnviromentVariable)
-	})
+	terminalWithoutEnviromentVariable
+		.addCommand(testCommand)
+		.clear(0)
+		.run(() => {
+			done()
+			// assert
+			expect(document.getElementById(terminalWithoutEnviromentVariable.options.wrapperId)?.innerHTML).not.toContain(testCommand.text)
+			expect(document.getElementById(terminalWithoutEnviromentVariable.options.wrapperId)?.innerHTML).not.toContain(testCommand.output)
+			expect(document.getElementById(terminalWithoutEnviromentVariable.options.wrapperId)?.innerHTML).toMatch(emptyInputLineWithoutEnviromentVariable)
+		})
 })

@@ -1,11 +1,14 @@
-import { StdoutChildElement, StdoutCursorElement } from "./interfaces";
-declare class StdoutEmulator {
-    private cursor;
+import StdoutEmulator from "./types/StdoutEmulator";
+import StdoutEmulatorOptions from "./types/StdoutEmulatorOptions";
+declare class UnixStdoutEmulator implements StdoutEmulator {
+    readonly options: StdoutEmulatorOptions;
     private stdout;
-    constructor(stdout: StdoutChildElement, cursor: StdoutCursorElement);
-    Write: (text: string, speed: "neutral" | number, callback: () => void) => void;
-    RemoveCursor: () => void;
-    AppendCursor: () => void;
+    private cursor;
+    constructor(parent: HTMLElement, options?: StdoutEmulatorOptions);
+    write: (text: string, speed: number | "neutral" | undefined, callback: () => void) => void;
+    clear: () => void;
+    removeCursor: () => void;
+    appendCursor: () => void;
     /**
      * Gets a random integer in the range from min to max, inclusif
      * @param {Number} min Minimum number to generate
@@ -22,4 +25,4 @@ declare class StdoutEmulator {
      */
     private writeToStdout;
 }
-export default StdoutEmulator;
+export default UnixStdoutEmulator;

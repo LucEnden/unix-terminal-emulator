@@ -1,56 +1,39 @@
-import { TerminalCommand, TerminalOptions, TerminalEvent } from "./interfaces"
-import StdoutEmulator from "./StdoutEmulator"
-import UnixFileSystemEmulator from "./UnixFileSystemEmulator"
+import StdoutEmulator from "./UnixStdoutEmulator"
 import "./styles.css"
+import FileSystemEmulator from "./types/FileSystemEmulator"
+import TerminalCommand from "./types/TerminalCommand"
+import TerminalEvent from "./types/TerminalEvent"
+import TerminalEmulator from "./types/TerminalEmulator"
+import TerminalEmulatorOptions from "./types/TerminalEmulatorOptions"
+import UnixFileSystemEmulator from "./UnixFileSystemEmulator"
 
 // TODO: add SS64 links to every command method jsdoc
 // TODO: implement options for every command (check man page on ss64)
 // TODO: add support for pipeline commands
 
 /**
- * Emulates a unix terminal by typing out commands and there specified outputs.
- * Allows you to build an event sequence of commands and timings which gets excecuted when the run method is called.
+ * Emulates a unix terminal by building an event sequence of commands and timings which gets excecuted when the run method is called.
  *
  * {@link https://github.com/LucEnden/unix-terminal-emulator}
  */
-class UnixTerminalEmulator {
-	/**
-	 * Contains all commands executed so far by run.
-	 */
-	private readonly historyStack = [] as Array<TerminalCommand>
-	/**
-	 * Contains all events to be executed by run.
-	 */
-	private readonly eventQueue = [] as Array<TerminalEvent>
-	/**
-	 * Used in run to determine if there are any events left to be executed.
-	 */
+class UnixTerminalEmulator implements TerminalEmulator {
+	readonly stdout: StdoutEmulator
+	readonly fileSystem: FileSystemEmulator
+	readonly historyStack: TerminalCommand[] = []
+	readonly eventQueue: TerminalEvent[] = []
+	readonly options: TerminalEmulatorOptions = {
+		wrapperId: "terminal___emulator___wrapper",
+		wrapperCss: "terminal___emulator___wrapper",
+		cursorChar: "|",
+		cursorCss: "terminal___cursor___static",
+		stdoutCss: "termminal___emulator___stdout",
+	}
+	HISTSIZE: number = 500
+
+	private wrapperElement: HTMLElement
 	private currentEvent: TerminalEvent | undefined
 
-	/**
-	 * Default values for TerminalOptions.
-	 */
-	private options: TerminalOptions = {
-		wrapperId: "terminal___emulator___wrapper",
-		wrapperClassName: "terminal___emulator___wrapper",
-		cursor: "|",
-		cursorId: "terminal___emulator___cursor",
-		cursorClassName: "terminal___emulator___cursor",
-		cursorAnimation: "static",
-		enviroment: undefined,
-	}
-
-	private stdout: StdoutEmulator
-	/**
-	 * The file system for this terminal instance.
-	 */
-	private fileSystem: UnixFileSystemEmulator
-	/**
-	 * The HTML element to which all text should be written to.
-	 */
-	private wrapperElement: HTMLElement
-
-	constructor(options?: TerminalOptions) {
+	constructor(options?: TerminalEmulatorOptions) {
 		if (options) {
 			this.options = {
 				...this.options,
@@ -58,104 +41,45 @@ class UnixTerminalEmulator {
 			}
 		}
 
-		var wrapper = document.getElementById(this.options.wrapperId!)
-		if (wrapper === null) {
-			wrapper = document.createElement("div")
-			wrapper.id = this.options.wrapperId!
-		}
-		if (this.options.wrapperClassName!.length > 0) {
-			wrapper.classList.add(this.options.wrapperClassName!)
-		}
-		this.wrapperElement = wrapper
-		if (document.getElementById(this.options.wrapperId!) === null) {
+		if (document.getElementById(this.options.wrapperId) === null) {
+			this.wrapperElement = document.createElement("div")
+			this.wrapperElement.id = this.options.wrapperId
 			document.body.appendChild(this.wrapperElement)
+		} else {
+			this.wrapperElement = document.getElementById(this.options.wrapperId)!
 		}
+		if (this.options.wrapperCss.length > 0) this.wrapperElement.classList.add(this.options.wrapperCss)
 
-        switch (this.options.cursorClassName) {
-			case "fluid":
-				this.options.cursorClassName = "terminal___cursor___fluid"
-				break
-			case "static":
-				this.options.cursorClassName = "terminal___cursor___static"
-				break
-			case undefined:
-				this.options.cursorClassName = "terminal___cursor___none"
-				break
-            default:
-				break
-		}
-		this.stdout = new StdoutEmulator({
-			id: this.options.wrapperId!,
-			css: this.options.wrapperClassName!,
-			element: this.wrapperElement
-		}, {
-			char: this.options.cursor!,
-			id: this.options.cursorId!,
-			css: this.options.cursorClassName!
-		})
-		this.fileSystem = new UnixFileSystemEmulator()
+		this.stdout = new StdoutEmulator(this.wrapperElement, this.options)
+		this.fileSystem = new UnixFileSystemEmulator(this.options.enviroment?.user)
 
 		this.writeNewInputLineToStdout()
 	}
 
-	/**
-	 * Based on histsize variable in bash: echo $HISTSIZE
-	 *
-	 * see: https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answer-19454838
-	 */
-	public HISTSIZE = 500
-
-	/**
-	 * Adds a command to the to queue.
-	 * @param {TerminalCommand} command 	The command to add the the queue
-	 * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
-	 */
 	public addCommand = (command: TerminalCommand): UnixTerminalEmulator => {
-		this.eventQueue.push({
-			delayAfter: 0,
+		const newEvent: TerminalEvent = {
 			command: command,
-		} as TerminalEvent)
+			delayAfter: 0,
+		}
+		this.eventQueue.push(newEvent)
 		return this
 	}
-	/**
-	 * Adds multiple commands to the to queue.
-	 * @param {TerminalCommand[]} commands 	The commands to add the the queue
-	 * @returns {UnixTerminalEmulator} 		The current instance of UnixTerminalEmulator
-	 */
 	public addCommands = (commands: TerminalCommand[]): UnixTerminalEmulator => {
 		commands.forEach(c => {
-			this.eventQueue.push({
-				delayAfter: 0,
+			const newEvent: TerminalEvent = {
 				command: c,
-			} as TerminalEvent)
+				delayAfter: 0,
+			}
+			this.eventQueue.push(newEvent)
 		})
 		return this
 	}
-
-	/**
-	 * Adds a pause in the event sequence.
-	 * @param {number} ms The time to pause for in miliseconds
-	 * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
-	 */
 	public pause = (ms: number): UnixTerminalEmulator => {
 		this.eventQueue.push({
 			delayAfter: ms,
 		} as TerminalEvent)
 		return this
 	}
-
-	/**
-	 * Emulates the echo command.
-	 *
-	 * @param {string} text 						The text to echo
-	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
-	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
-	 * @example
-	 * echo("Hello, World") =>
-	 * $ echo Hello, World!
-	 * Hello, World!
-	 * @returns {UnixTerminalEmulator} The current instance of UnixTerminalEmulator
-	 */
 	public echo = (text: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
 		this.eventQueue.push({
 			command: {
@@ -167,14 +91,6 @@ class UnixTerminalEmulator {
 		} as TerminalEvent)
 		return this
 	}
-
-	/**
-	 * Emulates the history command.
-	 *
-	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
-	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
-	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
-	 */
 	public history = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
 		this.eventQueue.push({
 			command: {
@@ -186,6 +102,134 @@ class UnixTerminalEmulator {
 		} as TerminalEvent)
 		return this
 	}
+	public clear = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		this.eventQueue.push({
+			command: {
+				text: "clear",
+				writeSpeed: writeSpeed,
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
+			logicAfter: () => {
+				this.stdout.clear()
+				this.writeNewInputLineToStdout()
+			},
+		} as TerminalEvent)
+		return this
+	}
+	public mkdir = (dirNames: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		this.eventQueue.push({
+			command: {
+				text: "mkdir " + dirNames,
+				writeSpeed: writeSpeed,
+				output: () => {
+					var output = ""
+					var errors = this.fileSystem.mkdir(dirNames)
+					for (var i = 0; i < errors.length; i++) {
+						output += errors[i].message
+						if (i != errors.length - 1) {
+							output = output + "<br>"
+						}
+					}
+					return output
+				},
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
+		} as TerminalEvent)
+		return this
+	}
+	public pwd = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		this.eventQueue.push({
+			command: {
+				text: "pwd",
+				writeSpeed: writeSpeed,
+				output: () => {
+					return this.fileSystem.pwd()
+				},
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
+		} as TerminalEvent)
+		return this
+	}
+	public touch = (fileName: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		this.eventQueue.push({
+			command: {
+				text: "touch " + fileName,
+				writeSpeed: writeSpeed,
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
+		} as TerminalEvent)
+		return this
+	}
+	public run = (callback?: () => void) => {
+		// If there are events left in the queue, continue running.
+		this.currentEvent = this.eventQueue.shift()
+		if (this.currentEvent !== undefined) {
+			if (this.currentEvent.command !== undefined) {
+				// Add command to history stack, then start writing the command text to the stdout
+				this.historyStack.push(this.currentEvent.command)
+				this.stdout.write(this.currentEvent.command.text, this.currentEvent.command.writeSpeed, () => {
+					// After command text was written, check if the command has an output...
+					if (this.currentEvent!.command!.output !== undefined) {
+						var newOutput = ""
+						if (typeof this.currentEvent!.command!.output === "function") {
+							newOutput = this.currentEvent!.command!.output()
+						} else {
+							newOutput = this.currentEvent!.command!.output
+						}
+						setTimeout(() => {
+							this.writeLineBreakToStdout(() => {
+								this.stdout.write(newOutput, 0, () => {
+									// After command output was written...
+									this.writeLineBreakToStdout(() => {
+										this.writeNewInputLineToStdout(() => {
+											if (this.currentEvent!.logicAfter !== undefined) {
+												this.currentEvent!.logicAfter()
+											}
+											setTimeout(() => {
+												this.run(callback)
+											}, this.currentEvent!.delayAfter)
+										})
+									})
+								})
+							})
+						}, this.currentEvent!.command!.pauseBeforeOutput)
+					} else {
+						this.writeLineBreakToStdout(() => {
+							this.writeNewInputLineToStdout(() => {
+								if (this.currentEvent!.logicAfter !== undefined) {
+									this.currentEvent!.logicAfter()
+								}
+								setTimeout(() => {
+									this.run(callback)
+								}, this.currentEvent!.delayAfter)
+							})
+						})
+					}
+				})
+			} else {
+				// If the current events command is undefined, continue running...
+				setTimeout(() => {
+					this.run(callback)
+				}, this.currentEvent.delayAfter)
+			}
+		} else {
+			// If no event is left in the queue, run calback...
+			if (callback !== undefined) {
+				callback()
+			}
+		}
+	}
+
+	// /**
+	//  * todo: implement
+	//  * @param fileName
+	//  * @param fileContentToType
+	//  * @returns
+	//  */
+	// public vim = (fileName: string, fileContentToType: string[]) => {
+	// 	return this
+	// }
+
 	private getHistoryOutput = () => {
 		var output = [] as string[]
 		var j = 0
@@ -214,205 +258,59 @@ class UnixTerminalEmulator {
 		}
 		return output.reverse().join("<br />")
 	}
-
 	/**
-	 * Emulates the clear command.
-	 *
-	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
-	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
-	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
-	 */
-	public clear = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
-		this.eventQueue.push({
-			command: {
-				text: "clear",
-				writeSpeed: writeSpeed,
-				pauseBeforeOutput: pauseBeforeOutput,
-			},
-			logicAfter: () => {
-				this.wrapperElement.innerHTML = ""
-				this.writeNewInputLineToStdout()
-				// this.stdout.AppendCursor()
-			},
-		} as TerminalEvent)
-		return this
-	}
-
-	/**
-	 * Emulates the mkdir command.
-	 * @param {string} dirNames 					A space delimited string containing all the directories to create
-	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
-	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
-	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
-	 */
-	public mkdir = (dirNames: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
-		this.eventQueue.push({
-			command: {
-				text: "mkdir " + dirNames,
-				writeSpeed: writeSpeed,
-				output: () => {
-					var output = ""
-					var errors = this.fileSystem.mkdir(dirNames)
-					for (var i = 0; i < errors.length; i++) {
-						output += errors[i].message
-						if (i != errors.length - 1) {
-							output = output + "<br>"
-						}
-					}
-					return output
-				},
-				pauseBeforeOutput: pauseBeforeOutput,
-			},
-		} as TerminalEvent)
-		return this
-	}
-
-	/**
-	 * Emulates the pwd command.
-	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
-	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
-	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
-	 */
-	public pwd = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
-		this.eventQueue.push({
-			command: {
-				text: "pwd",
-				writeSpeed: writeSpeed,
-				output: () => {
-					return this.fileSystem.pwd()
-				},
-				pauseBeforeOutput: pauseBeforeOutput,
-			},
-		} as TerminalEvent)
-		return this
-	}
-
-	/**
-	 * Emulates the touch command.
-	 * @param {string} fileName 					The file to touch
-	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
-	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
-	 * @returns {UnixTerminalEmulator} 				The current instance of UnixTerminalEmulator
-	 * @returns 
-	 */
-	public touch = (fileName: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
-		this.eventQueue.push({
-			command: {
-				text: "touch " + fileName,
-				writeSpeed: writeSpeed,
-				pauseBeforeOutput: pauseBeforeOutput,
-			},
-		} as TerminalEvent)
-		return this
-	}
-
-	// // todo: implement
-	// public vim = (fileName: string, fileContentToType: string[]) => {
-	// 	return this
-	// }
-
-	/**
-	 * Excecutes the created event sequence
-	 * @param callback Gets called when the sequence has finished
-	 */
-	public run = (callback?: () => void) => {
-		// If there are events left in the queue, continue running.
-		this.currentEvent = this.eventQueue.shift()
-		if (this.currentEvent !== undefined) {
-			if (this.currentEvent.command !== undefined) {
-				// Add command to history stack, then start writing the command text to the stdout
-				this.historyStack.push(this.currentEvent.command)
-				this.stdout.Write(this.currentEvent.command.text, this.currentEvent.command.writeSpeed, () => {
-					// After command text was written, check if the command has an output...
-					if (this.currentEvent!.command!.output !== undefined) {
-						var newOutput = ""
-						if (typeof this.currentEvent!.command!.output === "function") {
-							newOutput = this.currentEvent!.command!.output()
-						} else {
-							newOutput = this.currentEvent!.command!.output
-						}
-						setTimeout(() => {
-							this.writeLineBreakToStdout()
-							this.stdout.Write(newOutput, 0, () => {
-								// After command output was written...
-								this.writeLineBreakToStdout()
-								this.writeNewInputLineToStdout()
-								if (this.currentEvent!.logicAfter !== undefined) {
-									this.currentEvent!.logicAfter()
-								}
-								setTimeout(() => {
-									this.run(callback)
-								}, this.currentEvent!.delayAfter)
-							})
-						}, this.currentEvent!.command!.pauseBeforeOutput)
-					} else {
-						this.writeLineBreakToStdout()
-						this.writeNewInputLineToStdout()
-						if (this.currentEvent!.logicAfter !== undefined) {
-							this.currentEvent!.logicAfter()
-						}
-						setTimeout(() => {
-							this.run(callback)
-						}, this.currentEvent!.delayAfter)
-					}
-				})
-			} else {
-				// If the current events command is undefined, continue running...
-				setTimeout(() => {
-					this.run(callback)
-				}, this.currentEvent!.delayAfter)
-			}
-		} else {
-			// If no event is left in the queue, run calback...
-			if (callback !== undefined) {
-				callback()
-			}
-		}
-	}
-
-	/**
-	 * Uses:  
+	 * Uses:
 	 * ```
 		this.writeEnviromentLineToStdout()
 		this.writeRelativeWorkingDirectoryToStdout()
 		this.writeInputLineStartToStdout()
-	 * ```  
-	 * 
-	 * to write a complete new empty input line to stdout.
-	 * 
-	 * Also appends the cursor afterwards
+	 * ```
+	 *
+	 * to write a complete new empty input line to stdout:  
+	 * ``` "username@hostname:~$ " ```
+	 *
+	 * Also removes before and appends the cursor afterwards
 	 */
-	private writeNewInputLineToStdout = () => {
-		this.writeEnviromentLineToStdout()
-		this.writeRelativeWorkingDirectoryToStdout()
-		this.writeInputLineStartToStdout()
-		this.stdout.AppendCursor()
+	private writeNewInputLineToStdout = (callback?: () => void) => {
+		this.stdout.removeCursor()
+		this.writeEnviromentLineToStdout(() => {
+			this.writeRelativeWorkingDirectoryToStdout(() => {
+				this.writeInputLineStartToStdout(() => {
+					this.stdout.appendCursor()
+					if (callback !== undefined) {
+						callback()
+					}
+				})
+			})
+		})
 	}
 	/**
 	 * If this.enviroment is not undefined, write the enviroment line ("username@hostname:") to the stdout
 	 */
-	private writeEnviromentLineToStdout = () => {
-		if (this.options.enviroment !== undefined && this.options.enviroment.hostname.length > 0 && this.options.enviroment.username.length > 0) {
-			this.wrapperElement.innerHTML += this.options.enviroment.username + "@" + this.options.enviroment.hostname + ":"
+	private writeEnviromentLineToStdout = (callback: () => void) => {
+		if (this.options.enviroment !== undefined && this.options.enviroment.hostname.length > 0 && this.options.enviroment.user.name.length > 0) {
+			this.stdout.write(this.options.enviroment.user.name + "@" + this.options.enviroment.hostname + ":", 0, callback)
+		} else {
+			callback()
 		}
-	}
-	/**
-	 * Writes "$ " to the stdout
-	 */
-	private writeInputLineStartToStdout = () => {
-		this.wrapperElement.innerHTML += "$ "
 	}
 	/**
 	 * Writes ```this.fileSystem.GetCurrentDirectory()``` to the stdout
 	 */
-	private writeRelativeWorkingDirectoryToStdout = () => {
-		this.wrapperElement.innerHTML += this.fileSystem.GetCurrentDirectory()
+	private writeRelativeWorkingDirectoryToStdout = (callback: () => void) => {
+		this.stdout.write(this.fileSystem.getCurrentDirectory(), 0, callback)
+	}
+	/**
+	 * Writes "$ " to the stdout
+	 */
+	private writeInputLineStartToStdout = (callback: () => void) => {
+		this.stdout.write("$ ", 0, callback)
 	}
 	/**
 	 * Writes "\n" (\<br />) to the stdout
 	 */
-	private writeLineBreakToStdout = () => {
-		this.wrapperElement.innerHTML += "<br>"
+	private writeLineBreakToStdout = (callback: () => void) => {
+		this.stdout.write("<br>", 0, callback)
 	}
 }
 
