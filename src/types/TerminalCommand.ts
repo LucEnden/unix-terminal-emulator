@@ -7,8 +7,8 @@ export default interface TerminalCommand {
 	 */
 	text: string
 	/**
-	 * The pause length between each charater being written in miliseconds.
-	 * "neutral" = random integer between 80 and 120 miliseconds.
+	 * The pause length between each charater being written in miliseconds.  
+	 * "neutral" = random integer between 80 and 120 miliseconds.  
 	 * 0 = instant
 	 */
 	writeSpeed: "neutral" | number

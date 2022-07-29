@@ -7,7 +7,6 @@ import TerminalEmulator from "./types/TerminalEmulator"
 import TerminalEmulatorOptions from "./types/TerminalEmulatorOptions"
 import UnixFileSystemEmulator from "./UnixFileSystemEmulator"
 
-// TODO: add SS64 links to every command method jsdoc
 // TODO: implement options for every command (check man page on ss64)
 // TODO: add support for pipeline commands
 
