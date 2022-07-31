@@ -5,32 +5,31 @@ import FileSystemUser from "./FileSystemUser";
  */
 export default interface FileSystemEmulator {
     /**
-     * @param rootDir the root directory "/"
+     * @param rootDir The root directory "/"
      * @constant
      */
     readonly rootDir: "/";
     /**
-     * @param homeDir the home directory "/home/"
+     * @param homeDir The home directory "/home/"
      * @constant
      */
     readonly homeDir: "/home/";
     /**
-     * @param rootUsr the root user, which is the default user of the file system
-     * @constant
-     * @example
+     * @param rootUsr The root user, which is the default user of the file system
+     * @default
      * {
      *		name: "root",
      *		password: "password",
-     *		homeDir: "/home/"
+     *		homeDir: "/home/root/"
      * }
      */
     readonly rootUsr: FileSystemUser;
     /**
-     * @param users the users within this file system instance
+     * @param users The users within this file system instance
      */
     readonly users: FileSystemUser[];
     /**
-     * @param fileSystemType the type of file system this file system emulator uses
+     * @param fileSystemType The type of file system to use
      */
     readonly fileSystemType: FileSystemType;
     /**
@@ -42,29 +41,34 @@ export default interface FileSystemEmulator {
     getCurrentDirectory: () => string;
     /**
      * Emulates the touch command.
+     * https://ss64.com/bash/touch.html
      * @param file the file to touch
      */
     touch: (file: string) => void;
     /**
      * Emulates the mkdir command.
-     * @param dirNames a space delimited string of directories to create
-     * @returns {Error[]} an array of errors that occured during the creation of the directories
+     * https://ss64.com/bash/mkdir.html
+     * @param dirNames A space delimited string of directories to create
+     * @returns {Error[]} An array of errors that occured during the creation of the directories
      */
     mkdir: (dirNames: string) => Error[];
     /**
-     * Emulates the adduser command.
-     * @param user the user to add to the filesystem
-     * @returns {string|RangeError} range error if the user already exists, else the full path to the users home directory
+     * Emulates the useradd command.
+     * https://ss64.com/bash/useradd.html
+     * @param user The user to add to the filesystem
+     * @returns {string|RangeError} Range error if the user already exists, else the full path to the users home directory
      */
-    adduser: (user: FileSystemUser) => string | RangeError;
+    useradd: (user: FileSystemUser) => string | RangeError;
     /**
      * Emulates the pwd command.
-     * @returns the full absolute path to the current working directory
+     * https://ss64.com/bash/pwd.html
+     * @returns The full absolute path to the current working directory
      */
     pwd: () => string;
     /**
      * Emulates the cd command.
-     * @returns {string|RangeError} if the directory exists, returns the new working directory, RangeError otherwise
+     * https://ss64.com/bash/cd.html
+     * @returns {string|RangeError} If the directory exists, returns the new working directory, RangeError otherwise
      */
     cd: (dir: string) => string | RangeError;
 }

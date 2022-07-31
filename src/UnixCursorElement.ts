@@ -4,10 +4,6 @@ import CursorElement from "./types/CursorElement"
 import CursorElementOptions from "./types/CursorElementOptions"
 
 class UnixCursorElement implements CursorElement {
-	readonly options: CursorElementOptions = {
-		cursorChar: "|",
-		cursorCss: "terminal___emulator___static"
-	}
 	private element: HTMLElement
 
     constructor(options?: CursorElementOptions) {
@@ -25,6 +21,11 @@ class UnixCursorElement implements CursorElement {
 			this.element.classList.add(this.options.cursorCss)
 		}
     }
+	
+	readonly options: CursorElementOptions = {
+		cursorChar: "|",
+		cursorCss: "terminal___emulator___static"
+	}
 
 	/**
 	 * Removes the cursor from the wrapper document

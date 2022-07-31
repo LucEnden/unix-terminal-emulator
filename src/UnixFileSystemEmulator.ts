@@ -10,6 +10,23 @@ const Ext4 = {
 
 class UnixFileSystemEmulator implements FileSystemEmulator {
 	private graph = new Graph({ compound: true, directed: true })
+	private currentUser: FileSystemUser
+	private currentDir: string
+
+	constructor(user?: FileSystemUser | undefined) {
+		this.newDir(this.rootDir)
+		this.newDir(this.homeDir)
+
+		this.currentDir = this.useradd(this.rootUsr) as string
+		this.currentUser = this.rootUsr
+		if (user !== undefined && user.name !== this.rootUsr.name) {
+			this.currentDir = this.useradd(user) as string
+			this.currentUser = user
+		}
+
+		this.fileSystemType = Ext4
+	}
+	
 	readonly rootDir = "/"
 	readonly homeDir = "/home/"
 	readonly rootUsr: FileSystemUser = {
@@ -19,22 +36,6 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	}
 	readonly users = [] as FileSystemUser[]
 	readonly fileSystemType: FileSystemType
-	private currentUser: FileSystemUser
-	private currentDir: string
-
-	constructor(user?: FileSystemUser | undefined) {
-		this.newDir(this.rootDir)
-		this.newDir(this.homeDir)
-
-		this.currentDir = this.adduser(this.rootUsr) as string
-		this.currentUser = this.rootUsr
-		if (user !== undefined && user.name !== this.rootUsr.name) {
-			this.currentDir = this.adduser(user) as string
-			this.currentUser = user
-		}
-
-		this.fileSystemType = Ext4
-	}
 
 	public getCurrentDirectory = () => {
 		return this.currentDir.startsWith(this.currentUser.homeDir!) ? this.currentDir.replace(this.currentUser.homeDir!, "~") : this.currentDir
@@ -79,13 +80,13 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 		}
 		return errors
 	}
-	public adduser = (user: FileSystemUser): string | RangeError => {
+	public useradd = (user: FileSystemUser): string | RangeError => {
 		if (
 			this.users.some(u => {
 				return u.name === user.name
 			})
 		) {
-			return new RangeError(`adduser: The user '${user.name}' already exists.`)
+			return new RangeError(`useradd: The user '${user.name}' already exists.`)
 		} else {
 			var homeDir = this.newUserDir(user)
 			user.homeDir = homeDir
@@ -93,7 +94,6 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 			return user.homeDir
 		}
 	}
-
 	public pwd = () => {
 		return this.currentDir
 	}
@@ -216,10 +216,10 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	/**
 	 * Creates a new directory. Resolves the absolute path before creation.
 	 * @param {string} dir the directory to create
-	 * @param {string} parent the parent of the new directory (default is ```this.rootDir```)
+	 * @param {string} parent the parent of the new directory (default is ```this.currentDir```)
 	 * @returns {string} ```dir``` that was created
 	 */
-	private newDir = (dir: string, parent: string = this.rootDir): string => {
+	private newDir = (dir: string, parent: string = this.currentDir): string => {
 		if (dir !== this.rootDir) {
 			dir = this.replaceRepetetiveForwardslashes(dir)
 			dir = this.resolveRelativePathString(dir)
@@ -230,6 +230,12 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 		return dir
 	}
 
+	/**
+	 * Creates a new file. Resolves the absolute path before creation.
+	 * @param {string} file the file to create
+	 * @param {string} parent the parent of the new file (default is ```this.currentDir```)
+	 * @returns {string} ```file``` that was created
+	 */
 	private newFile = (file: string, parent: string = this.currentDir): string => {
 		file = this.replaceRepetetiveForwardslashes(file)
 		file = this.resolveRelativePathString(file)

@@ -10,12 +10,16 @@ export default interface StdoutEmulator {
 	 */
 	readonly options: StdoutElementOptions
 	/**
-	 * Writes text to the stdout element
-	 * @param text The text to write
-	 * @param speed The speed at wich to write each character in miliseconds, where ```"neutral"``` makes the speed of each charecter random between 80 and 120 miliseconds
-	 * @param callback Gets called when writing the text is done
+	 * @param element The stdout HTML element 
 	 */
-	write: (text: string, speed: "neutral" | number, callback: () => void) => void
+	readonly element: HTMLElement
+	// /**
+	//  * Writes text to the stdout element
+	//  * @param text The text to write
+	//  * @param speed The speed at wich to write each character in miliseconds, where ```"neutral"``` makes the speed of each charecter random between 80 and 120 miliseconds
+	//  * @param callback Gets called when writing the text is done
+	//  */
+	// write: (text: string, speed: "neutral" | number, callback: () => void) => void
 	/**
 	 * Clears the text in the stdout element
 	 */

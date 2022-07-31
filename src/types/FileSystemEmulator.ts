@@ -54,12 +54,12 @@ export default interface FileSystemEmulator {
 	 */
 	mkdir: (dirNames: string) => Error[]
 	/**
-	 * Emulates the adduser command.  
+	 * Emulates the useradd command.  
 	 * https://ss64.com/bash/useradd.html
 	 * @param user The user to add to the filesystem
 	 * @returns {string|RangeError} Range error if the user already exists, else the full path to the users home directory
 	 */
-	adduser: (user: FileSystemUser) => string | RangeError
+	useradd: (user: FileSystemUser) => string | RangeError
 	/**
 	 * Emulates the pwd command.  
 	 * https://ss64.com/bash/pwd.html

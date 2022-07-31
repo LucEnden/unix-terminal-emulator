@@ -3,6 +3,7 @@ import FileSystemEmulator from "./FileSystemEmulator"
 import TerminalCommand from "./TerminalCommand"
 import TerminalEvent from "./TerminalEvent"
 import TerminalEmulatorOptions from "./TerminalEmulatorOptions"
+import FileSystemUser from "./FileSystemUser"
 
 /**
  * Allows the user to create an event sequence that emulates terminal behaviour
@@ -38,8 +39,8 @@ export default interface TerminalEmulator {
 	 */
 	readonly options: TerminalEmulatorOptions
 	/**
-	 * @param HISTSIZE The history size for this terminal instance.  
-	 * Based on histsize variable in bash: echo $HISTSIZE, see:  
+	 * @param HISTSIZE The history size for this terminal instance.
+	 * Based on histsize variable in bash: echo $HISTSIZE, see:
 	 * https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answer-19454838
 	 */
 	HISTSIZE: number
@@ -62,7 +63,7 @@ export default interface TerminalEmulator {
 	 */
 	pause: (ms: number) => TerminalEmulator
 	/**
-	 * Emulates the echo command.  
+	 * Emulates the echo command.
 	 * https://ss64.com/bash/echo.html
 	 * @param {string} text 						The text to echo
 	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
@@ -71,7 +72,7 @@ export default interface TerminalEmulator {
 	 */
 	echo: (text: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
 	/**
-	 * Emulates the history command.  
+	 * Emulates the history command.
 	 * https://ss64.com/bash/history.html
 	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
 	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
@@ -79,7 +80,7 @@ export default interface TerminalEmulator {
 	 */
 	history: (writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
 	/**
-	 * Emulates the clear command.  
+	 * Emulates the clear command.
 	 * https://ss64.com/bash/clear.html
 	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
 	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
@@ -87,7 +88,7 @@ export default interface TerminalEmulator {
 	 */
 	clear: (writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
 	/**
-	 * Emulates the mkdir command.  
+	 * Emulates the mkdir command.
 	 * https://ss64.com/bash/mkdir.html
 	 * @param {string} dirNames 					A space delimited string containing all the directories to create
 	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
@@ -96,7 +97,7 @@ export default interface TerminalEmulator {
 	 */
 	mkdir: (dirNames: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
 	/**
-	 * Emulates the pwd command.  
+	 * Emulates the pwd command.
 	 * https://ss64.com/bash/pwd.html
 	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
 	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
@@ -104,7 +105,7 @@ export default interface TerminalEmulator {
 	 */
 	pwd: (writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
 	/**
-	 * Emulates the touch command.  
+	 * Emulates the touch command.
 	 * https://ss64.com/bash/touch.html
 	 * @param {string} fileName 					The file to touch
 	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
@@ -112,6 +113,24 @@ export default interface TerminalEmulator {
 	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
 	 */
 	touch: (fileName: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
+	/**
+	 * Emulates the useradd command.
+	 * https://ss64.com/bash/useradd.html
+	 * @param {string} user 						The user to add
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
+	 */
+	useradd: (user: FileSystemUser, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
+	/**
+	 * Emulates the cd command.
+	 * https://ss64.com/bash/cd.html
+	 * @param {string} dir 							The dir to change to
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
+	 */
+	cd: (dir: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
 	/**
 	 * Excecutes the created event sequence
 	 * @param callback Gets called when the sequence has finished

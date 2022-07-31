@@ -4,18 +4,18 @@ import FileSystemUser from "./types/FileSystemUser";
 declare const Ext4: FileSystemType;
 declare class UnixFileSystemEmulator implements FileSystemEmulator {
     private graph;
+    private currentUser;
+    private currentDir;
+    constructor(user?: FileSystemUser | undefined);
     readonly rootDir = "/";
     readonly homeDir = "/home/";
     readonly rootUsr: FileSystemUser;
     readonly users: FileSystemUser[];
     readonly fileSystemType: FileSystemType;
-    private currentUser;
-    private currentDir;
-    constructor(user?: FileSystemUser | undefined);
     getCurrentDirectory: () => string;
     touch: (file: string) => void;
     mkdir: (dirNames: string) => Error[];
-    adduser: (user: FileSystemUser) => string | RangeError;
+    useradd: (user: FileSystemUser) => string | RangeError;
     pwd: () => string;
     cd: (dir: string) => string | RangeError;
     /**
@@ -65,10 +65,16 @@ declare class UnixFileSystemEmulator implements FileSystemEmulator {
     /**
      * Creates a new directory. Resolves the absolute path before creation.
      * @param {string} dir the directory to create
-     * @param {string} parent the parent of the new directory (default is ```this.rootDir```)
+     * @param {string} parent the parent of the new directory (default is ```this.currentDir```)
      * @returns {string} ```dir``` that was created
      */
     private newDir;
+    /**
+     * Creates a new file. Resolves the absolute path before creation.
+     * @param {string} file the file to create
+     * @param {string} parent the parent of the new file (default is ```this.currentDir```)
+     * @returns {string} ```file``` that was created
+     */
     private newFile;
 }
 export default UnixFileSystemEmulator;
