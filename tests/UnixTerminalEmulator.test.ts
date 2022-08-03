@@ -137,7 +137,7 @@ test("run => expect callback to be called once", done => {
 	})
 })
 
-test("addCommand + pause + run => expect time diffrence from before and after run to be greater then or equal to the pause time in ms", done => {
+test("writeCommand + pause + run => expect time diffrence from before and after run to be greater then or equal to the pause time in ms", done => {
 	// arange
 	const terminal = new UnixTerminalEmulator({
 		wrapperId: randomUUID(),
@@ -151,7 +151,7 @@ test("addCommand + pause + run => expect time diffrence from before and after ru
 	// act
 	const timeBeforeTesting = new Date()
 	terminal
-		.addCommand(testCommand)
+		.writeCommand(testCommand)
 		.pause(pauseTimeInMs)
 		.run(() => {
 			done()
@@ -161,7 +161,7 @@ test("addCommand + pause + run => expect time diffrence from before and after ru
 	// assert
 })
 
-test("addCommand + run => expect command text and ouput, where output is of type variable, to appear inside the wrapper", done => {
+test("writeCommand + run => expect command text and ouput, where output is of type variable, to appear inside the wrapper", done => {
 	// arange
 	const testCommand: TerminalCommand = {
 		text: "echo foo",
@@ -173,14 +173,14 @@ test("addCommand + run => expect command text and ouput, where output is of type
 	} as TerminalEmulatorOptions)
 
 	// act
-	terminal.addCommand(testCommand).run(() => {
+	terminal.writeCommand(testCommand).run(() => {
 		done()
 		// assert
 		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML).toContain(testCommand.text)
 		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML).toContain(testCommand.output)
 	})
 })
-test("addCommand + run => expect command text and ouput, where output is of type function, to appear inside the wrapper", done => {
+test("writeCommand + run => expect command text and ouput, where output is of type function, to appear inside the wrapper", done => {
 	// arange
 	const outputFunction = () => "bar"
 	const outputValue = outputFunction()
@@ -194,7 +194,7 @@ test("addCommand + run => expect command text and ouput, where output is of type
 	} as TerminalEmulatorOptions)
 
 	// act
-	terminal.addCommand(testCommand).run(() => {
+	terminal.writeCommand(testCommand).run(() => {
 		done()
 		// assert
 		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML).toContain(testCommand.text)
@@ -202,7 +202,7 @@ test("addCommand + run => expect command text and ouput, where output is of type
 	})
 })
 
-test("addCommand + run => expect wrapper to have 2 input line characters after single command run", done => {
+test("writeCommand + run => expect wrapper to have 2 input line characters after single command run", done => {
 	// arange
 	const testCommand: TerminalCommand = {
 		text: "echo foo",
@@ -214,14 +214,14 @@ test("addCommand + run => expect wrapper to have 2 input line characters after s
 	const inputLineMatch = /\$/g
 
 	// act
-	terminal.addCommand(testCommand).run(() => {
+	terminal.writeCommand(testCommand).run(() => {
 		done()
 		// assert
 		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML).toMatch(inputLineMatch)
 		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML.match(inputLineMatch)!.length).toBe(2)
 	})
 })
-test("addCommands + run => expect multiple commands to have thier text and output written to the wrapper after run", done => {
+test("writeCommands + run => expect multiple commands to have thier text and output written to the wrapper after run", done => {
 	// arange
 	const terminal = new UnixTerminalEmulator({
 		wrapperId: randomUUID(),
@@ -238,7 +238,7 @@ test("addCommands + run => expect multiple commands to have thier text and outpu
 	}
 
 	// act
-	terminal.addCommands([testCommand1, testCommand2]).run(() => {
+	terminal.writeCommands([testCommand1, testCommand2]).run(() => {
 		done()
 		// assert
 		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand1.text)
@@ -247,7 +247,7 @@ test("addCommands + run => expect multiple commands to have thier text and outpu
 		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand2.output)
 	})
 })
-test("addCommands + run => expect multiple commands with different write speeds to have thier text and output written to the wrapper after run", done => {
+test("writeCommands + run => expect multiple commands with different write speeds to have thier text and output written to the wrapper after run", done => {
 	// arange
 	const terminal = new UnixTerminalEmulator({
 		wrapperId: randomUUID(),
@@ -269,7 +269,7 @@ test("addCommands + run => expect multiple commands with different write speeds 
 	}
 
 	// act
-	terminal.addCommands([testCommand1, testCommand2, testCommand3]).run(() => {
+	terminal.writeCommands([testCommand1, testCommand2, testCommand3]).run(() => {
 		done()
 		// assert
 		expect(document.getElementById(terminal.options.wrapperId)?.innerHTML!).toContain(testCommand1.text)
@@ -297,7 +297,7 @@ test("echo + run => expect 'echo {text}' to be written to the wrapper and {text}
 	})
 })
 
-test("addCommand + history + run => add a single command and expect thier texts to appear twice", done => {
+test("writeCommand + history + run => add a single command and expect thier texts to appear twice", done => {
 	// arange
 	const terminal = new UnixTerminalEmulator({
 		wrapperId: randomUUID(),
@@ -310,7 +310,7 @@ test("addCommand + history + run => add a single command and expect thier texts 
 
 	// act
 	terminal
-		.addCommand(command)
+		.writeCommand(command)
 		.history(0)
 		.run(() => {
 			done()
@@ -318,7 +318,7 @@ test("addCommand + history + run => add a single command and expect thier texts 
 			expect(document.getElementById(terminal.options.wrapperId)?.innerHTML.match(new RegExp(command.text, "g"))?.length).toBe(2)
 		})
 })
-test("addCommands + history + run => add HISTSIZE - 1 commands, each with unique text, and expect all thier texts to appear twice", done => {
+test("writeCommands + history + run => add HISTSIZE - 1 commands, each with unique text, and expect all thier texts to appear twice", done => {
 	// arange
 	const terminal = new UnixTerminalEmulator({
 		wrapperId: randomUUID(),
@@ -333,7 +333,7 @@ test("addCommands + history + run => add HISTSIZE - 1 commands, each with unique
 
 	// act
 	terminal
-		.addCommands(commands)
+		.writeCommands(commands)
 		.history(0)
 		.run(() => {
 			done()
@@ -344,7 +344,7 @@ test("addCommands + history + run => add HISTSIZE - 1 commands, each with unique
 		})
 })
 
-test("addCommand + clear + run => expect terminal wrapper text, without enviroment specified, to be equal to a new empty input line", done => {
+test("writeCommand + clear + run => expect terminal wrapper text, without enviroment specified, to be equal to a new empty input line", done => {
 	// arange
 	const emptyInputLineWithoutEnviromentVariable = "$ "
 	const testCommand: TerminalCommand = {
@@ -358,7 +358,7 @@ test("addCommand + clear + run => expect terminal wrapper text, without envirome
 
 	// act
 	terminalWithoutEnviromentVariable
-		.addCommand(testCommand)
+		.writeCommand(testCommand)
 		.clear(0)
 		.run(() => {
 			done()
@@ -367,4 +367,52 @@ test("addCommand + clear + run => expect terminal wrapper text, without envirome
 			expect(document.getElementById(terminalWithoutEnviromentVariable.options.wrapperId)?.innerHTML).not.toContain(testCommand.output)
 			expect(document.getElementById(terminalWithoutEnviromentVariable.options.wrapperId)?.innerHTML).toMatch(emptyInputLineWithoutEnviromentVariable)
 		})
+})
+
+test("writeToStdout", () => {
+	// todo: implement
+})
+
+test("eraseFromStdout", () => {
+	// todo: implement
+})
+
+test("touch ", () => {
+	// todo: implement
+})
+
+test("mkdir", () => {
+	// todo: implement
+})
+
+test("useradd ", () => {
+	// todo: implement
+})
+
+test("pwd ", () => {
+	// todo: implement
+})
+
+test("cd", () => {
+	// todo: implement
+})
+
+test("vim ", () => {
+	// todo: implement
+})
+
+test("vimInsert ", () => {
+	// todo: implement
+})
+
+test("vimWrite ", () => {
+	// todo: implement
+})
+
+test("vimQuit ", () => {
+	// todo: implement
+})
+
+test("vimWriteQuit ", () => {
+	// todo: implement
 })

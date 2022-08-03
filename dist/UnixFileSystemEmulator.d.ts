@@ -1,29 +1,31 @@
 import FileSystemEmulator from "./types/FileSystemEmulator";
+import FileSystemGroup from "./types/FileSystemGroup";
 import FileSystemType from "./types/FileSystemType";
 import FileSystemUser from "./types/FileSystemUser";
 declare const Ext4: FileSystemType;
 declare class UnixFileSystemEmulator implements FileSystemEmulator {
     private graph;
     private currentUser;
+    private currentGroup;
     private currentDir;
     constructor(user?: FileSystemUser | undefined);
     readonly rootDir = "/";
     readonly homeDir = "/home/";
     readonly rootUsr: FileSystemUser;
     readonly users: FileSystemUser[];
+    readonly groups: FileSystemGroup[];
     readonly fileSystemType: FileSystemType;
+    isDirectory: (path: string) => boolean;
+    pathExists: (path: string) => boolean;
     getCurrentDirectory: () => string;
+    fileHasContent: (file: string) => boolean | TypeError;
+    getFileContent: (file: string) => string | TypeError;
+    setFileContent: (file: string, content: string) => void | TypeError;
     touch: (file: string) => void;
     mkdir: (dirNames: string) => Error[];
     useradd: (user: FileSystemUser) => string | RangeError;
     pwd: () => string;
     cd: (dir: string) => string | RangeError;
-    /**
-     * Checks if the path string exists as a node in the filesystem graph
-     * @param {string} path The path to check if it exsits
-     * @returns {boolean} ```true``` if the path string exists as a node in the filesystem graph, ```false``` otherwise
-     */
-    private pathExists;
     /**
      * Replaces any instance of repetetive forward slashes with a single forward slash:
      * ////a///b////// => /a/b/
@@ -34,6 +36,7 @@ declare class UnixFileSystemEmulator implements FileSystemEmulator {
     /**
      * Resolves path strings with relative paths and returns the absolute path.
      * If ```path``` starts with ./, it will be replaced with ```this.currentDir```.
+     * If ```path``` does not starts with ./ or /, ```this.currentDir``` will be prepended to it.
      * @param {string} path the directory path to resolve
      * @returns {string} the resolved relative directory string
      */
@@ -50,6 +53,7 @@ declare class UnixFileSystemEmulator implements FileSystemEmulator {
      * @returns {string} the path to the users home directory
      */
     private newUserDir;
+    private newGroup;
     /**
      * If path does not end with ```"/"```, appends ```"/"``` to path and returns it
      * @param {string} path path to append ```"/"``` to
@@ -76,6 +80,30 @@ declare class UnixFileSystemEmulator implements FileSystemEmulator {
      * @returns {string} ```file``` that was created
      */
     private newFile;
+    /**
+     * Sets the modified date for the current path node and all its parrents
+     * @param {string} path 	The path to set the modified date for, will always be the current date in a UTC format
+     * @param {string} parent 	The parent of the current path
+     */
+    private setModified;
+    /**
+     * Sets ```this.currentUser``` as the owner of the given path
+     * @param path The path to set the owner of
+     */
+    private setOwner;
+    /**
+     * Sets ```this.currentGroup``` as the group for the given path
+     * @param path The path to set the group of
+     */
+    private setGroup;
+    /**
+     * Sets the permissions for the given path
+     * @param path Path to set the permissions for
+     * @param owner The numeric represantation of the permisions for the owner this path belongs to
+     * @param group The numeric represantation of the permisions for the group this path belongs to
+     * @param other The numeric represantation of the permisions for the world
+     */
+    private setPermisions;
 }
 export default UnixFileSystemEmulator;
 export { Ext4 };

@@ -4,15 +4,24 @@ import TerminalCommand from "./TerminalCommand"
 import TerminalEvent from "./TerminalEvent"
 import TerminalEmulatorOptions from "./TerminalEmulatorOptions"
 import FileSystemUser from "./FileSystemUser"
+import VimEmulator from "./VimEmulator"
 
 /**
  * Allows the user to create an event sequence that emulates terminal behaviour
  */
 export default interface TerminalEmulator {
 	/**
+	 * @param wrapperElement The wrapper element for this terminal instance. If it doesnt already exist, it will be created and appended to the body.
+	 */
+	readonly wrapperElement: HTMLElement
+	/**
 	 * @param stdout The stdout for this terminal instance
 	 */
 	readonly stdout: StdoutEmulator
+	/**
+	 * @param vimEmulator The vim emulator for this terminal instance
+	 */
+	readonly vimEmulator: VimEmulator
 	/**
 	 * @param fileSystem The file system for this terminal instance
 	 */
@@ -45,17 +54,35 @@ export default interface TerminalEmulator {
 	 */
 	HISTSIZE: number
 	/**
+	 * Adds a custom text writing event to the event queue.  
+	 * Note: formated HTML will work, but only if the ```writeSpeed === 0```
+	 * @param {string} text 					The text to write to the stdout element
+	 * @param {"neutral"|number} writeSpeed 	The speed at which to write each character
+	 * @param {number|undefined} pauseAfter 	The time to pause after writing all charecters
+	 * @returns {TerminalEmulator} 				The current instance of TerminalEmulator, which enables method chaining.
+	 */
+	writeToStdout: (text: string, writeSpeed: "neutral" | number, pauseAfter?: number) => TerminalEmulator
+	/**
+	 * Adds a custom text erasing event to the event queue.  
+	 * Note: will wrap to previous rows if the amount of charecters is large enough
+	 * @param {number} n 						The amount of charecters to erase from the stdout element
+	 * @param {"neutral"|number} speed		 	The speed at which to erase each character
+	 * @param {number|undefined} pauseAfter 	The time to pause after erasing all charecters
+	 * @returns {TerminalEmulator} 				The current instance of TerminalEmulator, which enables method chaining.
+	 */
+	eraseFromStdout: (n: number, speed: "neutral" | number, pauseAfter?: number) => TerminalEmulator
+	/**
 	 * Adds a custom command to the to event queue.
 	 * @param {TerminalCommand} command 	The command to add the the queue
 	 * @returns {TerminalEmulator} 			The current instance of TerminalEmulator, which enables method chaining.
 	 */
-	addCommand: (command: TerminalCommand) => TerminalEmulator
+	writeCommand: (command: TerminalCommand) => TerminalEmulator
 	/**
 	 * Adds multiple custom commands to the to event queue.
 	 * @param {TerminalCommand[]} commands 	The commands to add the the queue
 	 * @returns {TerminalEmulator} 			The current instance of TerminalEmulator, which enables method chaining.
 	 */
-	addCommands: (commands: TerminalCommand[]) => TerminalEmulator
+	writeCommands: (commands: TerminalCommand[]) => TerminalEmulator
 	/**
 	 * Adds a pause in the event sequence.
 	 * @param {number} ms 					The time to pause for in miliseconds
@@ -131,6 +158,18 @@ export default interface TerminalEmulator {
 	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
 	 */
 	cd: (dir: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
+	/**
+	 * Emulates the vim command.
+	 * https://linuxcommand.org/lc3_man_pages/vim1.html
+	 * @param {string} fileName			 			The name of the file to edit
+	 * @param {string} initialFileContent 			The initial file content to display
+	 * @param {string[]} contentToWrite 			The content to write
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
+	 */
+	vim: (fileName: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
+	vimInsert: (text: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
 	/**
 	 * Excecutes the created event sequence
 	 * @param callback Gets called when the sequence has finished

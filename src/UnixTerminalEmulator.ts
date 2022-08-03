@@ -8,6 +8,9 @@ import TerminalEmulatorOptions from "./types/TerminalEmulatorOptions"
 import UnixFileSystemEmulator from "./UnixFileSystemEmulator"
 import TextWriter from "./TextWriter"
 import FileSystemUser from "./types/FileSystemUser"
+import VimEmulator from "./types/VimEmulator"
+import UnixVimEmulator from "./UnixVimEmulator"
+import UnixStdoutEmulator from "./UnixStdoutEmulator"
 
 // TODO: implement options for every command (check man page on ss64)
 // TODO: add support for pipeline commands
@@ -19,7 +22,6 @@ import FileSystemUser from "./types/FileSystemUser"
  */
 class UnixTerminalEmulator implements TerminalEmulator {
 	private writer: TextWriter = new TextWriter()
-	private wrapperElement: HTMLElement
 	private currentEvent: TerminalEvent | undefined
 
 	constructor(options?: TerminalEmulatorOptions) {
@@ -39,13 +41,16 @@ class UnixTerminalEmulator implements TerminalEmulator {
 		}
 		if (this.options.wrapperCss.length > 0) this.wrapperElement.classList.add(this.options.wrapperCss)
 
-		this.stdout = new StdoutEmulator(this.wrapperElement, this.options)
 		this.fileSystem = new UnixFileSystemEmulator(this.options.enviroment?.user)
+		this.stdout = new UnixStdoutEmulator(this.wrapperElement, this.options)
+		this.vimEmulator = new UnixVimEmulator(this.options)
 
 		this.writeNewInputLineToStdout(() => {})
 	}
 
+	readonly wrapperElement: HTMLElement
 	readonly stdout: StdoutEmulator
+	readonly vimEmulator: VimEmulator
 	readonly fileSystem: FileSystemEmulator
 	readonly historyStack: TerminalCommand[] = []
 	readonly eventQueue: TerminalEvent[] = []
@@ -55,14 +60,40 @@ class UnixTerminalEmulator implements TerminalEmulator {
 		cursorChar: "|",
 		cursorCss: "terminal___cursor___static",
 		stdoutCss: "termminal___emulator___stdout",
+		vimCss: "vim___emulator___wrapper",
+		vimBarCss: "vim___emulator___bar",
+		vimBarLeftCss: "vim___emulator___bar___left",
+		vimBarRightCss: "vim___emulator___bar___right",
 	}
 	HISTSIZE: number = 500
 
-	public addCommand = (command: TerminalCommand): UnixTerminalEmulator => {
+	public writeToStdout = (text: string, writeSpeed: "neutral" | number, pauseAfter?: number): TerminalEmulator => {
+		const e: TerminalEvent = {
+			fn: callback => this.writer.writeToElement(this.stdout.element, text, writeSpeed, this.stdout.removeCursor, this.stdout.appendCursor, callback),
+			fnAfter: callback => {
+				callback()
+			},
+			delayAfter: pauseAfter ? pauseAfter : 0,
+		}
+		this.eventQueue.push(e)
+		return this
+	}
+	public eraseFromStdout = (n: number, speed: "neutral" | number, pauseAfter?: number): TerminalEmulator => {
+		const e: TerminalEvent = {
+			fn: callback => this.writer.eraseFromElement(this.stdout.element, n, speed, this.stdout.removeCursor, this.stdout.appendCursor, callback),
+			fnAfter: callback => {
+				callback()
+			},
+			delayAfter: pauseAfter ? pauseAfter : 0,
+		}
+		this.eventQueue.push(e)
+		return this
+	}
+	public writeCommand = (command: TerminalCommand): UnixTerminalEmulator => {
 		this.addWriteCommandEvent(command)
 		return this
 	}
-	public addCommands = (commands: TerminalCommand[]): UnixTerminalEmulator => {
+	public writeCommands = (commands: TerminalCommand[]): UnixTerminalEmulator => {
 		commands.forEach(command => {
 			this.addWriteCommandEvent(command)
 		})
@@ -100,22 +131,31 @@ class UnixTerminalEmulator implements TerminalEmulator {
 		return this
 	}
 	public clear = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
-		this.addWriteCommandEvent({
-			text: "clear",
-			writeSpeed: writeSpeed,
-			pauseBeforeOutput: pauseBeforeOutput
-		}, (callback) => {
-			this.stdout.clear()
-			this.writeNewInputLineToStdout(callback)
-		})
+		this.addWriteCommandEvent(
+			{
+				text: "clear",
+				writeSpeed: writeSpeed,
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
+			callback => {
+				this.stdout.clear()
+				this.writeNewInputLineToStdout(callback)
+			}
+		)
 		return this
 	}
 	public touch = (fileName: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
-		this.addWriteCommandEvent({
-			text: "touch " + fileName,
-			writeSpeed: writeSpeed,
-			pauseBeforeOutput: pauseBeforeOutput,
-		})
+		this.addWriteCommandEvent(
+			{
+				text: "touch " + fileName,
+				writeSpeed: writeSpeed,
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
+			callback => {
+				this.fileSystem.touch(fileName)
+				callback()
+			}
+		)
 		return this
 	}
 	public mkdir = (dirNames: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
@@ -149,7 +189,7 @@ class UnixTerminalEmulator implements TerminalEmulator {
 					return output.message
 				}
 			},
-			pauseBeforeOutput: pauseBeforeOutput
+			pauseBeforeOutput: pauseBeforeOutput,
 		})
 		return this
 	}
@@ -178,6 +218,67 @@ class UnixTerminalEmulator implements TerminalEmulator {
 			},
 			pauseBeforeOutput: pauseBeforeOutput,
 		})
+		return this
+	}
+	public vim = (fileName: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		this.addWriteCommandEvent(
+			{
+				text: "vim " + fileName,
+				writeSpeed: writeSpeed,
+				pauseBeforeOutput: pauseBeforeOutput,
+			},
+			callback => {
+				this.vimEmulator.openFile(this.wrapperElement, this.stdout, this.fileSystem, fileName)
+				callback()
+			}
+		)
+		return this
+	}
+	public vimInsert = (text: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		const e: TerminalEvent = {
+			fn: callback => {
+				this.vimEmulator.insert(this.stdout, this.fileSystem, text, writeSpeed, callback)
+			},
+			fnAfter: callback => callback(),
+			delayAfter: pauseBeforeOutput ? pauseBeforeOutput : 0,
+		}
+		this.eventQueue.push(e)
+		return this
+	}
+	public vimWrite = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		pauseBeforeOutput = pauseBeforeOutput ? pauseBeforeOutput : 0
+		const e: TerminalEvent = {
+			fn: callback => {
+				this.vimEmulator.write(this.stdout, this.fileSystem, writeSpeed, pauseBeforeOutput!, callback)
+			},
+			fnAfter: callback => callback(),
+			delayAfter: 0,
+		}
+		this.eventQueue.push(e)
+		return this
+	}
+	public vimQuit = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		pauseBeforeOutput = pauseBeforeOutput ? pauseBeforeOutput : 0
+		const e: TerminalEvent = {
+			fn: callback => {
+				this.vimEmulator.quit(this.stdout, this.fileSystem, writeSpeed, pauseBeforeOutput!, callback)
+			},
+			fnAfter: callback => callback(),
+			delayAfter: 0,
+		}
+		this.eventQueue.push(e)
+		return this
+	}
+	public vimWriteQuit = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		pauseBeforeOutput = pauseBeforeOutput ? pauseBeforeOutput : 0
+		const e: TerminalEvent = {
+			fn: callback => {
+				this.vimEmulator.writeQuit(this.stdout, this.fileSystem, writeSpeed, pauseBeforeOutput!, callback)
+			},
+			fnAfter: callback => callback(),
+			delayAfter: 0,
+		}
+		this.eventQueue.push(e)
 		return this
 	}
 	public run = (callback?: () => void) => {
@@ -209,29 +310,36 @@ class UnixTerminalEmulator implements TerminalEmulator {
 
 	/**
 	 * Adds an event to the event queue which writes the command and its output if specified to the stdout.
-	 * @param command the command to write 
-	 * @param fnAfter 
+	 * @param command the command to write
+	 * @param fnAfter
 	 */
-	 private addWriteCommandEvent = (command: TerminalCommand, fnAfter?: (callback: () => void) => void) => {
+	private addWriteCommandEvent = (command: TerminalCommand, fnAfter?: (callback: () => void) => void) => {
 		// write command text
 		const e: TerminalEvent = {
 			fn: callback => {
 				this.historyStack.push(command)
 				this.writer.writeToElement(this.stdout.element, command.text, command.writeSpeed, this.stdout.removeCursor, this.stdout.appendCursor, () => {
 					this.writeLineBreakToStdout(() => {
-						// write command output
 						this.stdout.removeCursor()
-						var cmdOut = ""
-						if (typeof command.output === "function") cmdOut = command.output()
-						else if (typeof command.output === "string") cmdOut = command.output
-						this.writer.writeToElement(this.stdout.element, cmdOut, 0, undefined, undefined, () => {
-							this.writeLineBreakToStdout(() => {
-								this.writeNewInputLineToStdout(() => {
-									this.stdout.appendCursor()
-									callback()
+						if (command.output !== undefined) {
+							// write command output
+							var cmdOut = ""
+							if (typeof command.output === "function") cmdOut = command.output()
+							else if (typeof command.output === "string") cmdOut = command.output
+							this.writer.writeToElement(this.stdout.element, cmdOut, 0, undefined, undefined, () => {
+								this.writeLineBreakToStdout(() => {
+									this.writeNewInputLineToStdout(() => {
+										this.stdout.appendCursor()
+										callback()
+									})
 								})
 							})
-						})
+						} else {
+							this.writeNewInputLineToStdout(() => {
+								this.stdout.appendCursor()
+								callback()
+							})
+						}
 					})
 				})
 			},

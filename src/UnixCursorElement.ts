@@ -16,7 +16,7 @@ class UnixCursorElement implements CursorElement {
 
 		this.element = document.createElement("span")
 		this.element.id = nanoid()
-		this.element.innerText = this.options.cursorChar
+		this.element.innerHTML = this.options.cursorChar
 		if (this.options.cursorCss.length > 0) {
 			this.element.classList.add(this.options.cursorCss)
 		}

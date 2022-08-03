@@ -37,3 +37,21 @@
 .terminal___cursor___none {
 	animation: none;
 }
+
+.vim___emulator___wrapper {
+	position: relative;
+}
+.vim___emulator___bar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin-right: auto;
+	width: 98%;
+}
+.vim___emulator___bar___left {
+	float: left;
+}
+.vim___emulator___bar___right {
+	float: right;
+}

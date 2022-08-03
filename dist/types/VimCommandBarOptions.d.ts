@@ -1,12 +1,17 @@
 export default interface VimCommandBarOptions {
-    id: string;
-    css: "vim___commandbar___wrapper";
-    leftCss: "vim___commandbar___left";
-    rightCss: "vim___commandbar___right";
-    fileNameId: string;
-    fileLinecountId: string;
-    fileSizeId: string;
-    cursorPositionId: string;
-    rightspacerId: string;
-    allId: string;
+    /**
+     * The CSS to apply to the vim commandbar wrapper element
+     * @constant
+     */
+    readonly vimBarCss: "vim___emulator___bar";
+    /**
+     * The CSS to apply to the left inner elements of the vim commandba element
+     * @constant
+     */
+    readonly vimBarLeftCss: "vim___emulator___bar___left";
+    /**
+     * The CSS to apply to the right inner elements of the vim commandba element
+     * @constant
+     */
+    readonly vimBarRightCss: "vim___emulator___bar___right";
 }

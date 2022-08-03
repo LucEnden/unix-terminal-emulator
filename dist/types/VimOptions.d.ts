@@ -1,12 +1,11 @@
-import CursorElementOptions from "./CursorElementOptions";
-import StdoutEmulatorOptions from "./StdoutEmulatorOptions";
+import VimCommandBarOptions from "./VimCommandBarOptions";
 /**
  * Options to customize the VIM emulator
  */
-export default interface VimOptions extends StdoutEmulatorOptions, CursorElementOptions {
+export default interface VimOptions extends VimCommandBarOptions {
     /**
      * The CSS to apply to the vim element
-     * @default "vim___emulator___editor"
+     * @constant
      */
-    readonly vimCss: string;
+    readonly vimCss: "vim___emulator___wrapper";
 }

@@ -1,7 +1,7 @@
 import FileSystemUser from "../src/types/FileSystemUser"
 import UnixFileSystemEmulator from "../src/UnixFileSystemEmulator"
 
-test("adduser => should return an error if adding root user", () => {
+test("useradd => should return an error if adding root user", () => {
 	const fs = new UnixFileSystemEmulator()
 	const secondRootUser: FileSystemUser = {
 		name: "root",
@@ -9,7 +9,7 @@ test("adduser => should return an error if adding root user", () => {
 		homeDir: ""
 	}
 
-	const adduserOutput = fs.adduser(secondRootUser)
+	const adduserOutput = fs.useradd(secondRootUser)
 
 	expect(adduserOutput).toBeInstanceOf(RangeError)
 })
@@ -90,4 +90,60 @@ test("mkdir => create N valid directories and expect the output to contain 0 err
 	const mkdirOutput = fs.mkdir(validDirs.join(" "))
 
 	expect(mkdirOutput.length).toEqual(0)
+})
+
+test("touch => test relative and absolute file paths", () => {
+	const fs = new UnixFileSystemEmulator()
+	const relativeFile = "relativeFile"
+	const absoluteFile = "/absoluteFile"
+
+	fs.touch(relativeFile)
+	fs.touch(absoluteFile)
+})
+
+test("touch + pathExists => expect fille to be created if it doesnt exist, else only the timestamp should be updated", () => {
+	const fs = new UnixFileSystemEmulator()
+	const fileToBeCreate = "/home/root/textfile"
+
+	var fileShouldNotExist = fs.pathExists(fileToBeCreate)
+	fs.touch(fileToBeCreate)
+	var fileShouldExist = fs.pathExists(fileToBeCreate)
+
+	expect(fileShouldNotExist).toBeFalsy()
+	expect(fileShouldExist).toBeTruthy()
+})
+
+test("setFileContent + fileHasContent => expect TypeError for non existing file and directory string, false for existing empty file and true for existing non empty file", () => {
+	const fs = new UnixFileSystemEmulator()
+	const nonExistingFile = "NON/EXISTING/FILE"
+	const directoryString = "/home/"
+	const existingFileWithContent = "/home/root/fileWithContent"
+	const existingFileWithoutContent = "/home/root/fileWithoutContent"
+	const contentToWrite = "content"
+
+	fs.setFileContent(existingFileWithContent, contentToWrite)
+	fs.touch(existingFileWithoutContent)
+
+	expect(fs.fileHasContent(nonExistingFile)).toBeInstanceOf(TypeError)
+	expect(fs.setFileContent(directoryString, contentToWrite)).toBeInstanceOf(TypeError)
+	expect(fs.fileHasContent(directoryString)).toBeInstanceOf(TypeError)
+	expect(fs.fileHasContent(existingFileWithContent)).toBeTruthy()
+	expect(fs.fileHasContent(existingFileWithoutContent)).toBeFalsy()
+})
+
+test("touch + getFileContent => expect TypeError for non existing file, text content for existing files", () => {
+	const fs = new UnixFileSystemEmulator()
+	const nonExistingFile = "NON/EXISTING/FILE"
+	const existingFileWithContent = "/home/root/fileWithContent"
+	const existingFileWithoutContent = "/home/root/fileWithoutContent"
+	const contentWithText = "content"
+	const contentWithoutText = ""
+
+	fs.touch(existingFileWithContent)
+	fs.setFileContent(existingFileWithContent, contentWithText)
+	fs.touch(existingFileWithoutContent)
+
+	expect(fs.getFileContent(nonExistingFile)).toBeInstanceOf(TypeError)
+	expect(fs.getFileContent(existingFileWithContent)).toBe(contentWithText)
+	expect(fs.getFileContent(existingFileWithoutContent)).toBe(contentWithoutText)
 })
