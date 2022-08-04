@@ -3,6 +3,7 @@ import FileSystemEmulator from "./types/FileSystemEmulator"
 import StdoutEmulator from "./types/StdoutEmulator"
 import VimEmulator from "./types/VimEmulator"
 import VimOptions from "./types/VimOptions"
+import { TextEncoder } from 'util';
 
 class UnixVimEmulator implements VimEmulator {
 	private wrapper: HTMLElement | undefined
@@ -64,26 +65,24 @@ class UnixVimEmulator implements VimEmulator {
 	readonly allElement: HTMLElement
 
 	public openFile = (wrapper: HTMLElement, stdout: StdoutEmulator, fileSystem: FileSystemEmulator, fileName: string) => {
-		var fileContent = fileSystem.getFileContent(fileName)
-		if (!(typeof fileContent === "string")) {
-			this.writer.writeToElement(stdout.element, fileContent.message, 0, stdout.removeCursor, stdout.appendCursor, undefined)
-			return
-		}
-
 		// set fields
-		this.wrapper = wrapper
 		this.currentFilename = fileName
+		this.currentFileIsNew = !fileSystem.pathExists(this.currentFilename)
+		this.wrapper = wrapper
 		stdout.removeCursor()
 		this.prevStdoutContent = stdout.element.innerHTML
 
 		// set stdout before updating command bar
 		stdout.element.remove()
 		stdout.clear()
+		var fileContent = fileSystem.getFileContent(fileName)
+		if (!(typeof fileContent === "string")) {
+			fileContent = ""
+		}
 		stdout.element.innerHTML = fileContent
 		stdout.appendCursor()
 
 		// if a file is new (eg: does not exist yet), no file size or line count should be shown
-		this.currentFileIsNew = !fileSystem.pathExists(this.currentFilename)
 		this.updateFileLineCountElem(stdout)
 		this.updateFileSizeElem(stdout)
 		this.updateFileNameElem()
@@ -191,7 +190,8 @@ class UnixVimEmulator implements VimEmulator {
 		// var fileSize = new Blob([this.stdout.element.innerHTML.replace("<br>", "\n").replace(/<\w*\s*[^>]*>/, "")]).size
 		var fileContent = stdout.element.innerHTML.replace("<br>", "\n").replace(/<\w*\s*[^>]*>/gm, "")
 		fileContent = fileContent.slice(0, fileContent.lastIndexOf("|"))
-		var fileSize = new TextEncoder().encode(fileContent).length + 1
+		var enc = new TextEncoder()
+		var fileSize = enc.encode(fileContent).length + 1
 		var sizeUnit: string
 
 		if (fileSize < 1000) {

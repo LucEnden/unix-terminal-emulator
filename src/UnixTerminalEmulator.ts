@@ -184,12 +184,12 @@ class UnixTerminalEmulator implements TerminalEmulator {
 			output: () => {
 				var output = this.fileSystem.useradd(user)
 				if (typeof output === "string") {
-					return output
+					return ""
 				} else {
 					return output.message
 				}
 			},
-			pauseBeforeOutput: pauseBeforeOutput,
+			pauseBeforeOutput: pauseBeforeOutput
 		})
 		return this
 	}
@@ -197,9 +197,7 @@ class UnixTerminalEmulator implements TerminalEmulator {
 		this.addWriteCommandEvent({
 			text: "pwd",
 			writeSpeed: writeSpeed,
-			output: () => {
-				return this.fileSystem.pwd()
-			},
+			output: this.fileSystem.pwd,
 			pauseBeforeOutput: pauseBeforeOutput,
 		})
 		return this
@@ -211,7 +209,7 @@ class UnixTerminalEmulator implements TerminalEmulator {
 			output: () => {
 				var output = this.fileSystem.cd(dir)
 				if (typeof output === "string") {
-					return output
+					return ""
 				} else {
 					return output.message
 				}
@@ -321,11 +319,11 @@ class UnixTerminalEmulator implements TerminalEmulator {
 				this.writer.writeToElement(this.stdout.element, command.text, command.writeSpeed, this.stdout.removeCursor, this.stdout.appendCursor, () => {
 					this.writeLineBreakToStdout(() => {
 						this.stdout.removeCursor()
-						if (command.output !== undefined) {
+						var cmdOut = ""
+						if (typeof command.output === "function") cmdOut = command.output()
+						else if (typeof command.output === "string") cmdOut = command.output
+						if (command.output !== undefined && cmdOut.length > 0) {
 							// write command output
-							var cmdOut = ""
-							if (typeof command.output === "function") cmdOut = command.output()
-							else if (typeof command.output === "string") cmdOut = command.output
 							this.writer.writeToElement(this.stdout.element, cmdOut, 0, undefined, undefined, () => {
 								this.writeLineBreakToStdout(() => {
 									this.writeNewInputLineToStdout(() => {

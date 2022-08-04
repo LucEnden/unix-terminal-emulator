@@ -13,6 +13,7 @@ module.exports = {
 	devtool: "inline-source-map",
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".jsx"],
+		fallback: { "util": require.resolve("util/") }
 	},
 	module: {
 		rules: [

@@ -43,7 +43,7 @@ class TextWriter {
 	 * @param i for recursive perposes, should not be set manualy
 	 */
 	public writeToElement = (e: HTMLElement, t: string, s: "neutral" | number = "neutral", beforeChar?: () => void, afterChar?: () => void, callback?: () => void, i: number = 0) => {
-		t = decode(t)
+		t = decode(t).replace("&nbsp;", " ")
 		if (s === 0) {
 			if (beforeChar !== undefined) beforeChar()
 			e.innerHTML += t
