@@ -2,6 +2,9 @@
 
 [TextWriter](../wiki/TextWriter).TextWriter
 
+Implements methods for writing and erasing text of HTML elements.
+[https://github.com/LucEnden/unix-terminal-emulator/wiki/TextWriter.TextWriter](https://github.com/LucEnden/unix-terminal-emulator/wiki/TextWriter.TextWriter)
+
 ## Table of contents
 
 ### Constructors
@@ -45,7 +48,7 @@ Erases N characters from the end of an HTML element.
 
 #### Defined in
 
-[TextWriter.ts:15](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/TextWriter.ts#L15)
+[TextWriter.ts:19](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/TextWriter.ts#L19)
 
 ___
 
@@ -73,4 +76,4 @@ Writes text to the end of an HTML element. Supports plain text, smileys and HTML
 
 #### Defined in
 
-[TextWriter.ts:45](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/TextWriter.ts#L45)
+[TextWriter.ts:49](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/TextWriter.ts#L49)

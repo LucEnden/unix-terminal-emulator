@@ -51,7 +51,7 @@ https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answe
 
 #### Defined in
 
-[types/TerminalEmulator.ts:55](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L55)
+[types/TerminalEmulator.ts:55](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L55)
 
 ___
 
@@ -82,7 +82,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:160](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L160)
+[types/TerminalEmulator.ts:160](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L160)
 
 ___
 
@@ -112,7 +112,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:116](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L116)
+[types/TerminalEmulator.ts:116](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L116)
 
 ___
 
@@ -143,7 +143,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:100](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L100)
+[types/TerminalEmulator.ts:100](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L100)
 
 ___
 
@@ -174,7 +174,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:73](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L73)
+[types/TerminalEmulator.ts:73](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L73)
 
 ___
 
@@ -188,7 +188,7 @@ The event queue for this terminal instance
 
 #### Defined in
 
-[types/TerminalEmulator.ts:36](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L36)
+[types/TerminalEmulator.ts:36](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L36)
 
 ___
 
@@ -202,7 +202,7 @@ The file system for this terminal instance
 
 #### Defined in
 
-[types/TerminalEmulator.ts:28](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L28)
+[types/TerminalEmulator.ts:28](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L28)
 
 ___
 
@@ -232,7 +232,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:108](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L108)
+[types/TerminalEmulator.ts:108](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L108)
 
 ___
 
@@ -246,7 +246,7 @@ The command history for this terminal instance
 
 #### Defined in
 
-[types/TerminalEmulator.ts:32](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L32)
+[types/TerminalEmulator.ts:32](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L32)
 
 ___
 
@@ -277,7 +277,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:125](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L125)
+[types/TerminalEmulator.ts:125](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L125)
 
 ___
 
@@ -295,7 +295,7 @@ Default options for every terminal instance
 
 #### Defined in
 
-[types/TerminalEmulator.ts:49](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L49)
+[types/TerminalEmulator.ts:49](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L49)
 
 ___
 
@@ -323,7 +323,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:91](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L91)
+[types/TerminalEmulator.ts:91](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L91)
 
 ___
 
@@ -353,7 +353,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:133](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L133)
+[types/TerminalEmulator.ts:133](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L133)
 
 ___
 
@@ -379,7 +379,7 @@ Excecutes the created event sequence
 
 #### Defined in
 
-[types/TerminalEmulator.ts:177](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L177)
+[types/TerminalEmulator.ts:177](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L177)
 
 ___
 
@@ -393,7 +393,7 @@ The stdout for this terminal instance
 
 #### Defined in
 
-[types/TerminalEmulator.ts:20](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L20)
+[types/TerminalEmulator.ts:20](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L20)
 
 ___
 
@@ -424,7 +424,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:142](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L142)
+[types/TerminalEmulator.ts:142](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L142)
 
 ___
 
@@ -455,7 +455,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:151](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L151)
+[types/TerminalEmulator.ts:151](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L151)
 
 ___
 
@@ -486,7 +486,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:171](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L171)
+[types/TerminalEmulator.ts:171](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L171)
 
 ___
 
@@ -500,7 +500,7 @@ The vim emulator for this terminal instance
 
 #### Defined in
 
-[types/TerminalEmulator.ts:24](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L24)
+[types/TerminalEmulator.ts:24](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L24)
 
 ___
 
@@ -526,7 +526,7 @@ ___
 
 #### Defined in
 
-[types/TerminalEmulator.ts:172](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L172)
+[types/TerminalEmulator.ts:172](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L172)
 
 ___
 
@@ -540,7 +540,7 @@ The wrapper element for this terminal instance. If it doesnt already exist, it w
 
 #### Defined in
 
-[types/TerminalEmulator.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L16)
+[types/TerminalEmulator.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L16)
 
 ___
 
@@ -568,7 +568,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:79](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L79)
+[types/TerminalEmulator.ts:79](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L79)
 
 ___
 
@@ -596,7 +596,7 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:85](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L85)
+[types/TerminalEmulator.ts:85](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L85)
 
 ___
 
@@ -627,4 +627,4 @@ The current instance of TerminalEmulator, which enables method chaining.
 
 #### Defined in
 
-[types/TerminalEmulator.ts:64](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEmulator.ts#L64)
+[types/TerminalEmulator.ts:64](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/TerminalEmulator.ts#L64)

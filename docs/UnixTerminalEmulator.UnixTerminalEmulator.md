@@ -3,8 +3,7 @@
 [UnixTerminalEmulator](../wiki/UnixTerminalEmulator).UnixTerminalEmulator
 
 Emulates a unix terminal by building an event sequence of commands and timings which gets excecuted when the run method is called.
-
-[https://github.com/LucEnden/unix-terminal-emulator](https://github.com/LucEnden/unix-terminal-emulator)
+[https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixTerminalEmulator.UnixTerminalEmulator](https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixTerminalEmulator.UnixTerminalEmulator)
 
 ## Implements
 
@@ -63,7 +62,7 @@ Emulates a unix terminal by building an event sequence of commands and timings w
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:27](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L27)
+[UnixTerminalEmulator.ts:26](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L26)
 
 ## Properties
 
@@ -83,7 +82,7 @@ https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize#answe
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:68](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L68)
+[UnixTerminalEmulator.ts:67](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L67)
 
 ___
 
@@ -101,7 +100,7 @@ The event queue for this terminal instance
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:56](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L56)
+[UnixTerminalEmulator.ts:55](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L55)
 
 ___
 
@@ -119,7 +118,7 @@ The file system for this terminal instance
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:54](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L54)
+[UnixTerminalEmulator.ts:53](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L53)
 
 ___
 
@@ -137,7 +136,7 @@ The command history for this terminal instance
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:55](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L55)
+[UnixTerminalEmulator.ts:54](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L54)
 
 ___
 
@@ -159,7 +158,7 @@ Default options for every terminal instance
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:57](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L57)
+[UnixTerminalEmulator.ts:56](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L56)
 
 ___
 
@@ -177,7 +176,7 @@ The stdout for this terminal instance
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:52](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L52)
+[UnixTerminalEmulator.ts:51](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L51)
 
 ___
 
@@ -195,7 +194,7 @@ The vim emulator for this terminal instance
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:53](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L53)
+[UnixTerminalEmulator.ts:52](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L52)
 
 ___
 
@@ -213,7 +212,7 @@ The wrapper element for this terminal instance. If it doesnt already exist, it w
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:51](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L51)
+[UnixTerminalEmulator.ts:50](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L50)
 
 ## Methods
 
@@ -244,7 +243,7 @@ TerminalEmulator.cd
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:205](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L205)
+[UnixTerminalEmulator.ts:204](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L204)
 
 ___
 
@@ -274,7 +273,7 @@ TerminalEmulator.clear
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:133](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L133)
+[UnixTerminalEmulator.ts:132](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L132)
 
 ___
 
@@ -305,7 +304,7 @@ TerminalEmulator.echo
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:115](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L115)
+[UnixTerminalEmulator.ts:114](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L114)
 
 ___
 
@@ -336,7 +335,7 @@ TerminalEmulator.eraseFromStdout
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:81](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L81)
+[UnixTerminalEmulator.ts:80](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L80)
 
 ___
 
@@ -366,7 +365,7 @@ TerminalEmulator.history
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:124](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L124)
+[UnixTerminalEmulator.ts:123](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L123)
 
 ___
 
@@ -397,7 +396,7 @@ TerminalEmulator.mkdir
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:161](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L161)
+[UnixTerminalEmulator.ts:160](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L160)
 
 ___
 
@@ -425,7 +424,7 @@ TerminalEmulator.pause
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:102](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L102)
+[UnixTerminalEmulator.ts:101](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L101)
 
 ___
 
@@ -455,7 +454,7 @@ TerminalEmulator.pwd
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:196](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L196)
+[UnixTerminalEmulator.ts:195](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L195)
 
 ___
 
@@ -481,7 +480,7 @@ TerminalEmulator.run
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:282](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L282)
+[UnixTerminalEmulator.ts:281](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L281)
 
 ___
 
@@ -512,7 +511,7 @@ TerminalEmulator.touch
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:147](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L147)
+[UnixTerminalEmulator.ts:146](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L146)
 
 ___
 
@@ -543,7 +542,7 @@ TerminalEmulator.useradd
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:180](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L180)
+[UnixTerminalEmulator.ts:179](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L179)
 
 ___
 
@@ -574,7 +573,7 @@ TerminalEmulator.vim
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:221](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L221)
+[UnixTerminalEmulator.ts:220](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L220)
 
 ___
 
@@ -600,7 +599,7 @@ TerminalEmulator.vimInsert
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:235](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L235)
+[UnixTerminalEmulator.ts:234](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L234)
 
 ___
 
@@ -621,7 +620,7 @@ ___
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:258](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L258)
+[UnixTerminalEmulator.ts:257](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L257)
 
 ___
 
@@ -642,7 +641,7 @@ ___
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:246](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L246)
+[UnixTerminalEmulator.ts:245](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L245)
 
 ___
 
@@ -663,7 +662,7 @@ ___
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:270](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L270)
+[UnixTerminalEmulator.ts:269](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L269)
 
 ___
 
@@ -691,7 +690,7 @@ TerminalEmulator.writeCommand
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:92](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L92)
+[UnixTerminalEmulator.ts:91](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L91)
 
 ___
 
@@ -719,7 +718,7 @@ TerminalEmulator.writeCommands
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:96](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L96)
+[UnixTerminalEmulator.ts:95](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L95)
 
 ___
 
@@ -750,4 +749,4 @@ TerminalEmulator.writeToStdout
 
 #### Defined in
 
-[UnixTerminalEmulator.ts:70](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/UnixTerminalEmulator.ts#L70)
+[UnixTerminalEmulator.ts:69](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/UnixTerminalEmulator.ts#L69)
