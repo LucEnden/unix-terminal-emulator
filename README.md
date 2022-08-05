@@ -239,6 +239,12 @@ terminal2
 
 ## Perfomance
 
+| Time per Run in MS                                                                    | Time per Command in MS                                                                    |
+| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| ![Time per run in MS graph of all versions](tests/performance/time_per_run_in_ms.svg) | ![Time per command in MS graph of all versions](tests/performance/time_per_command_in_ms.svg) |
+
+[Click here](https://docs.google.com/spreadsheets/d/e/2PACX-1vSAKSUTB6fm6-PQNgSEpBtxe9h_v1m2JiYnl--0hHiyvHMK8Yrdz16e5Y8X9kPmBm0HvIJPgchSufp4/pubhtml) to see an interactive version of the graph.
+
 Bellow are performance charts based on different versions of the app, including explenation about how the performance was measured.
 
 ### N Commands / Time Per Run
@@ -324,8 +330,6 @@ averageMetrics.plot()
 
 <details>
 <summary>Version 1</summary>
-
-[Click here](https://docs.google.com/spreadsheets/d/e/2PACX-1vSAKSUTB6fm6-PQNgSEpBtxe9h_v1m2JiYnl--0hHiyvHMK8Yrdz16e5Y8X9kPmBm0HvIJPgchSufp4/pubhtml) to see an interactive version of the graph.
 
 ![N Commands / Time Per Run](./tests/performance/v1/nCommands_timePerRun.svg)
 

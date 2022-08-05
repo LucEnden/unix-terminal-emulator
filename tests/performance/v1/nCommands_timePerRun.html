@@ -2,17 +2,16 @@
 <html>
 	<head></head>
 	<body></body>
-	<script type="text/javascript" src="../../dist/index.js"></script>
+	<script src="https://unpkg.com/unix-terminal-emulator@1.1.0/dist/index.js"></script>
 	<script>
 		function parseMetricsToJson() {
-			const metricsRaw = json.stringify(localStorage)
-			var parsedMetrics = metricsRaw.replaceAll("$ Start time: ", "")
-			var parsedMetrics = parsedMetrics.replaceAll("\n$ |", "")
-			var parsedMetrics = parsedMetrics.replaceAll("\n$ foo\n", ", ")
-			var parsedMetrics = parsedMetrics.replaceAll(':"', ": [")
-			var parsedMetrics = parsedMetrics.replaceAll('",', "], ")
-			var parsedMetrics = parsedMetrics.replaceAll('",', "], ")
-			var parsedMetrics = parsedMetrics.replaceAll('"}', "]}")
+			const metricsRaw = JSON.stringify(localStorage)
+			var parsedMetrics = metricsRaw
+			parsedMetrics = parsedMetrics.replaceAll('"{', "{")
+			parsedMetrics = parsedMetrics.replaceAll('"}"', '}"')
+			parsedMetrics = parsedMetrics.replaceAll('}","', '},"')
+			parsedMetrics = parsedMetrics.replace(new RegExp('}"$'), "}")
+			parsedMetrics = parsedMetrics.replaceAll("\\", "")
 			return parsedMetrics
 		}
 
@@ -79,6 +78,6 @@
 				document.body.append(report)
 			}
 		}
-		measureTimePerRunForNcommands(780, 840, 10, 10)
+		measureTimePerRunForNcommands()
 	</script>
 </html>

@@ -2,8 +2,19 @@
 <html>
 	<head></head>
 	<body></body>
-	<script type="text/javascript" src="../../dist/index.js"></script>
+	<script src="https://unpkg.com/unix-terminal-emulator@1.1.0/dist/index.js"></script>
 	<script>
+		function parseMetricsToJson() {
+			const metricsRaw = JSON.stringify(localStorage)
+			var parsedMetrics = metricsRaw
+			parsedMetrics = parsedMetrics.replaceAll(':"~$ Start time: ', ":[")
+			parsedMetrics = parsedMetrics.replaceAll("\n~$ foo\n", ",")
+			parsedMetrics = parsedMetrics.replaceAll("~$ |", "")
+			parsedMetrics = parsedMetrics.replaceAll('","metric', '],"metric')
+			parsedMetrics = parsedMetrics.replaceAll('"}', "]}")
+			return parsedMetrics
+		}
+
 		function measureTimePerCommandForNcommands(minNoCommands = 0, maxNoCommands = 1000, xMetricsPerRun = 10) {
 			if (xMetricsPerRun <= 0) xMetricsPerRun = 1
 
@@ -54,7 +65,7 @@
 				localStorage.removeItem(ls_nCommands)
 				localStorage.removeItem(ls_ranXtimes)
 				const report = document.createElement("div")
-				report.innerHTML += JSON.stringify(localStorage)
+				report.innerHTML = parseMetricsToJson()
 				document.body.append(report)
 			}
 		}

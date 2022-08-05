@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body></body>
+	<script type="text/javascript" src="../../../dist/index.js"></script>
+	<script>
+		function parseMetricsToJson() {
+			const metricsRaw = JSON.stringify(localStorage)
+			var parsedMetrics = metricsRaw
+			parsedMetrics = parsedMetrics.replaceAll('"{', "{")
+			parsedMetrics = parsedMetrics.replaceAll('"}"', '}"')
+			parsedMetrics = parsedMetrics.replaceAll('}","', '},"')
+			parsedMetrics = parsedMetrics.replace(new RegExp('}"$'), "}")
+			parsedMetrics = parsedMetrics.replaceAll("\\", "")
+			return parsedMetrics
+		}
+
+		function measureTimePerRunForNcommands(minNoCommands = 0, maxNoCommands = 1000, stepSize = 10, xMetricsPerStep = 10) {
+			if (stepSize <= 0) stepSize = 1
+			if (xMetricsPerStep <= 0) xMetricsPerStep = 1
+
+			// init local storage
+			const ls_firstTimeRun = "unix_terminal_emulator_nCommands_firstTimeRun"
+			const ls_nCommands = "unix_terminal_emulator_nCommands"
+			const ls_ranXtimes = "unix_terminal_emulator_nCommands_ran_x_times"
+
+			if (localStorage.getItem(ls_firstTimeRun) === null) {
+				localStorage.clear()
+				localStorage.setItem(ls_firstTimeRun, "false")
+				localStorage.setItem(ls_nCommands, minNoCommands)
+				localStorage.setItem(ls_ranXtimes, 1)
+			}
+
+			var nCommands = parseInt(localStorage.getItem(ls_nCommands))
+			var ranXtimes = parseInt(localStorage.getItem(ls_ranXtimes))
+
+			if (nCommands <= maxNoCommands) {
+				// generate metrics
+				if (ranXtimes > xMetricsPerStep) {
+					nCommands += stepSize
+					localStorage.setItem(ls_nCommands, nCommands)
+					ranXtimes = 1
+					localStorage.setItem(ls_ranXtimes, ranXtimes)
+					location.reload()
+				}
+
+				var terminal = new UnixTerminalEmulator()
+				for (var i = 0; i < nCommands; i++) {
+					terminal.writeCommand({
+						text: "foo",
+						writeSpeed: 0,
+						pauseBeforeOutput: 0,
+					})
+				}
+
+				console.log(`Getting time metric:\n- commands ${nCommands} out of ${maxNoCommands}\n- metric ${ranXtimes} out of ${xMetricsPerStep}`)
+				const start = new Date()
+				terminal.run(() => {
+					const end = new Date()
+					var exeTime = end.getTime() - start.getTime()
+					var metric = {
+						exeTime,
+						nCommands,
+						ranXtimes,
+					}
+					localStorage.setItem(`metric_${nCommands}_${ranXtimes}`, JSON.stringify(metric))
+					localStorage.setItem(ls_ranXtimes, ranXtimes + 1)
+					location.reload()
+				})
+			} else {
+				// generate repport
+				document.body.innerHTML += "Performance metrics:<br>"
+				localStorage.removeItem(ls_firstTimeRun)
+				localStorage.removeItem(ls_nCommands)
+				localStorage.removeItem(ls_ranXtimes)
+				const report = document.createElement("div")
+				report.innerHTML = parseMetricsToJson()
+				document.body.append(report)
+			}
+		}
+		measureTimePerRunForNcommands()
+	</script>
+</html>

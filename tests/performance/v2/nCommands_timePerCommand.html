@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body></body>
+	<script type="text/javascript" src="../../../dist/index.js"></script>
+	<script>
+		function parseMetricsToJson() {
+			const metricsRaw = JSON.stringify(localStorage)
+			var parsedMetrics = metricsRaw
+			parsedMetrics = parsedMetrics.replaceAll(':"~$ Start time: ', ":[")
+			parsedMetrics = parsedMetrics.replaceAll("\n~$ foo\n", ",")
+			parsedMetrics = parsedMetrics.replaceAll("~$ |", "")
+			parsedMetrics = parsedMetrics.replaceAll('","metric', '],"metric')
+			parsedMetrics = parsedMetrics.replaceAll('"}', "]}")
+			return parsedMetrics
+		}
+
+		function measureTimePerCommandForNcommands(minNoCommands = 0, maxNoCommands = 1000, xMetricsPerRun = 10) {
+			if (xMetricsPerRun <= 0) xMetricsPerRun = 1
+
+			// init local storage
+			const ls_firstTimeRun = "unix_terminal_emulator_nCommands_timePerCommand_firstTimeRun"
+			const ls_nCommands = "unix_terminal_emulator_nCommands_timePerCommand"
+			const ls_ranXtimes = "unix_terminal_emulator_nCommands_ran_x_times_timePerCommand"
+
+			if (localStorage.getItem(ls_firstTimeRun) === null) {
+				localStorage.clear()
+				localStorage.setItem(ls_firstTimeRun, "false")
+				localStorage.setItem(ls_nCommands, minNoCommands)
+				localStorage.setItem(ls_ranXtimes, 1)
+			}
+
+			var nCommands = parseInt(localStorage.getItem(ls_nCommands))
+			var ranXtimes = parseInt(localStorage.getItem(ls_ranXtimes))
+
+			if (ranXtimes <= xMetricsPerRun) {
+				// generate metrics
+				var terminal = new UnixTerminalEmulator()
+				var timeBeforeCommand = new Date().getTime()
+				terminal.writeCommand({
+					text: "Start time: " + new Date().getTime().toString(),
+					writeSpeed: 0,
+				})
+				for (var i = 0; i < maxNoCommands; i++) {
+					terminal.writeCommand({
+						text: "foo",
+						writeSpeed: 0,
+						pauseBeforeOutput: 0,
+						output: () => {
+							return new Date().getTime().toString()
+						},
+					})
+				}
+
+				console.log(`Getting time metric per command:\n- metric ${ranXtimes} out of ${xMetricsPerRun}`)
+				terminal.run(() => {
+					localStorage.setItem(ls_ranXtimes, ranXtimes + 1)
+					localStorage.setItem(`metric_${ranXtimes}`, document.getElementById("terminal___emulator___wrapper").innerText)
+					location.reload()
+				})
+			} else {
+				// generate repport
+				document.body.innerHTML += "Performance metrics:<br>"
+				localStorage.removeItem(ls_firstTimeRun)
+				localStorage.removeItem(ls_nCommands)
+				localStorage.removeItem(ls_ranXtimes)
+				const report = document.createElement("div")
+				report.innerHTML = parseMetricsToJson()
+				document.body.append(report)
+			}
+		}
+		measureTimePerCommandForNcommands()
+	</script>
+</html>

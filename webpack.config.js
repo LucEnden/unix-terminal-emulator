@@ -1,5 +1,6 @@
 const path = require("path")
 const TerserPlugin = require("terser-webpack-plugin")
+const webpack = require("webpack")
 
 module.exports = {
 	entry: "./src/index.ts",
@@ -13,7 +14,9 @@ module.exports = {
 	devtool: "inline-source-map",
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".jsx"],
-		fallback: { "util": require.resolve("util/") }
+		fallback: {
+			util: require.resolve("util/"),
+		},
 	},
 	module: {
 		rules: [
@@ -35,6 +38,12 @@ module.exports = {
 			},
 		],
 	},
+	plugins: [
+		// fix "process is not defined" error (do "npm install process" before running the build):
+		new webpack.ProvidePlugin({
+			process: "process/browser",
+		}),
+	],
 	optimization: {
 		minimize: true,
 		minimizer: [
