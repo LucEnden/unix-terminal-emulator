@@ -1,3 +1,5 @@
+unix-terminal-emulator / [Exports](modules.md)
+
 # Terminal Emulator
 
 ![ci (build and test)](https://img.shields.io/github/workflow/status/LucEnden/unix-terminal-emulator/CI?label=CI%20%28build%20and%20test%29&style=flat-square)
