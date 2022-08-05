@@ -40,7 +40,7 @@ Appends the cursor element to ```parent```
 
 #### Defined in
 
-[types/CursorElement.ts:19](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/CursorElement.ts#L19)
+[types/CursorElement.ts:19](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/CursorElement.ts#L19)
 
 ___
 
@@ -54,7 +54,7 @@ options for this cursor element instance
 
 #### Defined in
 
-[types/CursorElement.ts:10](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/CursorElement.ts#L10)
+[types/CursorElement.ts:10](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/CursorElement.ts#L10)
 
 ___
 
@@ -74,4 +74,4 @@ Removes the cursor from the document
 
 #### Defined in
 
-[types/CursorElement.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/4d05a56/src/types/CursorElement.ts#L14)
+[types/CursorElement.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/CursorElement.ts#L14)
