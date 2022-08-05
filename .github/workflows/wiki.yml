@@ -2,12 +2,8 @@ name: Update Wiki
 
 on:
     push:
-        paths:
-            - "wiki/**"
         branches: [main]
     pull_request:
-        paths:
-            - "wiki/**"
         branches: [main]
 
 jobs:
