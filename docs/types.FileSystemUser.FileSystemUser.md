@@ -22,7 +22,7 @@ The home directory of the user.
 
 #### Defined in
 
-[types/FileSystemUser.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/FileSystemUser.ts#L16)
+[types/FileSystemUser.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/FileSystemUser.ts#L16)
 
 ___
 
@@ -34,7 +34,7 @@ The name of the user
 
 #### Defined in
 
-[types/FileSystemUser.ts:8](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/FileSystemUser.ts#L8)
+[types/FileSystemUser.ts:8](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/FileSystemUser.ts#L8)
 
 ___
 
@@ -46,4 +46,4 @@ The password of the user
 
 #### Defined in
 
-[types/FileSystemUser.ts:12](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/FileSystemUser.ts#L12)
+[types/FileSystemUser.ts:12](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/FileSystemUser.ts#L12)

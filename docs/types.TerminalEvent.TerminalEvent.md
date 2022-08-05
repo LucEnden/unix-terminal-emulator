@@ -22,7 +22,7 @@ Time in ms to wait afters the event
 
 #### Defined in
 
-[types/TerminalEvent.ts:12](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/TerminalEvent.ts#L12)
+[types/TerminalEvent.ts:12](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEvent.ts#L12)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 #### Defined in
 
-[types/TerminalEvent.ts:7](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/TerminalEvent.ts#L7)
+[types/TerminalEvent.ts:7](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEvent.ts#L7)
 
 ___
 
@@ -70,4 +70,4 @@ ___
 
 #### Defined in
 
-[types/TerminalEvent.ts:8](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/TerminalEvent.ts#L8)
+[types/TerminalEvent.ts:8](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/TerminalEvent.ts#L8)

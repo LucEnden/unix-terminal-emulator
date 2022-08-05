@@ -45,7 +45,7 @@ Erases N characters from the end of an HTML element.
 
 #### Defined in
 
-[TextWriter.ts:15](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/TextWriter.ts#L15)
+[TextWriter.ts:15](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/TextWriter.ts#L15)
 
 ___
 
@@ -73,4 +73,4 @@ Writes text to the end of an HTML element. Supports plain text, smileys and HTML
 
 #### Defined in
 
-[TextWriter.ts:45](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/TextWriter.ts#L45)
+[TextWriter.ts:45](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/TextWriter.ts#L45)

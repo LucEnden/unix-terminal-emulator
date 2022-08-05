@@ -33,7 +33,7 @@ The charecter(s) to use as the cursor
 
 #### Defined in
 
-[types/CursorElementOptions.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/CursorElementOptions.ts#L9)
+[types/CursorElementOptions.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/CursorElementOptions.ts#L9)
 
 ___
 
@@ -51,4 +51,4 @@ The css class to give to the cursor element. There are 2 css classes shipped wit
 
 #### Defined in
 
-[types/CursorElementOptions.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/CursorElementOptions.ts#L16)
+[types/CursorElementOptions.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/aabb3e8/src/types/CursorElementOptions.ts#L16)
