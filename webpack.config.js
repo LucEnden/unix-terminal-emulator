@@ -1,6 +1,11 @@
 const path = require("path")
 const TerserPlugin = require("terser-webpack-plugin")
 const webpack = require("webpack")
+const TextEncodingPolyfill = require('text-encoding');
+Object.assign(global, {
+  TextEncoder: TextEncodingPolyfill.TextEncoder,
+  TextDecoder: TextEncodingPolyfill.TextDecoder,
+});
 
 module.exports = {
 	entry: "./src/index.ts",

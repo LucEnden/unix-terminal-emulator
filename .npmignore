@@ -2,3 +2,4 @@
 ./github
 .gitignore
 ./tests/performance/v*
+./docs

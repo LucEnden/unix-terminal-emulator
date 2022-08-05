@@ -9,8 +9,7 @@ import FileSystemUser from "./types/FileSystemUser";
 import VimEmulator from "./types/VimEmulator";
 /**
  * Emulates a unix terminal by building an event sequence of commands and timings which gets excecuted when the run method is called.
- *
- * {@link https://github.com/LucEnden/unix-terminal-emulator}
+ * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixTerminalEmulator.UnixTerminalEmulator}
  */
 declare class UnixTerminalEmulator implements TerminalEmulator {
     private writer;

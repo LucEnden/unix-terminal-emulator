@@ -40,6 +40,7 @@
 		"nanoid": "^3.3.4",
 		"style-loader": "^3.3.1",
 		"terser-webpack-plugin": "^5.3.3",
+		"text-encoding": "^0.7.0",
 		"ts-jest": "^28.0.6",
 		"ts-node": "^10.9.1",
 		"typedoc": "^0.23.10",

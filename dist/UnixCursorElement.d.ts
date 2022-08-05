@@ -1,6 +1,10 @@
 import "./styles.css";
 import CursorElement from "./types/CursorElement";
 import CursorElementOptions from "./types/CursorElementOptions";
+/**
+ * Emulates a stdout cursor (eg: a blinking character, which defaults to |).
+ * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixCursorElement.UnixCursorElement}
+ */
 declare class UnixCursorElement implements CursorElement {
     private element;
     constructor(options?: CursorElementOptions);

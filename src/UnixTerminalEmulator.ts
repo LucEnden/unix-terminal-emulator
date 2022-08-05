@@ -188,7 +188,7 @@ class UnixTerminalEmulator implements TerminalEmulator {
 					return output.message
 				}
 			},
-			pauseBeforeOutput: pauseBeforeOutput
+			pauseBeforeOutput: pauseBeforeOutput,
 		})
 		return this
 	}

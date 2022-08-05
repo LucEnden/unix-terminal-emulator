@@ -3,6 +3,10 @@ import FileSystemGroup from "./types/FileSystemGroup";
 import FileSystemType from "./types/FileSystemType";
 import FileSystemUser from "./types/FileSystemUser";
 declare const Ext4: FileSystemType;
+/**
+ * Emulates a Unix filesystem via methods for managing files and folders, as wel as managing users for permision perposes.
+ * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixFileSystemEmulator.UnixFileSystemEmulator}
+ */
 declare class UnixFileSystemEmulator implements FileSystemEmulator {
     private graph;
     private currentUser;

@@ -1,3 +1,7 @@
+/**
+ * Implements methods for writing and erasing text of HTML elements.
+ * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/TextWriter.TextWriter}
+ */
 declare class TextWriter {
     /**
      * Erases N characters from the end of an HTML element.
