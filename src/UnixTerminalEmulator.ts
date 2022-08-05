@@ -17,8 +17,7 @@ import UnixStdoutEmulator from "./UnixStdoutEmulator"
 
 /**
  * Emulates a unix terminal by building an event sequence of commands and timings which gets excecuted when the run method is called.
- *
- * {@link https://github.com/LucEnden/unix-terminal-emulator}
+ * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixTerminalEmulator.UnixTerminalEmulator}
  */
 class UnixTerminalEmulator implements TerminalEmulator {
 	private writer: TextWriter = new TextWriter()

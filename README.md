@@ -21,10 +21,6 @@ Inspired by ![TypewriterJS](https://www.npmjs.com/package/typewriter-effect).
 - [CDN](#cdn)
 - [Instalation](#instalation)
 - [Example usage](#example-usage)
-- [Options](#options)
-- [Methods](#methods)
-- [Interfaces](#interfaces)
-- [React](#react)
 - [Do's and dont's](#dos-and-donts)
 - [Perfomance](#perfomance)
 
@@ -51,6 +47,7 @@ yarn add unix-terminal-emulator
 ## Example usage
 
 For more advanced examples, please click [this link](https://codesandbox.io/s/unix-terminal-emulator-example-5n9ylu?file=index.html).
+You can also [check out the wiki](https://github.com/LucEnden/unix-terminal-emulator/wiki) for more information
 
 ```javascript
 import UnixTerminalEmulator from "unix-terminal-emulator"
@@ -64,39 +61,6 @@ const command = {
 }
 terminal.writeCommand(command).run()
 ```
-
-## Options
-
-| Name             | Type                                    | Default value                     | Description                                                                                                                                                                                                                                                                                |
-| ---------------- | :-------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| wrapperId        | `string` or `undefined`                 | `"terminal___emulator___wrapper"` | The HTML id of the element to which the text should be written. Must be unique. If the element does not exist one will be created and appended to the body at the end.                                                                                                                     |
-| wrapperClassName | `string` or `undefined`                 | `"terminal___emulator___wrapper"` | The CSS class to give to the wrapper element.                                                                                                                                                                                                                                              |
-| cursor           | `string` or `undefined`                 | `"\|"`                            | The character(s) to use as the cursor inside the terminal.                                                                                                                                                                                                                                 |
-| cursorId         | `string` or `undefined`                 | `"terminal___emulator___cursor"`  | The HTML id of the element which functions as the terminal cursor. Must be unique. The element will always be created on initialization.The HTML id of the element which functions as the terminal cursor. Must be unique. The element will always be created on initialization.           |
-| cursorClassName  | `string` or `undefined`                 | `"terminal___emulator___cursor"`  | The CSS class to give to the cursor element. Note: if the animation property is set within the CSS class, it will overwrite the cursor blinking animation.                                                                                                                                 |
-| cursorAnimation  | `"fluid"` or `"static"` or `undefined`  | `"static"`                        | The type of animation to give to the cursor. Fluid = the opacity oscillates between 0 and 100. Static = the cursor blinks (like it does in a real unix terminal). Undefined = no animation is applied.                                                                                     |
-| enviroment       | `{ hostname, username }` or `undefined` | `undefined`                       | When defined, everytime a new input line gets added to the terminal, it will prepend a unix like enviroment text to the start of the new line. **For example**: <br></br>` enviroment: undefined => "$ "; enviroment: { hostname: "localhost", username: "root" } => "root@localhost:$ ";` |
-
-## Methods
-
-| Name        | Params                                                                                                                                                                                                                                                                                                         | Description                             |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| run         | `callback: () => void \| undefined` Gets called when the sequence has finished                                                                                                                                                                                                                                 | Excecutes the created event sequence    |
-| writeCommand  | `command: TerminalCommand` The command to add to the queue                                                                                                                                                                                                                                                     | Adds a command to the to queue.         |
-| writeCommands | `commands: TerminalCommand[]` The commands to add to the queue                                                                                                                                                                                                                                                 | Adds multiple commands to the to queue. |
-| pause       | `ms: number` The time to pause for in miliseconds                                                                                                                                                                                                                                                              | Adds a pause in the event sequence.     |
-| echo        | `text: string` The text to echo, `writeSpeed: "neutral" \| number = "neutral"` The speed at which to write each character of the command, `pauseBeforeOutput: number \| undefined = undefined` The time to pause before writing the output in miliseconds                                                      | Emulates the echo command.              |
-| history     | `writeSpeed: "neutral" \| number = "neutral"` The speed at which to write each character of the command, `pauseBeforeOutput: number \| undefined = undefined` The time to pause before writing the output in miliseconds                                                                                       | Emulates the history command.           |
-| clear       | `writeSpeed: "neutral" \| number = "neutral"` The speed at which to write each character of the command, `pauseBeforeOutput: number \| undefined = undefined` The time to pause before writing the output in miliseconds                                                                                       | Emulates the clear command.             |
-| mkdir       | `dirNames: string` A space delimited string containing all the directories to create, `writeSpeed: "neutral" \| number = "neutral"` The speed at which to write each character of the command, `pauseBeforeOutput: number \| undefined = undefined` The time to pause before writing the output in miliseconds |
-
-## Interfaces
-
-T.B.A.
-
-## React
-
-T.B.A.
 
 ## Do's and dont's
 
@@ -236,7 +200,7 @@ terminal2
 
 ## Perfomance
 
-Bellow are performance charts based on different versions of the app. [Click here](tests/performance/performance_testing.md) to read about how the performance was tested. [Click here](https://docs.google.com/spreadsheets/d/e/2PACX-1vSAKSUTB6fm6-PQNgSEpBtxe9h_v1m2JiYnl--0hHiyvHMK8Yrdz16e5Y8X9kPmBm0HvIJPgchSufp4/pubhtml) for an interactive version of the graphs.
+Bellow are performance charts based on different versions of the app. [Click here](tests/performance/performance_testing.md) for a detailed explanation about how the performance was tested. [Click here](https://docs.google.com/spreadsheets/d/e/2PACX-1vSAKSUTB6fm6-PQNgSEpBtxe9h_v1m2JiYnl--0hHiyvHMK8Yrdz16e5Y8X9kPmBm0HvIJPgchSufp4/pubhtml) for an interactive version of the graphs.
 
 | Time per Run in MS                                                                    | Time per Command in MS                                                                    |
 | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |

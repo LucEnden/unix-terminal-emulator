@@ -9,6 +9,10 @@ const Ext4 = {
 	prohibitedFileNameCharecters: ["\0", "\\0", ".", ".."],
 } as FileSystemType
 
+/**
+ * Emulates a Unix filesystem via methods for managing files and folders, as wel as managing users for permision perposes.
+ * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixFileSystemEmulator.UnixFileSystemEmulator}
+ */
 class UnixFileSystemEmulator implements FileSystemEmulator {
 	private graph = new Graph({ compound: true, directed: true })
 	private currentUser: FileSystemUser
