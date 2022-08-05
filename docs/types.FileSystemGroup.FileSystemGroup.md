@@ -19,7 +19,7 @@ The name of the user
 
 #### Defined in
 
-[types/FileSystemGroup.ts:7](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/FileSystemGroup.ts#L7)
+[types/FileSystemGroup.ts:7](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/FileSystemGroup.ts#L7)
 
 ___
 
@@ -31,4 +31,4 @@ The users within the group
 
 #### Defined in
 
-[types/FileSystemGroup.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/FileSystemGroup.ts#L11)
+[types/FileSystemGroup.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/FileSystemGroup.ts#L11)

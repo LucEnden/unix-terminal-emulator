@@ -37,7 +37,7 @@ Emulates a cursor (like a blinking straight line) inside the browser
 
 #### Defined in
 
-[UnixCursorElement.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/UnixCursorElement.ts#L9)
+[UnixCursorElement.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/UnixCursorElement.ts#L9)
 
 ## Properties
 
@@ -55,7 +55,7 @@ options for this cursor element instance
 
 #### Defined in
 
-[UnixCursorElement.ts:25](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/UnixCursorElement.ts#L25)
+[UnixCursorElement.ts:25](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/UnixCursorElement.ts#L25)
 
 ## Methods
 
@@ -81,7 +81,7 @@ CursorElement.append
 
 #### Defined in
 
-[UnixCursorElement.ts:40](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/UnixCursorElement.ts#L40)
+[UnixCursorElement.ts:40](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/UnixCursorElement.ts#L40)
 
 ___
 
@@ -101,4 +101,4 @@ CursorElement.remove
 
 #### Defined in
 
-[UnixCursorElement.ts:33](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/UnixCursorElement.ts#L33)
+[UnixCursorElement.ts:33](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/UnixCursorElement.ts#L33)

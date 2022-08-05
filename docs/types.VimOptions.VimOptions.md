@@ -37,7 +37,7 @@ The CSS to apply to the vim commandbar wrapper element
 
 #### Defined in
 
-[types/VimCommandBarOptions.ts:6](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/VimCommandBarOptions.ts#L6)
+[types/VimCommandBarOptions.ts:6](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/VimCommandBarOptions.ts#L6)
 
 ___
 
@@ -55,7 +55,7 @@ The CSS to apply to the left inner elements of the vim commandba element
 
 #### Defined in
 
-[types/VimCommandBarOptions.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/VimCommandBarOptions.ts#L11)
+[types/VimCommandBarOptions.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/VimCommandBarOptions.ts#L11)
 
 ___
 
@@ -73,7 +73,7 @@ The CSS to apply to the right inner elements of the vim commandba element
 
 #### Defined in
 
-[types/VimCommandBarOptions.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/VimCommandBarOptions.ts#L16)
+[types/VimCommandBarOptions.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/VimCommandBarOptions.ts#L16)
 
 ___
 
@@ -87,4 +87,4 @@ The CSS to apply to the vim element
 
 #### Defined in
 
-[types/VimOptions.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/VimOptions.ts#L14)
+[types/VimOptions.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/VimOptions.ts#L14)

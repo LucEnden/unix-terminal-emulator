@@ -31,7 +31,7 @@ The CSS class to give to the wrapper element
 
 #### Defined in
 
-[types/WrapperElementOptions.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/WrapperElementOptions.ts#L14)
+[types/WrapperElementOptions.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/WrapperElementOptions.ts#L14)
 
 ___
 
@@ -47,4 +47,4 @@ The ID to give to the wrapper element
 
 #### Defined in
 
-[types/WrapperElementOptions.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/WrapperElementOptions.ts#L9)
+[types/WrapperElementOptions.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/WrapperElementOptions.ts#L9)

@@ -40,7 +40,7 @@ Emulates the behaviour of stdout by writing text to an HTML element
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/UnixStdoutEmulator.ts#L9)
+[UnixStdoutEmulator.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/UnixStdoutEmulator.ts#L9)
 
 ## Properties
 
@@ -58,7 +58,7 @@ The stdout HTML element
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:30](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/UnixStdoutEmulator.ts#L30)
+[UnixStdoutEmulator.ts:30](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/UnixStdoutEmulator.ts#L30)
 
 ___
 
@@ -76,7 +76,7 @@ Options to customize the stdout element
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:24](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/UnixStdoutEmulator.ts#L24)
+[UnixStdoutEmulator.ts:24](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/UnixStdoutEmulator.ts#L24)
 
 ## Methods
 
@@ -96,7 +96,7 @@ StdoutEmulator.appendCursor
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:42](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/UnixStdoutEmulator.ts#L42)
+[UnixStdoutEmulator.ts:42](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/UnixStdoutEmulator.ts#L42)
 
 ___
 
@@ -116,7 +116,7 @@ StdoutEmulator.clear
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:32](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/UnixStdoutEmulator.ts#L32)
+[UnixStdoutEmulator.ts:32](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/UnixStdoutEmulator.ts#L32)
 
 ___
 
@@ -136,4 +136,4 @@ StdoutEmulator.removeCursor
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:38](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/UnixStdoutEmulator.ts#L38)
+[UnixStdoutEmulator.ts:38](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/UnixStdoutEmulator.ts#L38)

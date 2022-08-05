@@ -24,7 +24,7 @@ The hostname for this terminal emulator
 
 #### Defined in
 
-[types/EnviromentOptions.ts:10](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/EnviromentOptions.ts#L10)
+[types/EnviromentOptions.ts:10](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/EnviromentOptions.ts#L10)
 
 ___
 
@@ -46,7 +46,7 @@ A formated string: ```username@hostname:```
 
 #### Defined in
 
-[types/EnviromentOptions.ts:19](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/EnviromentOptions.ts#L19)
+[types/EnviromentOptions.ts:19](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/EnviromentOptions.ts#L19)
 
 ___
 
@@ -60,4 +60,4 @@ The user for this terminal emulator. When specified, this user will be added to 
 
 #### Defined in
 
-[types/EnviromentOptions.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/8f4f902/src/types/EnviromentOptions.ts#L14)
+[types/EnviromentOptions.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/f00e612/src/types/EnviromentOptions.ts#L14)
