@@ -1,5 +1,5 @@
-./node_modules
-./github
+./node_modules/*
+./github/*
 .gitignore
 ./tests/performance/v*
-./docs
+./docs/*
