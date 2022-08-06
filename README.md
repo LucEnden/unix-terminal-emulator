@@ -18,19 +18,11 @@ Inspired by ![TypewriterJS](https://www.npmjs.com/package/typewriter-effect).
 
 ---
 
-- [CDN](#cdn)
 - [Instalation](#instalation)
+- [Documentation](#documentation)
 - [Example usage](#example-usage)
 - [Do's and dont's](#dos-and-donts)
 - [Perfomance](#perfomance)
-
-## CDN
-
-You can use the CDN version for simple imports in HTML:
-
-```html
-<script src="https://unpkg.com/unix-terminal-emulator@latest/dist/index.js"></script>
-```
 
 ## Instalation
 
@@ -44,10 +36,20 @@ npm i --save unix-terminal-emulator
 yarn add unix-terminal-emulator
 ```
 
+You can use the CDN version for simple imports in HTML:
+
+```html
+<script src="https://unpkg.com/unix-terminal-emulator@latest/dist/index.js"></script>
+```
+
+## Documentation
+
+Checkout [the wiki](https://github.com/LucEnden/unix-terminal-emulator/wiki) of this repository for the documentation.
+Generated with [TypeDoc](https://typedoc.org/)!
+
 ## Example usage
 
 For more advanced examples, please click [this link](https://codesandbox.io/s/unix-terminal-emulator-example-5n9ylu?file=index.html).
-You can also [check out the wiki](https://github.com/LucEnden/unix-terminal-emulator/wiki) for more information
 
 ```javascript
 import UnixTerminalEmulator from "unix-terminal-emulator"
@@ -205,5 +207,3 @@ Bellow are performance charts based on different versions of the app. [Click her
 | Time per Run in MS                                                                    | Time per Command in MS                                                                    |
 | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | ![Time per run in MS graph of all versions](tests/performance/time_per_run_in_ms.svg) | ![Time per command in MS graph of all versions](tests/performance/time_per_command_in_ms.svg) |
-
-[Click here](https://docs.google.com/spreadsheets/d/e/2PACX-1vSAKSUTB6fm6-PQNgSEpBtxe9h_v1m2JiYnl--0hHiyvHMK8Yrdz16e5Y8X9kPmBm0HvIJPgchSufp4/pubhtml) to see an interactive version of the graph.
