@@ -13,6 +13,13 @@ jest.useRealTimers()
 // jest.setTimeout(60000)		// 1 minutes
 jest.setTimeout(360000) // 5 minutes
 
+// fix: jsdom Doesn't seem to have TextEncoder defined in global for the DOM
+// https://stackoverflow.com/questions/57712235/referenceerror-textencoder-is-not-defined-when-running-react-scripts-test#answer-57713960
+if (typeof global.TextEncoder === 'undefined') {
+	const { TextEncoder } = require('util');
+	global.TextEncoder = TextEncoder;
+}
+
 // WRAPPER TESTS
 test("constructor => expect wrapper element to get created during object initialization if it does not already exist in the document", () => {
 	// arange
