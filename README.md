@@ -21,6 +21,8 @@ Inspired by ![TypewriterJS](https://www.npmjs.com/package/typewriter-effect).
 - [Instalation](#instalation)
 - [Documentation](#documentation)
 - [Example usage](#example-usage)
+	- [Browser](#browser)
+	- [React](#react)
 - [Do's and dont's](#dos-and-donts)
 - [Perfomance](#perfomance)
 
@@ -39,7 +41,7 @@ yarn add unix-terminal-emulator
 You can use the CDN version for simple imports in HTML:
 
 ```html
-<script src="https://unpkg.com/unix-terminal-emulator@latest/dist/index.js"></script>
+<script src="https://unpkg.com/unix-terminal-emulator@latest/dist/core.js"></script>
 ```
 
 ## Documentation
@@ -50,6 +52,8 @@ Generated with [TypeDoc](https://typedoc.org/)!
 ## Example usage
 
 For more advanced examples, please click [this link](https://codesandbox.io/s/unix-terminal-emulator-example-5n9ylu?file=index.html).
+
+### Browser
 
 ```javascript
 import UnixTerminalEmulator from "unix-terminal-emulator"
@@ -62,6 +66,34 @@ const command = {
 	pauseBeforeOutput: 500,
 }
 terminal.writeCommand(command).run()
+```
+
+### React
+
+```javascript
+import React from "react"
+import UnixTerminalEmulator from "unix-terminal-emulator"
+
+export default function App() {
+	return (
+		<div className="App">
+			<UnixTerminalEmulator
+				onInit={emulator => {
+					emulator
+						.writeCommand({
+							text: "echo Hello, World!",
+							writeSpeed: "neutral",
+							output: "Hello, World!",
+							pauseBeforeOutput: 500,
+						})
+						.run(() => {
+							console.log("Done!")
+						})
+				}}
+			/>
+		</div>
+	)
+}
 ```
 
 ## Do's and dont's
@@ -204,6 +236,6 @@ terminal2
 
 Bellow are performance charts based on different versions of the app. [Click here](tests/performance/performance_testing.md) for a detailed explanation about how the performance was tested. [Click here](https://docs.google.com/spreadsheets/d/e/2PACX-1vSAKSUTB6fm6-PQNgSEpBtxe9h_v1m2JiYnl--0hHiyvHMK8Yrdz16e5Y8X9kPmBm0HvIJPgchSufp4/pubhtml) for an interactive version of the graphs.
 
-| Time per Run in MS                                                                    | Time per Command in MS                                                                    |
-| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Time per Run in MS                                                                    | Time per Command in MS                                                                        |
+| ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | ![Time per run in MS graph of all versions](tests/performance/time_per_run_in_ms.svg) | ![Time per command in MS graph of all versions](tests/performance/time_per_command_in_ms.svg) |
