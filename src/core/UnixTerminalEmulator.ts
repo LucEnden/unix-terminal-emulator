@@ -1,14 +1,14 @@
 import StdoutEmulator from "./UnixStdoutEmulator"
-import "./styles.css"
-import FileSystemEmulator from "./types/FileSystemEmulator"
-import TerminalCommand from "./types/TerminalCommand"
-import TerminalEvent from "./types/TerminalEvent"
-import TerminalEmulator from "./types/TerminalEmulator"
-import TerminalEmulatorOptions from "./types/TerminalEmulatorOptions"
+import "../styles.css"
+import FileSystemEmulator from "../types/FileSystemEmulator"
+import TerminalCommand from "../types/TerminalCommand"
+import TerminalEvent from "../types/TerminalEvent"
+import TerminalEmulator from "../types/TerminalEmulator"
+import TerminalEmulatorOptions from "../types/TerminalEmulatorOptions"
 import UnixFileSystemEmulator from "./UnixFileSystemEmulator"
 import TextWriter from "./TextWriter"
-import FileSystemUser from "./types/FileSystemUser"
-import VimEmulator from "./types/VimEmulator"
+import FileSystemUser from "../types/FileSystemUser"
+import VimEmulator from "../types/VimEmulator"
 import UnixVimEmulator from "./UnixVimEmulator"
 import UnixStdoutEmulator from "./UnixStdoutEmulator"
 
@@ -294,16 +294,6 @@ class UnixTerminalEmulator implements TerminalEmulator {
 			}
 		}
 	}
-
-	// /**
-	//  * todo: implement
-	//  * @param fileName
-	//  * @param fileContentToType
-	//  * @returns
-	//  */
-	// public vim = (fileName: string, fileContentToType: string[]) => {
-	// 	return this
-	// }
 
 	/**
 	 * Adds an event to the event queue which writes the command and its output if specified to the stdout.

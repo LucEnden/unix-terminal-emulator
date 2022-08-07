@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
-import "./styles.css"
-import CursorElement from "./types/CursorElement"
-import CursorElementOptions from "./types/CursorElementOptions"
+import "../styles.css"
+import CursorElement from "../types/CursorElement"
+import CursorElementOptions from "../types/CursorElementOptions"
 
 /**
  * Emulates a stdout cursor (eg: a blinking character, which defaults to |).

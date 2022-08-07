@@ -1,4 +1,4 @@
-import UnixTerminalEmulator from "../src/UnixTerminalEmulator"
+import UnixTerminalEmulator from "../src/core/UnixTerminalEmulator"
 import TerminalEmulatorOptions from "../src/types/TerminalEmulatorOptions"
 
 import { randomUUID } from "crypto"

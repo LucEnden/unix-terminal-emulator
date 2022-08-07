@@ -1,20 +1,27 @@
 const path = require("path")
 const TerserPlugin = require("terser-webpack-plugin")
 const webpack = require("webpack")
-const TextEncodingPolyfill = require('text-encoding');
+const TextEncodingPolyfill = require("text-encoding")
 Object.assign(global, {
-  TextEncoder: TextEncodingPolyfill.TextEncoder,
-  TextDecoder: TextEncodingPolyfill.TextDecoder,
-});
+	TextEncoder: TextEncodingPolyfill.TextEncoder,
+	TextDecoder: TextEncodingPolyfill.TextDecoder,
+})
 
 module.exports = {
-	entry: "./src/index.ts",
+	entry: {
+		core: path.resolve('src', 'core', 'index.ts'),
+    	react: path.resolve('src', 'react', 'index.tsx')
+	},
 	output: {
 		path: path.resolve(__dirname, "./dist"),
-		filename: "index.js",
+		filename: "[name].js",
 		library: "UnixTerminalEmulator",
 		libraryExport: "default",
 		libraryTarget: "umd",
+	},
+	externals: {
+		react: "react",
+		"react-dom": "react-dom",
 	},
 	devtool: "inline-source-map",
 	resolve: {
@@ -31,7 +38,7 @@ module.exports = {
 				use: {
 					loader: "babel-loader",
 					options: {
-						presets: ["@babel/preset-typescript"],
+						presets: ["@babel/preset-typescript", "@babel/preset-react"],
 						plugins: [],
 					},
 				},

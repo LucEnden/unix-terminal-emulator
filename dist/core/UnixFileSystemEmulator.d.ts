@@ -1,7 +1,7 @@
-import FileSystemEmulator from "./types/FileSystemEmulator";
-import FileSystemGroup from "./types/FileSystemGroup";
-import FileSystemType from "./types/FileSystemType";
-import FileSystemUser from "./types/FileSystemUser";
+import FileSystemEmulator from "../types/FileSystemEmulator";
+import FileSystemGroup from "../types/FileSystemGroup";
+import FileSystemType from "../types/FileSystemType";
+import FileSystemUser from "../types/FileSystemUser";
 declare const Ext4: FileSystemType;
 /**
  * Emulates a Unix filesystem via methods for managing files and folders, as wel as managing users for permision perposes.

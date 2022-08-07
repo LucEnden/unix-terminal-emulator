@@ -1,8 +1,8 @@
 import TextWriter from "./TextWriter"
-import FileSystemEmulator from "./types/FileSystemEmulator"
-import StdoutEmulator from "./types/StdoutEmulator"
-import VimEmulator from "./types/VimEmulator"
-import VimOptions from "./types/VimOptions"
+import FileSystemEmulator from "../types/FileSystemEmulator"
+import StdoutEmulator from "../types/StdoutEmulator"
+import VimEmulator from "../types/VimEmulator"
+import VimOptions from "../types/VimOptions"
 
 /**
  * Emulates vim by allowing for writing of text, use basic vim commands and updateing the vim bar accordingly.

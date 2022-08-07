@@ -1,12 +1,12 @@
 import StdoutEmulator from "./UnixStdoutEmulator";
-import "./styles.css";
-import FileSystemEmulator from "./types/FileSystemEmulator";
-import TerminalCommand from "./types/TerminalCommand";
-import TerminalEvent from "./types/TerminalEvent";
-import TerminalEmulator from "./types/TerminalEmulator";
-import TerminalEmulatorOptions from "./types/TerminalEmulatorOptions";
-import FileSystemUser from "./types/FileSystemUser";
-import VimEmulator from "./types/VimEmulator";
+import "../styles.css";
+import FileSystemEmulator from "../types/FileSystemEmulator";
+import TerminalCommand from "../types/TerminalCommand";
+import TerminalEvent from "../types/TerminalEvent";
+import TerminalEmulator from "../types/TerminalEmulator";
+import TerminalEmulatorOptions from "../types/TerminalEmulatorOptions";
+import FileSystemUser from "../types/FileSystemUser";
+import VimEmulator from "../types/VimEmulator";
 /**
  * Emulates a unix terminal by building an event sequence of commands and timings which gets excecuted when the run method is called.
  * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixTerminalEmulator.UnixTerminalEmulator}

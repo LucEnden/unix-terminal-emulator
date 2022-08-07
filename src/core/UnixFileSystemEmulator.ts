@@ -1,8 +1,8 @@
 import { Graph } from "graphlib" // https://github.com/dagrejs/graphlib/wiki
-import FileSystemEmulator from "./types/FileSystemEmulator"
-import FileSystemGroup from "./types/FileSystemGroup"
-import FileSystemType from "./types/FileSystemType"
-import FileSystemUser from "./types/FileSystemUser"
+import FileSystemEmulator from "../types/FileSystemEmulator"
+import FileSystemGroup from "../types/FileSystemGroup"
+import FileSystemType from "../types/FileSystemType"
+import FileSystemUser from "../types/FileSystemUser"
 
 const Ext4 = {
 	name: "ext4",

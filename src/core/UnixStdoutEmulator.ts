@@ -1,7 +1,7 @@
 import CursorElement from "./UnixCursorElement"
 import { nanoid } from 'nanoid'
-import StdoutEmulator from "./types/StdoutEmulator"
-import StdoutEmulatorOptions from "./types/StdoutEmulatorOptions"
+import StdoutEmulator from "../types/StdoutEmulator"
+import StdoutEmulatorOptions from "../types/StdoutEmulatorOptions"
 
 // TODO: implement a read() method which returns the stdout elements innerHTML, but in a UTF-8 formated matter (eg: <br> to \n, etc...)
 // TODO: implement a write() method which updates cursor automaticly and uses TextWriter in order to standardize stdout writing (currently handled by classes that implement bothh TextWriter and StdoutEmulator)
