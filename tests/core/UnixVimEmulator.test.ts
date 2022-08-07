@@ -1,4 +1,4 @@
-import UnixVimEmulator from "../src/core/UnixVimEmulator"
+import UnixVimEmulator from "../../src/core/UnixVimEmulator"
 
 test("openFile ", () => {
     // todo: implement

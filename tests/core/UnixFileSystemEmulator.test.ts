@@ -1,5 +1,5 @@
-import FileSystemUser from "../src/types/FileSystemUser"
-import UnixFileSystemEmulator from "../src/core/UnixFileSystemEmulator"
+import FileSystemUser from "../../src/types/FileSystemUser"
+import UnixFileSystemEmulator from "../../src/core/UnixFileSystemEmulator"
 
 test("useradd => should return an error if adding root user", () => {
 	const fs = new UnixFileSystemEmulator()

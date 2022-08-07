@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto"
-import CursorElementOptions from "../src/types/CursorElementOptions"
-import StdoutEmulatorOptions from "../src/types/StdoutEmulatorOptions"
-import UnixStdoutEmulator from "../src/core/UnixStdoutEmulator"
+import CursorElementOptions from "../../src/types/CursorElementOptions"
+import StdoutEmulatorOptions from "../../src/types/StdoutEmulatorOptions"
+import UnixStdoutEmulator from "../../src/core/UnixStdoutEmulator"
 
 const textToWrite = "&#8224;&#174;&#165;&#168;&#169;&#729;&#8747;&#248;&#8230;&#710;&#402;&#8710;&#247;&#8721;&#402;&#8710;&#230;&#248;&#960;&#163;&#168;&#402;&#8482;"
 const expectedText = "†®¥¨©˙∫ø…ˆƒ∆÷∑ƒ∆æøπ£¨ƒ™"

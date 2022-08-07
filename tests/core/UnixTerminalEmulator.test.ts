@@ -1,9 +1,9 @@
-import UnixTerminalEmulator from "../src/core/UnixTerminalEmulator"
-import TerminalEmulatorOptions from "../src/types/TerminalEmulatorOptions"
+import UnixTerminalEmulator from "../../src/core/UnixTerminalEmulator"
+import TerminalEmulatorOptions from "../../src/types/TerminalEmulatorOptions"
 
 import { randomUUID } from "crypto"
-import TerminalCommand from "../src/types/TerminalCommand"
-import FileSystemUser from "../src/types/FileSystemUser"
+import TerminalCommand from "../../src/types/TerminalCommand"
+import FileSystemUser from "../../src/types/FileSystemUser"
 
 const defaultTerminalWrapperId = "terminal___emulator___wrapper"
 const defaultTerminalCursorCss = "terminal___cursor___static"

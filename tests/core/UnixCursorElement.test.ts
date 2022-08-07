@@ -1,4 +1,4 @@
-import CursorElement from "../src/core/UnixCursorElement"
+import CursorElement from "../../src/core/UnixCursorElement"
 
 test("Append => expect cursor to be in the document after append", () => {
     const cursorChar = "|"
