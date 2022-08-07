@@ -8,7 +8,7 @@ import StdoutEmulatorOptions from "../types/StdoutEmulatorOptions"
 
 /**
  * Emulates stdout by allowing for writing and erasing of text to an HTML element. Also has methods for controlling a cursor like element.
- * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixStdoutEmulator.UnixStdoutEmulator}
+ * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixStdoutEmulator.UnixStdoutEmulator}
  */
 class UnixStdoutEmulator implements StdoutEmulator {
 	private cursor: CursorElement

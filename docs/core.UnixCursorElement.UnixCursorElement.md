@@ -1,9 +1,9 @@
 # Class: UnixCursorElement
 
-[UnixCursorElement](../wiki/UnixCursorElement).UnixCursorElement
+[core/UnixCursorElement](../wiki/core.UnixCursorElement).UnixCursorElement
 
 Emulates a stdout cursor (eg: a blinking character, which defaults to |).
-[https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixCursorElement.UnixCursorElement](https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixCursorElement.UnixCursorElement)
+[https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixCursorElement.UnixCursorElement](https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixCursorElement.UnixCursorElement)
 
 ## Implements
 
@@ -13,16 +13,16 @@ Emulates a stdout cursor (eg: a blinking character, which defaults to |).
 
 ### Constructors
 
-- [constructor](../wiki/UnixCursorElement.UnixCursorElement#constructor)
+- [constructor](../wiki/core.UnixCursorElement.UnixCursorElement#constructor)
 
 ### Properties
 
-- [options](../wiki/UnixCursorElement.UnixCursorElement#options)
+- [options](../wiki/core.UnixCursorElement.UnixCursorElement#options)
 
 ### Methods
 
-- [append](../wiki/UnixCursorElement.UnixCursorElement#append)
-- [remove](../wiki/UnixCursorElement.UnixCursorElement#remove)
+- [append](../wiki/core.UnixCursorElement.UnixCursorElement#append)
+- [remove](../wiki/core.UnixCursorElement.UnixCursorElement#remove)
 
 ## Constructors
 
@@ -38,7 +38,7 @@ Emulates a stdout cursor (eg: a blinking character, which defaults to |).
 
 #### Defined in
 
-[UnixCursorElement.ts:13](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/UnixCursorElement.ts#L13)
+[src/core/UnixCursorElement.ts:13](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixCursorElement.ts#L13)
 
 ## Properties
 
@@ -56,7 +56,7 @@ options for this cursor element instance
 
 #### Defined in
 
-[UnixCursorElement.ts:29](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/UnixCursorElement.ts#L29)
+[src/core/UnixCursorElement.ts:29](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixCursorElement.ts#L29)
 
 ## Methods
 
@@ -82,7 +82,7 @@ CursorElement.append
 
 #### Defined in
 
-[UnixCursorElement.ts:44](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/UnixCursorElement.ts#L44)
+[src/core/UnixCursorElement.ts:44](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixCursorElement.ts#L44)
 
 ___
 
@@ -102,4 +102,4 @@ CursorElement.remove
 
 #### Defined in
 
-[UnixCursorElement.ts:37](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/UnixCursorElement.ts#L37)
+[src/core/UnixCursorElement.ts:37](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixCursorElement.ts#L37)

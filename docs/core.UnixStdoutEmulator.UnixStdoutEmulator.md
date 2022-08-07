@@ -1,9 +1,9 @@
 # Class: UnixStdoutEmulator
 
-[UnixStdoutEmulator](../wiki/UnixStdoutEmulator).UnixStdoutEmulator
+[core/UnixStdoutEmulator](../wiki/core.UnixStdoutEmulator).UnixStdoutEmulator
 
 Emulates stdout by allowing for writing and erasing of text to an HTML element. Also has methods for controlling a cursor like element.
-[https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixStdoutEmulator.UnixStdoutEmulator](https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixStdoutEmulator.UnixStdoutEmulator)
+[https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixStdoutEmulator.UnixStdoutEmulator](https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixStdoutEmulator.UnixStdoutEmulator)
 
 ## Implements
 
@@ -13,18 +13,18 @@ Emulates stdout by allowing for writing and erasing of text to an HTML element. 
 
 ### Constructors
 
-- [constructor](../wiki/UnixStdoutEmulator.UnixStdoutEmulator#constructor)
+- [constructor](../wiki/core.UnixStdoutEmulator.UnixStdoutEmulator#constructor)
 
 ### Properties
 
-- [element](../wiki/UnixStdoutEmulator.UnixStdoutEmulator#element)
-- [options](../wiki/UnixStdoutEmulator.UnixStdoutEmulator#options)
+- [element](../wiki/core.UnixStdoutEmulator.UnixStdoutEmulator#element)
+- [options](../wiki/core.UnixStdoutEmulator.UnixStdoutEmulator#options)
 
 ### Methods
 
-- [appendCursor](../wiki/UnixStdoutEmulator.UnixStdoutEmulator#appendcursor)
-- [clear](../wiki/UnixStdoutEmulator.UnixStdoutEmulator#clear)
-- [removeCursor](../wiki/UnixStdoutEmulator.UnixStdoutEmulator#removecursor)
+- [appendCursor](../wiki/core.UnixStdoutEmulator.UnixStdoutEmulator#appendcursor)
+- [clear](../wiki/core.UnixStdoutEmulator.UnixStdoutEmulator#clear)
+- [removeCursor](../wiki/core.UnixStdoutEmulator.UnixStdoutEmulator#removecursor)
 
 ## Constructors
 
@@ -41,7 +41,7 @@ Emulates stdout by allowing for writing and erasing of text to an HTML element. 
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/UnixStdoutEmulator.ts#L16)
+[src/core/UnixStdoutEmulator.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L16)
 
 ## Properties
 
@@ -59,7 +59,7 @@ The stdout HTML element
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:37](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/UnixStdoutEmulator.ts#L37)
+[src/core/UnixStdoutEmulator.ts:37](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L37)
 
 ___
 
@@ -77,7 +77,7 @@ Options to customize the stdout element
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:31](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/UnixStdoutEmulator.ts#L31)
+[src/core/UnixStdoutEmulator.ts:31](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L31)
 
 ## Methods
 
@@ -97,7 +97,7 @@ StdoutEmulator.appendCursor
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:49](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/UnixStdoutEmulator.ts#L49)
+[src/core/UnixStdoutEmulator.ts:49](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L49)
 
 ___
 
@@ -117,7 +117,7 @@ StdoutEmulator.clear
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:39](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/UnixStdoutEmulator.ts#L39)
+[src/core/UnixStdoutEmulator.ts:39](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L39)
 
 ___
 
@@ -137,4 +137,4 @@ StdoutEmulator.removeCursor
 
 #### Defined in
 
-[UnixStdoutEmulator.ts:45](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/UnixStdoutEmulator.ts#L45)
+[src/core/UnixStdoutEmulator.ts:45](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L45)

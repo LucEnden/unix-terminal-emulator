@@ -6,7 +6,7 @@ Emulates a cursor (like a blinking straight line) inside the browser
 
 ## Implemented by
 
-- [`UnixCursorElement`](../wiki/UnixCursorElement.UnixCursorElement)
+- [`UnixCursorElement`](../wiki/core.UnixCursorElement.UnixCursorElement)
 
 ## Table of contents
 
@@ -40,7 +40,7 @@ Appends the cursor element to ```parent```
 
 #### Defined in
 
-[types/CursorElement.ts:19](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/CursorElement.ts#L19)
+[src/types/CursorElement.ts:19](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/CursorElement.ts#L19)
 
 ___
 
@@ -54,7 +54,7 @@ options for this cursor element instance
 
 #### Defined in
 
-[types/CursorElement.ts:10](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/CursorElement.ts#L10)
+[src/types/CursorElement.ts:10](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/CursorElement.ts#L10)
 
 ___
 
@@ -74,4 +74,4 @@ Removes the cursor from the document
 
 #### Defined in
 
-[types/CursorElement.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/CursorElement.ts#L14)
+[src/types/CursorElement.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/CursorElement.ts#L14)

@@ -23,7 +23,7 @@ The output of the command
 
 #### Defined in
 
-[types/TerminalCommand.ts:18](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/TerminalCommand.ts#L18)
+[src/types/TerminalCommand.ts:18](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/TerminalCommand.ts#L18)
 
 ___
 
@@ -35,7 +35,7 @@ The time to pause before writing the output in miliseconds
 
 #### Defined in
 
-[types/TerminalCommand.ts:22](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/TerminalCommand.ts#L22)
+[src/types/TerminalCommand.ts:22](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/TerminalCommand.ts#L22)
 
 ___
 
@@ -47,7 +47,7 @@ The full command text to write
 
 #### Defined in
 
-[types/TerminalCommand.ts:8](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/TerminalCommand.ts#L8)
+[src/types/TerminalCommand.ts:8](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/TerminalCommand.ts#L8)
 
 ___
 
@@ -61,4 +61,4 @@ The pause length between each charater being written in miliseconds.
 
 #### Defined in
 
-[types/TerminalCommand.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/TerminalCommand.ts#L14)
+[src/types/TerminalCommand.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/TerminalCommand.ts#L14)

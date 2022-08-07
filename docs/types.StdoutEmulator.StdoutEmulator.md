@@ -6,7 +6,7 @@ Emulates the behaviour of stdout by writing text to an HTML element
 
 ## Implemented by
 
-- [`UnixStdoutEmulator`](../wiki/UnixStdoutEmulator.UnixStdoutEmulator)
+- [`UnixStdoutEmulator`](../wiki/core.UnixStdoutEmulator.UnixStdoutEmulator)
 
 ## Table of contents
 
@@ -36,7 +36,7 @@ Appends the cursor element to the stdout element
 
 #### Defined in
 
-[types/StdoutEmulator.ts:34](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/StdoutEmulator.ts#L34)
+[src/types/StdoutEmulator.ts:34](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/StdoutEmulator.ts#L34)
 
 ___
 
@@ -56,7 +56,7 @@ Clears the text in the stdout element
 
 #### Defined in
 
-[types/StdoutEmulator.ts:26](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/StdoutEmulator.ts#L26)
+[src/types/StdoutEmulator.ts:26](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/StdoutEmulator.ts#L26)
 
 ___
 
@@ -70,7 +70,7 @@ The stdout HTML element
 
 #### Defined in
 
-[types/StdoutEmulator.ts:15](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/StdoutEmulator.ts#L15)
+[src/types/StdoutEmulator.ts:15](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/StdoutEmulator.ts#L15)
 
 ___
 
@@ -84,7 +84,7 @@ Options to customize the stdout element
 
 #### Defined in
 
-[types/StdoutEmulator.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/StdoutEmulator.ts#L11)
+[src/types/StdoutEmulator.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/StdoutEmulator.ts#L11)
 
 ___
 
@@ -104,4 +104,4 @@ Removes the cursor element from the stdout element
 
 #### Defined in
 
-[types/StdoutEmulator.ts:30](https://github.com/LucEnden/unix-terminal-emulator/blob/9acf7af/src/types/StdoutEmulator.ts#L30)
+[src/types/StdoutEmulator.ts:30](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/StdoutEmulator.ts#L30)

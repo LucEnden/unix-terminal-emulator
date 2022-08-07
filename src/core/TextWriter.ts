@@ -2,7 +2,7 @@ import { decode } from "html-entities"
 
 /**
  * Implements methods for writing and erasing text of HTML elements.
- * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/TextWriter.TextWriter}
+ * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/core.TextWriter.TextWriter}
  */
 class TextWriter {
 	/**

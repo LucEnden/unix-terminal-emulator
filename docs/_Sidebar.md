@@ -4,13 +4,16 @@
 
 ### Modules
 
-- [TextWriter](../wiki/TextWriter)
-- [UnixCursorElement](../wiki/UnixCursorElement)
-- [UnixFileSystemEmulator](../wiki/UnixFileSystemEmulator)
-- [UnixStdoutEmulator](../wiki/UnixStdoutEmulator)
-- [UnixTerminalEmulator](../wiki/UnixTerminalEmulator)
-- [UnixVimEmulator](../wiki/UnixVimEmulator)
-- [index](../wiki/index)
+- [core](../wiki/core)
+- [core/TextWriter](../wiki/core.TextWriter)
+- [core/UnixCursorElement](../wiki/core.UnixCursorElement)
+- [core/UnixFileSystemEmulator](../wiki/core.UnixFileSystemEmulator)
+- [core/UnixStdoutEmulator](../wiki/core.UnixStdoutEmulator)
+- [core/UnixTerminalEmulator](../wiki/core.UnixTerminalEmulator)
+- [core/UnixVimEmulator](../wiki/core.UnixVimEmulator)
+- [react](../wiki/react)
+- [react/Props](../wiki/react.Props)
+- [react/UnixTerminalEmulator](../wiki/react.UnixTerminalEmulator)
 - [types/CursorElement](../wiki/types.CursorElement)
 - [types/CursorElementOptions](../wiki/types.CursorElementOptions)
 - [types/EnviromentOptions](../wiki/types.EnviromentOptions)

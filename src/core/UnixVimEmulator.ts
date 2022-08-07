@@ -6,7 +6,7 @@ import VimOptions from "../types/VimOptions"
 
 /**
  * Emulates vim by allowing for writing of text, use basic vim commands and updateing the vim bar accordingly.
- * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixVimEmulator.UnixVimEmulator}
+ * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixVimEmulator.UnixVimEmulator}
  */
 class UnixVimEmulator implements VimEmulator {
 	private wrapper: HTMLElement | undefined

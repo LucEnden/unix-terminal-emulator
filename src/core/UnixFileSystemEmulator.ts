@@ -11,7 +11,7 @@ const Ext4 = {
 
 /**
  * Emulates a Unix filesystem via methods for managing files and folders, as wel as managing users for permision perposes.
- * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/UnixFileSystemEmulator.UnixFileSystemEmulator}
+ * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixFileSystemEmulator.UnixFileSystemEmulator}
  */
 class UnixFileSystemEmulator implements FileSystemEmulator {
 	private graph = new Graph({ compound: true, directed: true })
