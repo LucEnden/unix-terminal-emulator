@@ -60,10 +60,10 @@ import UnixTerminalEmulator from "unix-terminal-emulator"
 
 const terminal = new UnixTerminalEmulator()
 const command = {
-	text: "echo Hello, World!",
-	writeSpeed: "neutral",
-	output: "Hello, World!",
-	pauseBeforeOutput: 500,
+  text: "echo Hello, World!",
+  writeSpeed: "neutral",
+  output: "Hello, World!",
+  pauseBeforeOutput: 500,
 }
 terminal.writeCommand(command).run()
 ```
@@ -75,24 +75,24 @@ import React from "react"
 import UnixTerminalEmulator from "unix-terminal-emulator"
 
 export default function App() {
-	return (
-		<div className="App">
-			<UnixTerminalEmulator
-				onInit={emulator => {
-					emulator
-						.writeCommand({
-							text: "echo Hello, World!",
-							writeSpeed: "neutral",
-							output: "Hello, World!",
-							pauseBeforeOutput: 500,
-						})
-						.run(() => {
-							console.log("Done!")
-						})
-				}}
-			/>
-		</div>
-	)
+  return (
+    <div className="App">
+      <UnixTerminalEmulator
+        onInit={emulator => {
+          emulator
+            .writeCommand({
+              text: "echo Hello, World!",
+              writeSpeed: "neutral",
+              output: "Hello, World!",
+              pauseBeforeOutput: 500,
+            })
+            .run(() => {
+              console.log("Done!")
+            })
+        }}
+      />
+    </div>
+  )
 }
 ```
 
@@ -111,20 +111,20 @@ const terminal = new UnixTerminalEmulator()
 ```javascript
 // Chaining commands is by design
 terminal
-	.writeCommand({
-		text: "echo foo",
-		writeSpeed: "neutral",
-		output: "foo",
-		pauseBeforeOutput: 500,
-	})
-	.pause(1000)
-	.writeCommand({
-		text: "echo bar",
-		writeSpeed: "neutral",
-		output: "bar",
-		pauseBeforeOutput: 500,
-	})
-	.run()
+  .writeCommand({
+    text: "echo foo",
+    writeSpeed: "neutral",
+    output: "foo",
+    pauseBeforeOutput: 500,
+  })
+  .pause(1000)
+  .writeCommand({
+    text: "echo bar",
+    writeSpeed: "neutral",
+    output: "bar",
+    pauseBeforeOutput: 500,
+  })
+  .run()
 ```
 
 ---
@@ -133,17 +133,17 @@ terminal
 
 ```javascript
 terminal.writeCommand({
-	text: "echo foo",
-	writeSpeed: "neutral",
-	output: "foo",
-	pauseBeforeOutput: 500,
+  text: "echo foo",
+  writeSpeed: "neutral",
+  output: "foo",
+  pauseBeforeOutput: 500,
 })
 terminal.pause(1000)
 terminal.writeCommand({
-	text: "echo bar",
-	writeSpeed: "neutral",
-	output: "bar",
-	pauseBeforeOutput: 500,
+  text: "echo bar",
+  writeSpeed: "neutral",
+  output: "bar",
+  pauseBeforeOutput: 500,
 })
 terminal.run()
 ```
@@ -154,28 +154,28 @@ terminal.run()
 
 ```javascript
 terminal
-	.writeCommand({
-		text: "echo foo",
-		writeSpeed: "neutral",
-		output: "foo",
-		pauseBeforeOutput: 500,
-	})
-	.run()
+  .writeCommand({
+    text: "echo foo",
+    writeSpeed: "neutral",
+    output: "foo",
+    pauseBeforeOutput: 500,
+  })
+  .run()
 // The command added bellow will be added to the current sequence
 terminal.writeCommand({
-	text: "echo bar",
-	writeSpeed: "neutral",
-	output: "bar",
-	pauseBeforeOutput: 500,
+  text: "echo bar",
+  writeSpeed: "neutral",
+  output: "bar",
+  pauseBeforeOutput: 500,
 })
 // The command bellow in the setTimeout will not run in the first sequence, a new call to the run method is required in order to run it
 setTimeout(() => {
-	terminal.writeCommand({
-		text: "echo baz",
-		writeSpeed: "neutral",
-		output: "baz",
-		pauseBeforeOutput: 500,
-	})
+  terminal.writeCommand({
+    text: "echo baz",
+    writeSpeed: "neutral",
+    output: "baz",
+    pauseBeforeOutput: 500,
+  })
 }, 10000)
 ```
 
@@ -185,19 +185,19 @@ setTimeout(() => {
 
 ```javascript
 terminal
-	.writeCommand({
-		text: "echo foo",
-		writeSpeed: "neutral",
-		output: "foo",
-		pauseBeforeOutput: 500,
-	})
-	.writeCommand({
-		text: "echo bar",
-		writeSpeed: "neutral",
-		output: "bar",
-		pauseBeforeOutput: 500,
-	})
-	.run()
+  .writeCommand({
+    text: "echo foo",
+    writeSpeed: "neutral",
+    output: "foo",
+    pauseBeforeOutput: 500,
+  })
+  .writeCommand({
+    text: "echo bar",
+    writeSpeed: "neutral",
+    output: "bar",
+    pauseBeforeOutput: 500,
+  })
+  .run()
 terminal.run() // this brakes the sequence and will result in unexpected behaviour
 ```
 
@@ -207,29 +207,29 @@ terminal.run() // this brakes the sequence and will result in unexpected behavio
 
 ```javascript
 const terminal1 = new UnixTerminalEmulator({
-	wrapperId: "same-wrapper-id",
-	cursorId: "same-cursor-id",
+  wrapperId: "same-wrapper-id",
+  cursorId: "same-cursor-id",
 })
 const terminal2 = new UnixTerminalEmulator({
-	wrapperId: "same-wrapper-id",
-	cursorId: "same-cursor-id",
+  wrapperId: "same-wrapper-id",
+  cursorId: "same-cursor-id",
 })
 terminal1
-	.writeCommand({
-		text: "echo foo",
-		writeSpeed: "neutral",
-		output: "foo",
-		pauseBeforeOutput: 500,
-	})
-	.run()
+  .writeCommand({
+    text: "echo foo",
+    writeSpeed: "neutral",
+    output: "foo",
+    pauseBeforeOutput: 500,
+  })
+  .run()
 terminal2
-	.writeCommand({
-		text: "echo foo",
-		writeSpeed: "neutral",
-		output: "foo",
-		pauseBeforeOutput: 500,
-	})
-	.run()
+  .writeCommand({
+    text: "echo foo",
+    writeSpeed: "neutral",
+    output: "foo",
+    pauseBeforeOutput: 500,
+  })
+  .run()
 ```
 
 ## Perfomance
