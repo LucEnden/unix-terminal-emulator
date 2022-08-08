@@ -79,7 +79,7 @@ export default interface FileSystemEmulator {
 	/**
 	 * Emulates the touch command.
 	 * https://ss64.com/bash/touch.html
-	 * @param file the file to touch
+	 * @param file a space delimited string containing each file to touch
 	 */
 	touch: (file: string) => void
 	/**
@@ -108,4 +108,10 @@ export default interface FileSystemEmulator {
 	 * @returns {string|RangeError} If the directory exists, returns the new working directory, RangeError otherwise
 	 */
 	cd: (dir: string) => string | RangeError
+	/**
+	 * Emulates the ls command.
+	 * https://ss64.com/bash/ls.html
+	 * @returns {string[]} The list of information about each file and folder in the current directory 
+	 */
+	ls: () => string[]
 }

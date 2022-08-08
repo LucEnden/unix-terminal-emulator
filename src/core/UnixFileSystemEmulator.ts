@@ -19,6 +19,12 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	private currentGroup: FileSystemGroup
 	private currentDir: string
 
+	private contentNodeEnd: string = "-content"
+	private modifiedNodeEnd: string = "-modified"
+	private permisionsNodeEnd: string = "-permissions"
+	private ownerNodeEnd: string = "-owner"
+	private groupNodeEnd: string = "-group"
+
 	constructor(user?: FileSystemUser | undefined) {
 		// set root user and group fields
 		this.newDir(this.rootDir)
@@ -78,7 +84,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 			return new TypeError(`-bash: ${file}: No such file or directory`)
 		}
 
-		var contentChild = this.graph.children(file).find(f => f === file + "-content")
+		var contentChild = this.graph.children(file).find(f => f === file + this.contentNodeEnd)
 		return contentChild !== undefined && contentChild !== ""
 	}
 	public getFileContent = (file: string): string | TypeError => {
@@ -87,7 +93,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 		if (!this.graph.hasNode(file)) {
 			return new TypeError(`-bash: ${file}: No such file or directory`)
 		}
-		var contentChild = this.graph.children(file).find(f => f === file + "-content")
+		var contentChild = this.graph.children(file).find(f => f === file + this.contentNodeEnd)
 		return contentChild ? this.graph.node(contentChild) : ""
 	}
 	public setFileContent = (file: string, content: string): void | TypeError => {
@@ -102,22 +108,25 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 			this.newFile(file, parent)
 		}
 
-		var fileContent = file + "-content"
+		var fileContent = file + this.contentNodeEnd
 		this.graph.setNode(fileContent, content)
 		this.graph.setParent(fileContent, file)
 		this.setModified(file, parent)
 	}
 	public touch = (file: string) => {
-		var fullPath = this.resolveRelativePathString(file)
-		var parent = this.resolveParentDir(file)
-		if (!this.graph.hasNode(fullPath)) {
-			if (!file.includes("/")) {
-				this.newFile(fullPath, this.currentDir)
+		var files = file.split(" ")
+		for (var i = 0; i < files.length; i++) {
+			var fullPath = this.resolveRelativePathString(files[i])
+			var parent = this.resolveParentDir(fullPath)
+			if (!this.graph.hasNode(fullPath)) {
+				if (!file.includes("/")) {
+					this.newFile(fullPath, this.currentDir)
+				} else {
+					this.newFile(fullPath, parent)
+				}
 			} else {
-				this.newFile(fullPath, parent)
+				this.setModified(fullPath, parent)
 			}
-		} else {
-			this.setModified(fullPath, parent)
 		}
 	}
 	public mkdir = (dirNames: string): Error[] => {
@@ -180,8 +189,21 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 		if (!this.pathExists(dir)) {
 			return new RangeError(`-bash: cd: ${dir}: No such file or directory`)
 		}
-		this.currentDir = dir
+		if (dir === "~") {
+			this.currentDir = this.currentUser.homeDir!
+		} else {
+			this.currentDir = dir
+		}
 		return this.currentDir
+	}
+	public ls = (): string[] => {
+		var output = this.graph.children(this.currentDir).filter(c => {
+			return !c.endsWith(this.contentNodeEnd) && !c.endsWith(this.modifiedNodeEnd) && !c.endsWith(this.permisionsNodeEnd) && !c.endsWith(this.ownerNodeEnd) && !c.endsWith(this.groupNodeEnd)
+		})
+		for (var i = 0; i < output.length; i++) {
+			output[i] = output[i].substring(output[i].lastIndexOf("/") + 1)
+		}
+		return output
 	}
 
 	/**
@@ -369,7 +391,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	private setOwner = (path: string) => {
 		path = this.replaceRepetetiveForwardslashes(path)
 		path = this.resolveRelativePathString(path)
-		var pathOwner = path + "-owner"
+		var pathOwner = path + this.ownerNodeEnd
 		this.graph.setNode(pathOwner, this.currentUser)
 		this.graph.setParent(pathOwner, path)
 	}
@@ -381,7 +403,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	private setGroup = (path: string) => {
 		path = this.replaceRepetetiveForwardslashes(path)
 		path = this.resolveRelativePathString(path)
-		var pathGroup = path + "-group"
+		var pathGroup = path + this.groupNodeEnd
 		this.graph.setNode(pathGroup, this.currentGroup.name)
 		this.graph.setParent(pathGroup, path)
 	}
@@ -396,7 +418,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	private setPermisions = (path: string, owner: 1 | 2 | 3 | 4 | 5 | 6 | 7, group: 1 | 2 | 3 | 4 | 5 | 6 | 7, other: 1 | 2 | 3 | 4 | 5 | 6 | 7) => {
 		path = this.replaceRepetetiveForwardslashes(path)
 		path = this.resolveRelativePathString(path)
-		var pathPermisions = path + "-permissions"
+		var pathPermisions = path + this.permisionsNodeEnd
 		this.graph.setNode(pathPermisions, owner + "" + group + "" + other)
 		this.graph.setParent(pathPermisions, path)
 	}

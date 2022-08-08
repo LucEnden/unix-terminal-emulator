@@ -12,6 +12,11 @@ declare class UnixFileSystemEmulator implements FileSystemEmulator {
     private currentUser;
     private currentGroup;
     private currentDir;
+    private contentNodeEnd;
+    private modifiedNodeEnd;
+    private permisionsNodeEnd;
+    private ownerNodeEnd;
+    private groupNodeEnd;
     constructor(user?: FileSystemUser | undefined);
     readonly rootDir = "/";
     readonly homeDir = "/home/";
@@ -30,6 +35,7 @@ declare class UnixFileSystemEmulator implements FileSystemEmulator {
     useradd: (user: FileSystemUser) => string | RangeError;
     pwd: () => string;
     cd: (dir: string) => string | RangeError;
+    ls: () => string[];
     /**
      * Replaces any instance of repetetive forward slashes with a single forward slash:
      * ////a///b////// => /a/b/

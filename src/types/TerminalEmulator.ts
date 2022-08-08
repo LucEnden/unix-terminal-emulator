@@ -159,6 +159,14 @@ export default interface TerminalEmulator {
 	 */
 	cd: (dir: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
 	/**
+	 * Emulates the ls command.
+	 * https://ss64.com/bash/ls.html
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
+	 */
+	ls: (writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
+	/**
 	 * Emulates the vim command.
 	 * https://linuxcommand.org/lc3_man_pages/vim1.html
 	 * @param {string} fileName			 			The name of the file to edit
@@ -169,7 +177,35 @@ export default interface TerminalEmulator {
 	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
 	 */
 	vim: (fileName: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
+	/**
+	 * Inserts text into the currently opend vim window
+	 * @param {string} text 						The text to insert
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to insert the text
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing a newline character in miliseconds
+	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
+	 */
 	vimInsert: (text: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
+	/**
+	 * Writes the current text of the vim window to the file
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to insert the text
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing a newline character in miliseconds
+	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
+	 */
+	vimWrite: (writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
+	/**
+	 * Quit vim and return to the terminal window. Note: any written content to vim will be lost
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to insert the text
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing a newline character in miliseconds
+	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
+	 */
+	vimQuit: (writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
+	/**
+	 * Writes the current text of the vim window to the file, then quits vim and return to the terminal window
+	 * @param {"neutral"|number} writeSpeed 		The speed at which to insert the text
+	 * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing a newline character in miliseconds
+	 * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
+	 */
+	vimWriteQuit: (writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
 	/**
 	 * Excecutes the created event sequence
 	 * @param callback Gets called when the sequence has finished

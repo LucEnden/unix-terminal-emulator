@@ -217,6 +217,33 @@ class UnixTerminalEmulator implements TerminalEmulator {
 		})
 		return this
 	}
+	public ls = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		this.addWriteCommandEvent({
+			text: "ls",
+			writeSpeed: writeSpeed,
+			output: () => {
+				var lsOut = this.fileSystem.ls()
+				if (lsOut.length === 0) {
+					return ""
+				}
+
+				var output = "<table style=\"table-layout: fixed;\">"
+				output = output + "<tr>"
+				for (var i = 0; i < lsOut.length; i++) {
+					output = output + "<td style=\"padding: 0;\">" + lsOut[i] + "&nbsp;</td>"
+					if (i > 0 && (((i + 1) % 12) === 0)) {
+						output = output + "</tr><tr>"
+					}
+				}
+				output = output + "</tr></table>"
+				return output
+			},
+			pauseBeforeOutput: pauseBeforeOutput,
+		}, (callback) => {
+			this.removeLastLineBreakFromStdout(() => this.writeNewInputLineToStdout(callback))
+		})
+		return this
+	}
 	public vim = (fileName: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
 		this.addWriteCommandEvent(
 			{
@@ -396,6 +423,13 @@ class UnixTerminalEmulator implements TerminalEmulator {
 	 */
 	private writeLineBreakToStdout = (callback: () => void) => {
 		this.writer.writeToElement(this.stdout.element, "<br>", 0, this.stdout.removeCursor, this.stdout.appendCursor, callback)
+	}
+
+	private removeLastLineBreakFromStdout = (callback: () => void) => {
+		this.stdout.removeCursor()
+		this.stdout.element.innerHTML = this.stdout.element.innerHTML.substring(0, this.stdout.element.innerHTML.lastIndexOf("<br>"))
+		this.stdout.appendCursor()
+		callback()
 	}
 }
 

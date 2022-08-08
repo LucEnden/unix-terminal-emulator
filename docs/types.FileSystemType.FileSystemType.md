@@ -21,7 +21,7 @@ The name of the file system.
 
 #### Defined in
 
-[src/types/FileSystemType.ts:8](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/FileSystemType.ts#L8)
+[src/types/FileSystemType.ts:8](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/FileSystemType.ts#L8)
 
 ___
 
@@ -33,4 +33,4 @@ Prohibited file name charecters for this file system
 
 #### Defined in
 
-[src/types/FileSystemType.ts:12](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/types/FileSystemType.ts#L12)
+[src/types/FileSystemType.ts:12](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/FileSystemType.ts#L12)

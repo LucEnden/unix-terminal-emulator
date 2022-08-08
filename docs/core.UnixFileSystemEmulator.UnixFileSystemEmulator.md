@@ -31,6 +31,7 @@ Emulates a Unix filesystem via methods for managing files and folders, as wel as
 - [getCurrentDirectory](../wiki/core.UnixFileSystemEmulator.UnixFileSystemEmulator#getcurrentdirectory)
 - [getFileContent](../wiki/core.UnixFileSystemEmulator.UnixFileSystemEmulator#getfilecontent)
 - [isDirectory](../wiki/core.UnixFileSystemEmulator.UnixFileSystemEmulator#isdirectory)
+- [ls](../wiki/core.UnixFileSystemEmulator.UnixFileSystemEmulator#ls)
 - [mkdir](../wiki/core.UnixFileSystemEmulator.UnixFileSystemEmulator#mkdir)
 - [pathExists](../wiki/core.UnixFileSystemEmulator.UnixFileSystemEmulator#pathexists)
 - [pwd](../wiki/core.UnixFileSystemEmulator.UnixFileSystemEmulator#pwd)
@@ -52,7 +53,7 @@ Emulates a Unix filesystem via methods for managing files and folders, as wel as
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:22](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L22)
+[src/core/UnixFileSystemEmulator.ts:28](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L28)
 
 ## Properties
 
@@ -70,7 +71,7 @@ The type of file system to use
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:58](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L58)
+[src/core/UnixFileSystemEmulator.ts:64](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L64)
 
 ___
 
@@ -88,7 +89,7 @@ The groups within this file system instance
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:57](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L57)
+[src/core/UnixFileSystemEmulator.ts:63](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L63)
 
 ___
 
@@ -108,7 +109,7 @@ The home directory "/home/"
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:50](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L50)
+[src/core/UnixFileSystemEmulator.ts:56](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L56)
 
 ___
 
@@ -128,7 +129,7 @@ The root directory "/"
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:49](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L49)
+[src/core/UnixFileSystemEmulator.ts:55](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L55)
 
 ___
 
@@ -148,7 +149,7 @@ The root user, which is the default user of the file system
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:51](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L51)
+[src/core/UnixFileSystemEmulator.ts:57](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L57)
 
 ___
 
@@ -166,7 +167,7 @@ The users within this file system instance
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:56](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L56)
+[src/core/UnixFileSystemEmulator.ts:62](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L62)
 
 ## Methods
 
@@ -195,7 +196,7 @@ FileSystemEmulator.cd
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:178](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L178)
+[src/core/UnixFileSystemEmulator.ts:187](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L187)
 
 ___
 
@@ -223,7 +224,7 @@ FileSystemEmulator.fileHasContent
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:71](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L71)
+[src/core/UnixFileSystemEmulator.ts:77](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L77)
 
 ___
 
@@ -247,7 +248,7 @@ FileSystemEmulator.getCurrentDirectory
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:68](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L68)
+[src/core/UnixFileSystemEmulator.ts:74](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L74)
 
 ___
 
@@ -275,7 +276,7 @@ FileSystemEmulator.getFileContent
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:84](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L84)
+[src/core/UnixFileSystemEmulator.ts:90](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L90)
 
 ___
 
@@ -303,7 +304,30 @@ FileSystemEmulator.isDirectory
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:60](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L60)
+[src/core/UnixFileSystemEmulator.ts:66](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L66)
+
+___
+
+### ls
+
+▸ **ls**(): `string`[]
+
+Emulates the ls command.
+https://ss64.com/bash/ls.html
+
+#### Returns
+
+`string`[]
+
+The list of information about each file and folder in the current directory
+
+#### Implementation of
+
+FileSystemEmulator.ls
+
+#### Defined in
+
+[src/core/UnixFileSystemEmulator.ts:199](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L199)
 
 ___
 
@@ -332,7 +356,7 @@ FileSystemEmulator.mkdir
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:123](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L123)
+[src/core/UnixFileSystemEmulator.ts:132](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L132)
 
 ___
 
@@ -360,7 +384,7 @@ FileSystemEmulator.pathExists
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:63](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L63)
+[src/core/UnixFileSystemEmulator.ts:69](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L69)
 
 ___
 
@@ -383,7 +407,7 @@ FileSystemEmulator.pwd
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:175](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L175)
+[src/core/UnixFileSystemEmulator.ts:184](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L184)
 
 ___
 
@@ -412,7 +436,7 @@ FileSystemEmulator.setFileContent
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:93](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L93)
+[src/core/UnixFileSystemEmulator.ts:99](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L99)
 
 ___
 
@@ -427,7 +451,7 @@ https://ss64.com/bash/touch.html
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `file` | `string` | the file to touch |
+| `file` | `string` | a space delimited string containing each file to touch |
 
 #### Returns
 
@@ -439,7 +463,7 @@ FileSystemEmulator.touch
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:110](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L110)
+[src/core/UnixFileSystemEmulator.ts:116](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L116)
 
 ___
 
@@ -468,4 +492,4 @@ FileSystemEmulator.useradd
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:156](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixFileSystemEmulator.ts#L156)
+[src/core/UnixFileSystemEmulator.ts:165](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixFileSystemEmulator.ts#L165)

@@ -147,3 +147,13 @@ test("touch + getFileContent => expect TypeError for non existing file, text con
 	expect(fs.getFileContent(existingFileWithContent)).toBe(contentWithText)
 	expect(fs.getFileContent(existingFileWithoutContent)).toBe(contentWithoutText)
 })
+
+test("touch + ls => expect output to contain equal amount of items as files created with touch", () => {
+	const fs = new UnixFileSystemEmulator()
+	const filesToCreate = "a b c d e f g"
+
+	fs.touch(filesToCreate)
+	const lsOutput = fs.ls()
+
+	expect(lsOutput.length).toEqual(filesToCreate.split(" ").length)
+})

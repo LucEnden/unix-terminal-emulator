@@ -33,7 +33,7 @@ The properties for this UnixTerminalEmulator component.
 
 #### Defined in
 
-src/react/Props.tsx:15
+[src/react/Props.tsx:15](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/react/Props.tsx#L15)
 
 ___
 
@@ -47,4 +47,4 @@ The options to pass down to the terminal instance used by this component
 
 #### Defined in
 
-src/react/Props.tsx:11
+[src/react/Props.tsx:11](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/react/Props.tsx#L11)

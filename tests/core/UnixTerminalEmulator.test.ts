@@ -579,3 +579,19 @@ test("vim + vimInsert + vimWriteQuit => expect wrapper to contain 'vim' + fileNa
 		expect(terminal.wrapperElement.innerHTML).not.toContain(textToWrite)
 	})
 })
+
+test("touch + clear + ls => expect all files touched to be in the stdout", done => {
+	const filesToTouch = "file1 file2 file3 file4 file5"
+	const expectedFilesInStdout = filesToTouch.split(" ")
+	const terminal = new UnixTerminalEmulator({
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
+
+	terminal.touch(filesToTouch, 0).clear(0).ls(0).run(() => {
+		done()
+
+		expectedFilesInStdout.forEach(fileToBeExpected => {
+			expect(terminal.stdout.element.innerHTML).toContain(fileToBeExpected)
+		})
+	})
+})

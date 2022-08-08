@@ -36,6 +36,7 @@ declare class UnixTerminalEmulator implements TerminalEmulator {
     useradd: (user: FileSystemUser, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     pwd: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     cd: (dir: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
+    ls: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     vim: (fileName: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     vimInsert: (text: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     vimWrite: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
@@ -64,5 +65,6 @@ declare class UnixTerminalEmulator implements TerminalEmulator {
      * Writes "<br>" to the stdout
      */
     private writeLineBreakToStdout;
+    private removeLastLineBreakFromStdout;
 }
 export default UnixTerminalEmulator;

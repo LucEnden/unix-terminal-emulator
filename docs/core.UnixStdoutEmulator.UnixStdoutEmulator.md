@@ -41,7 +41,7 @@ Emulates stdout by allowing for writing and erasing of text to an HTML element. 
 
 #### Defined in
 
-[src/core/UnixStdoutEmulator.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L16)
+[src/core/UnixStdoutEmulator.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixStdoutEmulator.ts#L16)
 
 ## Properties
 
@@ -59,7 +59,7 @@ The stdout HTML element
 
 #### Defined in
 
-[src/core/UnixStdoutEmulator.ts:37](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L37)
+[src/core/UnixStdoutEmulator.ts:37](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixStdoutEmulator.ts#L37)
 
 ___
 
@@ -77,7 +77,7 @@ Options to customize the stdout element
 
 #### Defined in
 
-[src/core/UnixStdoutEmulator.ts:31](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L31)
+[src/core/UnixStdoutEmulator.ts:31](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixStdoutEmulator.ts#L31)
 
 ## Methods
 
@@ -97,7 +97,7 @@ StdoutEmulator.appendCursor
 
 #### Defined in
 
-[src/core/UnixStdoutEmulator.ts:49](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L49)
+[src/core/UnixStdoutEmulator.ts:49](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixStdoutEmulator.ts#L49)
 
 ___
 
@@ -117,7 +117,7 @@ StdoutEmulator.clear
 
 #### Defined in
 
-[src/core/UnixStdoutEmulator.ts:39](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L39)
+[src/core/UnixStdoutEmulator.ts:39](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixStdoutEmulator.ts#L39)
 
 ___
 
@@ -137,4 +137,4 @@ StdoutEmulator.removeCursor
 
 #### Defined in
 
-[src/core/UnixStdoutEmulator.ts:45](https://github.com/LucEnden/unix-terminal-emulator/blob/604a97a/src/core/UnixStdoutEmulator.ts#L45)
+[src/core/UnixStdoutEmulator.ts:45](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/core/UnixStdoutEmulator.ts#L45)
