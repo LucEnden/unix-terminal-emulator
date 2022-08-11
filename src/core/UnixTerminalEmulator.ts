@@ -218,30 +218,33 @@ class UnixTerminalEmulator implements TerminalEmulator {
 		return this
 	}
 	public ls = (writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
-		this.addWriteCommandEvent({
-			text: "ls",
-			writeSpeed: writeSpeed,
-			output: () => {
-				var lsOut = this.fileSystem.ls()
-				if (lsOut.length === 0) {
-					return ""
-				}
-
-				var output = "<table style=\"table-layout: fixed;\">"
-				output = output + "<tr>"
-				for (var i = 0; i < lsOut.length; i++) {
-					output = output + "<td style=\"padding: 0;\">" + lsOut[i] + "&nbsp;</td>"
-					if (i > 0 && (((i + 1) % 12) === 0)) {
-						output = output + "</tr><tr>"
+		this.addWriteCommandEvent(
+			{
+				text: "ls",
+				writeSpeed: writeSpeed,
+				output: () => {
+					var lsOut = this.fileSystem.ls()
+					if (lsOut.length === 0) {
+						return ""
 					}
-				}
-				output = output + "</tr></table>"
-				return output
+
+					var output = '<table style="table-layout: fixed;">'
+					output = output + "<tr>"
+					for (var i = 0; i < lsOut.length; i++) {
+						output = output + '<td style="padding: 0;">' + lsOut[i] + "&nbsp;</td>"
+						if (i > 0 && (i + 1) % 12 === 0) {
+							output = output + "</tr><tr>"
+						}
+					}
+					output = output + "</tr></table>"
+					return output
+				},
+				pauseBeforeOutput: pauseBeforeOutput,
 			},
-			pauseBeforeOutput: pauseBeforeOutput,
-		}, (callback) => {
-			this.removeLastLineBreakFromStdout(() => this.writeNewInputLineToStdout(callback))
-		})
+			callback => {
+				this.removeLastLineBreakFromStdout(() => this.writeNewInputLineToStdout(callback))
+			}
+		)
 		return this
 	}
 	public vim = (fileName: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
@@ -303,6 +306,33 @@ class UnixTerminalEmulator implements TerminalEmulator {
 			delayAfter: 0,
 		}
 		this.eventQueue.push(e)
+		return this
+	}
+	public grep = (pattern: RegExp, file: string, writeSpeed: "neutral" | number = "neutral", pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		var stringPattern = pattern.toString()
+		stringPattern = stringPattern.substring(1, stringPattern.lastIndexOf("/"))
+		this.addWriteCommandEvent({
+			text: `grep ${stringPattern} ${file}`,
+			writeSpeed: writeSpeed,
+			output: () => {
+				var output = ""
+				if (!this.fileSystem.pathExists(file)) {
+					output = `grep: ${file}: No such file or directory`
+				} else if (this.fileSystem.isDirectory(file)) {
+					output = `grep: ${file}: Is a directory`
+				} else {
+					var fileContent = this.fileSystem.getFileContent(file)
+					if (typeof fileContent === "string") {
+						pattern = new RegExp('('+stringPattern+')' , pattern.flags + 'gm')
+						output = fileContent.replace(pattern, '<span style="color: brown;">$1</span>').replace("\n", "<br>")
+					} else {
+						output = fileContent.message
+					}
+				}
+				return output
+			},
+			pauseBeforeOutput: pauseBeforeOutput,
+		})
 		return this
 	}
 	public run = (callback?: () => void) => {

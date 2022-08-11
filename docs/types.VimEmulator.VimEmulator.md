@@ -34,7 +34,7 @@ Emulates vim behaviour inside the browser.
 
 #### Defined in
 
-[src/types/VimEmulator.ts:26](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L26)
+[src/types/VimEmulator.ts:26](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L26)
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/types/VimEmulator.ts:25](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L25)
+[src/types/VimEmulator.ts:25](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L25)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/types/VimEmulator.ts:23](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L23)
+[src/types/VimEmulator.ts:23](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L23)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/types/VimEmulator.ts:22](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L22)
+[src/types/VimEmulator.ts:22](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L22)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/types/VimEmulator.ts:24](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L24)
+[src/types/VimEmulator.ts:24](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L24)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/types/VimEmulator.ts:29](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L29)
+[src/types/VimEmulator.ts:29](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L29)
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 #### Defined in
 
-[src/types/VimEmulator.ts:28](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L28)
+[src/types/VimEmulator.ts:28](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L28)
 
 ___
 
@@ -141,7 +141,7 @@ The options this vim emulator uses.
 
 #### Defined in
 
-[src/types/VimEmulator.ts:13](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L13)
+[src/types/VimEmulator.ts:13](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L13)
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[src/types/VimEmulator.ts:31](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L31)
+[src/types/VimEmulator.ts:31](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L31)
 
 ___
 
@@ -183,7 +183,7 @@ The bottom bar for this vim instance.
 
 #### Defined in
 
-[src/types/VimEmulator.ts:21](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L21)
+[src/types/VimEmulator.ts:21](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L21)
 
 ___
 
@@ -197,7 +197,7 @@ The wrapper element for this vim instance.
 
 #### Defined in
 
-[src/types/VimEmulator.ts:17](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L17)
+[src/types/VimEmulator.ts:17](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L17)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[src/types/VimEmulator.ts:30](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L30)
+[src/types/VimEmulator.ts:30](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L30)
 
 ___
 
@@ -253,4 +253,4 @@ ___
 
 #### Defined in
 
-[src/types/VimEmulator.ts:32](https://github.com/LucEnden/unix-terminal-emulator/blob/45db79d/src/types/VimEmulator.ts#L32)
+[src/types/VimEmulator.ts:32](https://github.com/LucEnden/unix-terminal-emulator/blob/6aefb78/src/types/VimEmulator.ts#L32)

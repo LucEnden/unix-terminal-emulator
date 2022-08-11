@@ -8,10 +8,10 @@ import FileSystemUser from "../../src/types/FileSystemUser"
 const defaultTerminalWrapperId = "terminal___emulator___wrapper"
 const defaultTerminalCursorCss = "terminal___cursor___static"
 jest.useRealTimers()
-// jest.setTimeout(6000000)	// one hour
+// jest.setTimeout(6000000)		// 1 hour
 // jest.setTimeout(600000)		// 10 minutes
-// jest.setTimeout(60000)		// 1 minutes
-jest.setTimeout(360000) // 5 minutes
+jest.setTimeout(360000) 		// 5 minutes
+// jest.setTimeout(60000)		// 1 minute
 
 // fix: jsdom Doesn't seem to have TextEncoder defined in global for the DOM
 // https://stackoverflow.com/questions/57712235/referenceerror-textencoder-is-not-defined-when-running-react-scripts-test#answer-57713960
@@ -593,5 +593,46 @@ test("touch + clear + ls => expect all files touched to be in the stdout", done 
 		expectedFilesInStdout.forEach(fileToBeExpected => {
 			expect(terminal.stdout.element.innerHTML).toContain(fileToBeExpected)
 		})
+	})
+})
+
+test("grep => expect no match when non existing file is used", done => {
+	const pattern = /pattern/
+	const nonExsitingFile = "NON_EXISTING_FILE"
+	const terminal = new UnixTerminalEmulator({
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
+
+	terminal.grep(pattern, nonExsitingFile).run(() => {
+		done()
+		expect(terminal.stdout.element.innerHTML).not.toContain('<span style="color: brown;">')
+	})
+})
+
+test("grep => expect no match when non existing file is used", done => {
+	const pattern = /pattern/
+	const nonExsitingDir = "/NON_EXISTING_DIR/"
+	const terminal = new UnixTerminalEmulator({
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
+
+	terminal.grep(pattern, nonExsitingDir).run(() => {
+		done()
+		expect(terminal.stdout.element.innerHTML).not.toContain('<span style="color: brown;">')
+	})
+})
+
+test("touch + grep => expect match when existing file is used with content", done => {
+	const pattern = /o/
+	const existingFile = "foo"
+	const terminal = new UnixTerminalEmulator({
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
+
+	terminal.touch(existingFile, 0)
+	terminal.fileSystem.setFileContent("foo", "foo")
+	terminal.grep(pattern, "foo").run(() => {
+		done()
+		expect(terminal.stdout.element.innerHTML).toContain('<span style="color: brown;">')
 	})
 })

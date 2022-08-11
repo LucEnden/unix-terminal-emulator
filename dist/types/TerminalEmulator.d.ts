@@ -206,6 +206,16 @@ export default interface TerminalEmulator {
      */
     vimWriteQuit: (writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator;
     /**
+     * Emulates the grep command.
+     * https://ss64.com/bash/grep.html
+     * @param {RegExp} pattern 						The pattern to use to match the file contents
+     * @param {string} file							The file to get the content of to match the pattern to
+     * @param {"neutral"|number} writeSpeed 		The speed at which to write each character of the command
+     * @param {number|undefined} pauseBeforeOutput 	The time to pause before writing the output in miliseconds
+     * @returns {TerminalEmulator} 					The current instance of TerminalEmulator, which enables method chaining.
+     */
+    grep: (pattern: RegExp, file: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator;
+    /**
      * Excecutes the created event sequence
      * @param callback Gets called when the sequence has finished
      */

@@ -42,6 +42,7 @@ declare class UnixTerminalEmulator implements TerminalEmulator {
     vimWrite: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     vimQuit: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     vimWriteQuit: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
+    grep: (pattern: RegExp, file: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     run: (callback?: () => void) => void;
     /**
      * Adds an event to the event queue which writes the command and its output if specified to the stdout.
