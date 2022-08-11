@@ -3,8 +3,8 @@ import { nanoid } from 'nanoid'
 import StdoutEmulator from "../types/StdoutEmulator"
 import StdoutEmulatorOptions from "../types/StdoutEmulatorOptions"
 
-// TODO: implement a read() method which returns the stdout elements innerHTML, but in a UTF-8 formated matter (eg: <br> to \n, etc...)
-// TODO: implement a write() method which updates cursor automaticly and uses TextWriter in order to standardize stdout writing (currently handled by classes that implement bothh TextWriter and StdoutEmulator)
+// TODO: implement a read() method which returns the stdout elements innerHTML, but in a UTF-8 formatted matter (eg: <br> to \n, etc...)
+// TODO: implement a write() method which updates cursor automatically and uses TextWriter in order to standardize stdout writing (currently handled by classes that implement both TextWriter and StdoutEmulator)
 
 /**
  * Emulates stdout by allowing for writing and erasing of text to an HTML element. Also has methods for controlling a cursor like element.
@@ -29,7 +29,7 @@ class UnixStdoutEmulator implements StdoutEmulator {
 	}
 
 	readonly options: StdoutEmulatorOptions = {
-		stdoutCss: "termminal___emulator___stdout",
+		stdoutCss: "terminal___emulator___stdout",
 		cursorChar: "|",
 		cursorCss: "terminal___cursor___static"
 	}

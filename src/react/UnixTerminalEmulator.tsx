@@ -3,7 +3,7 @@ import Props from "./Props"
 import * as Core from "../core"
 
 /**
- * Emulates a unix terminal by building an event sequence of commands and timings which gets excecuted when the run method is called.
+ * Emulates a unix terminal by building an event sequence of commands and timings which gets executed when the run method is called.
  * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/react.UnixTerminalEmulator.UnixTerminalEmulator}
  */
 class UnixTerminalEmulator extends React.Component<Props> {

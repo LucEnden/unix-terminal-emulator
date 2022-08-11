@@ -3,7 +3,7 @@ import StdoutEmulator from "../types/StdoutEmulator";
 import VimEmulator from "../types/VimEmulator";
 import VimOptions from "../types/VimOptions";
 /**
- * Emulates vim by allowing for writing of text, use basic vim commands and updateing the vim bar accordingly.
+ * Emulates vim by allowing for writing of text, use basic vim commands and updating the vim bar accordingly.
  * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixVimEmulator.UnixVimEmulator}
  */
 declare class UnixVimEmulator implements VimEmulator {

@@ -16,7 +16,7 @@
 - [react/UnixTerminalEmulator](../wiki/react.UnixTerminalEmulator)
 - [types/CursorElement](../wiki/types.CursorElement)
 - [types/CursorElementOptions](../wiki/types.CursorElementOptions)
-- [types/EnviromentOptions](../wiki/types.EnviromentOptions)
+- [types/EnvironmentOptions](../wiki/types.EnvironmentOptions)
 - [types/FileSystemEmulator](../wiki/types.FileSystemEmulator)
 - [types/FileSystemGroup](../wiki/types.FileSystemGroup)
 - [types/FileSystemType](../wiki/types.FileSystemType)

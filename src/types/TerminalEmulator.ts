@@ -43,7 +43,7 @@ export default interface TerminalEmulator {
 	 * 	wrapperCss: "terminal___emulator___wrapper",
 	 * 	cursorChar: "|",
 	 * 	cursorCss: "terminal___cursor___static",
-	 * 	stdoutCss: "termminal___emulator___stdout"
+	 * 	stdoutCss: "terminal___emulator___stdout"
 	 * }
 	 */
 	readonly options: TerminalEmulatorOptions

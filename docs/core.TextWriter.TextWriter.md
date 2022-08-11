@@ -35,12 +35,12 @@ Erases N characters from the end of an HTML element.
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
 | `e` | `HTMLElement` | `undefined` | the element to erase the characters from |
-| `n` | `number` | `undefined` | the amount of charecters to erase |
-| `s` | `number` \| ``"neutral"`` | `"neutral"` | the speed at which to erase the charecters |
+| `n` | `number` | `undefined` | the amount of characters to erase |
+| `s` | `number` \| ``"neutral"`` | `"neutral"` | the speed at which to erase the characters |
 | `beforeChar?` | () => `void` | `undefined` | if not undefined, gets called before erasing any character |
 | `afterChar?` | () => `void` | `undefined` | if not undefined, gets called after erasing any character |
 | `callback?` | () => `void` | `undefined` | if not undefined, gets called when done erasing |
-| `i` | `number` | `0` | for recursive perposes, should not be set manualy |
+| `i` | `number` | `0` | for recursive purposes, should not be set manually |
 
 #### Returns
 
@@ -48,7 +48,7 @@ Erases N characters from the end of an HTML element.
 
 #### Defined in
 
-[src/core/TextWriter.ts:19](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/core/TextWriter.ts#L19)
+[src/core/TextWriter.ts:19](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/core/TextWriter.ts#L19)
 
 ___
 
@@ -64,11 +64,11 @@ Writes text to the end of an HTML element. Supports plain text, smileys and HTML
 | :------ | :------ | :------ | :------ |
 | `e` | `HTMLElement` | `undefined` | element to write to |
 | `t` | `string` | `undefined` | the text to write |
-| `s` | `number` \| ``"neutral"`` | `"neutral"` | the speed at which to write each character in miliseconds, where "neutral" is a random integer between 80 and 120 and 0 is instantly |
+| `s` | `number` \| ``"neutral"`` | `"neutral"` | the speed at which to write each character in milliseconds, where "neutral" is a random integer between 80 and 120 and 0 is instantly |
 | `beforeChar?` | () => `void` | `undefined` | if not undefined, gets called before writing any character |
 | `afterChar?` | () => `void` | `undefined` | if not undefined, gets called after writing any character |
 | `callback?` | () => `void` | `undefined` | if not undefined, gets called when done writing |
-| `i` | `number` | `0` | for recursive perposes, should not be set manualy |
+| `i` | `number` | `0` | for recursive purposes, should not be set manually |
 
 #### Returns
 
@@ -76,4 +76,4 @@ Writes text to the end of an HTML element. Supports plain text, smileys and HTML
 
 #### Defined in
 
-[src/core/TextWriter.ts:49](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/core/TextWriter.ts#L49)
+[src/core/TextWriter.ts:49](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/core/TextWriter.ts#L49)

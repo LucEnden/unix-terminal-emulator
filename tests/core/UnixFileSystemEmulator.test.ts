@@ -101,7 +101,7 @@ test("touch => test relative and absolute file paths", () => {
 	fs.touch(absoluteFile)
 })
 
-test("touch + pathExists => expect fille to be created if it doesnt exist, else only the timestamp should be updated", () => {
+test("touch + pathExists => expect fille to be created if it doesn't exist, else only the timestamp should be updated", () => {
 	const fs = new UnixFileSystemEmulator()
 	const fileToBeCreate = "/home/root/textfile"
 

@@ -6,11 +6,11 @@ import FileSystemUser from "../types/FileSystemUser"
 
 const Ext4 = {
 	name: "ext4",
-	prohibitedFileNameCharecters: ["\0", "\\0", ".", ".."],
+	prohibitedFileNameCharacters: ["\0", "\\0", ".", ".."],
 } as FileSystemType
 
 /**
- * Emulates a Unix filesystem via methods for managing files and folders, as wel as managing users for permision perposes.
+ * Emulates a Unix filesystem via methods for managing files and folders, as wel as managing users for permission purposes.
  * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixFileSystemEmulator.UnixFileSystemEmulator}
  */
 class UnixFileSystemEmulator implements FileSystemEmulator {
@@ -21,7 +21,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 
 	private contentNodeEnd: string = "-content"
 	private modifiedNodeEnd: string = "-modified"
-	private permisionsNodeEnd: string = "-permissions"
+	private permissionsNodeEnd: string = "-permissions"
 	private ownerNodeEnd: string = "-owner"
 	private groupNodeEnd: string = "-group"
 
@@ -67,7 +67,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 		return path.endsWith("/")
 	}
 	public pathExists = (path: string): boolean => {
-		path = this.replaceRepetetiveForwardslashes(path)
+		path = this.replaceRepetitiveForwardslashes(path)
 		path = this.resolveRelativePathString(path)
 		return this.graph.hasNode(path)
 	}
@@ -75,7 +75,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 		return this.currentDir.startsWith(this.currentUser.homeDir!) ? this.currentDir.replace(this.currentUser.homeDir!, "~") : this.currentDir
 	}
 	public fileHasContent = (file: string): boolean | TypeError => {
-		file = this.replaceRepetetiveForwardslashes(file)
+		file = this.replaceRepetitiveForwardslashes(file)
 		file = this.resolveRelativePathString(file)
 		if (this.isDirectory(file)) {
 			return new TypeError(`-bash: ${file}: Is a directory`)
@@ -88,7 +88,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 		return contentChild !== undefined && contentChild !== ""
 	}
 	public getFileContent = (file: string): string | TypeError => {
-		file = this.replaceRepetetiveForwardslashes(file)
+		file = this.replaceRepetitiveForwardslashes(file)
 		file = this.resolveRelativePathString(file)
 		if (!this.graph.hasNode(file)) {
 			return new TypeError(`-bash: ${file}: No such file or directory`)
@@ -97,7 +97,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 		return contentChild ? this.graph.node(contentChild) : ""
 	}
 	public setFileContent = (file: string, content: string): void | TypeError => {
-		file = this.replaceRepetetiveForwardslashes(file)
+		file = this.replaceRepetitiveForwardslashes(file)
 		file = this.resolveRelativePathString(file)
 		if (this.isDirectory(file)) {
 			return new TypeError(`-bash: ${file}: Is a directory`)
@@ -137,7 +137,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 		for (var i = 0; i < dirs.length; i++) {
 			var dirName = dirs[i]
 
-			dirName = this.replaceRepetetiveForwardslashes(dirName)
+			dirName = this.replaceRepetitiveForwardslashes(dirName)
 			dirName = this.resolveRelativePathString(dirName)
 			dirName = dirName.replace("%20", " ")
 
@@ -198,7 +198,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	}
 	public ls = (): string[] => {
 		var output = this.graph.children(this.currentDir).filter(c => {
-			return !c.endsWith(this.contentNodeEnd) && !c.endsWith(this.modifiedNodeEnd) && !c.endsWith(this.permisionsNodeEnd) && !c.endsWith(this.ownerNodeEnd) && !c.endsWith(this.groupNodeEnd)
+			return !c.endsWith(this.contentNodeEnd) && !c.endsWith(this.modifiedNodeEnd) && !c.endsWith(this.permissionsNodeEnd) && !c.endsWith(this.ownerNodeEnd) && !c.endsWith(this.groupNodeEnd)
 		})
 		for (var i = 0; i < output.length; i++) {
 			output[i] = output[i].substring(output[i].lastIndexOf("/") + 1)
@@ -207,12 +207,12 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	}
 
 	/**
-	 * Replaces any instance of repetetive forward slashes with a single forward slash:
+	 * Replaces any instance of repetitive forward slashes with a single forward slash:
 	 * ////a///b////// => /a/b/
 	 * @param {string} dir the directory string to validate
-	 * @returns {string} the directory string containing no repetetive forward slashes
+	 * @returns {string} the directory string containing no repetitive forward slashes
 	 */
-	private replaceRepetetiveForwardslashes = (dir: string): string => {
+	private replaceRepetitiveForwardslashes = (dir: string): string => {
 		return dir.replace(/\/+/g, "/")
 	}
 
@@ -262,7 +262,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	 */
 	private resolveParentDir = (path: string): string => {
 		if (!path.includes("/")) return path
-		path = this.replaceRepetetiveForwardslashes(path)
+		path = this.replaceRepetitiveForwardslashes(path)
 		// /home/user/
 		if (path.endsWith("/")) path = path.slice(0, path.lastIndexOf("/"))
 		// /home/user
@@ -325,7 +325,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	 */
 	private newDir = (dir: string, parent: string = this.currentDir): string => {
 		if (dir !== this.rootDir) {
-			dir = this.replaceRepetetiveForwardslashes(dir)
+			dir = this.replaceRepetitiveForwardslashes(dir)
 			dir = this.resolveRelativePathString(dir)
 			dir = this.appendSlashToEndOfPath(dir)
 			this.graph.setNode(dir, dir)
@@ -333,7 +333,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 			this.setModified(dir, parent)
 			this.setOwner(dir)
 			this.setGroup(dir)
-			this.setPermisions(dir, 7, 5, 5)
+			this.setPermissions(dir, 7, 5, 5)
 		}
 		return dir
 	}
@@ -345,19 +345,19 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	 * @returns {string} ```file``` that was created
 	 */
 	private newFile = (file: string, parent: string = this.currentDir): string => {
-		file = this.replaceRepetetiveForwardslashes(file)
+		file = this.replaceRepetitiveForwardslashes(file)
 		file = this.resolveRelativePathString(file)
 		this.graph.setNode(file, file)
 		this.graph.setParent(file, parent)
 		this.setModified(file, parent)
 		this.setOwner(file)
 		this.setGroup(file)
-		this.setPermisions(file, 6, 4, 4)
+		this.setPermissions(file, 6, 4, 4)
 		return file
 	}
 
 	// private setFileContent = (path: string, parent: string, content: string) => {
-	// 	path = this.replaceRepetetiveForwardslashes(path)
+	// 	path = this.replaceRepetitiveForwardslashes(path)
 	// 	path = this.resolveRelativePathString(path)
 
 	// 	var pathContent = path + "-content"
@@ -367,14 +367,14 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	// }
 
 	/**
-	 * Sets the modified date for the current path node and all its parrents
+	 * Sets the modified date for the current path node and all its parents
 	 * @param {string} path 	The path to set the modified date for, will always be the current date in a UTC format
 	 * @param {string} parent 	The parent of the current path
 	 */
 	private setModified = (path: string, parent: string) => {
-		path = this.replaceRepetetiveForwardslashes(path)
+		path = this.replaceRepetitiveForwardslashes(path)
 		path = this.resolveRelativePathString(path)
-		parent = this.replaceRepetetiveForwardslashes(parent)
+		parent = this.replaceRepetitiveForwardslashes(parent)
 		parent = this.resolveRelativePathString(parent)
 
 		var pathModified = path + "-modified"
@@ -389,7 +389,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	 * @param path The path to set the owner of
 	 */
 	private setOwner = (path: string) => {
-		path = this.replaceRepetetiveForwardslashes(path)
+		path = this.replaceRepetitiveForwardslashes(path)
 		path = this.resolveRelativePathString(path)
 		var pathOwner = path + this.ownerNodeEnd
 		this.graph.setNode(pathOwner, this.currentUser)
@@ -401,7 +401,7 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	 * @param path The path to set the group of
 	 */
 	private setGroup = (path: string) => {
-		path = this.replaceRepetetiveForwardslashes(path)
+		path = this.replaceRepetitiveForwardslashes(path)
 		path = this.resolveRelativePathString(path)
 		var pathGroup = path + this.groupNodeEnd
 		this.graph.setNode(pathGroup, this.currentGroup.name)
@@ -411,16 +411,16 @@ class UnixFileSystemEmulator implements FileSystemEmulator {
 	/**
 	 * Sets the permissions for the given path
 	 * @param path Path to set the permissions for
-	 * @param owner The numeric represantation of the permisions for the owner this path belongs to
-	 * @param group The numeric represantation of the permisions for the group this path belongs to
-	 * @param other The numeric represantation of the permisions for the world
+	 * @param owner The numeric representation of the permissions for the owner this path belongs to
+	 * @param group The numeric representation of the permissions for the group this path belongs to
+	 * @param other The numeric representation of the permissions for the world
 	 */
-	private setPermisions = (path: string, owner: 1 | 2 | 3 | 4 | 5 | 6 | 7, group: 1 | 2 | 3 | 4 | 5 | 6 | 7, other: 1 | 2 | 3 | 4 | 5 | 6 | 7) => {
-		path = this.replaceRepetetiveForwardslashes(path)
+	private setPermissions = (path: string, owner: 1 | 2 | 3 | 4 | 5 | 6 | 7, group: 1 | 2 | 3 | 4 | 5 | 6 | 7, other: 1 | 2 | 3 | 4 | 5 | 6 | 7) => {
+		path = this.replaceRepetitiveForwardslashes(path)
 		path = this.resolveRelativePathString(path)
-		var pathPermisions = path + this.permisionsNodeEnd
-		this.graph.setNode(pathPermisions, owner + "" + group + "" + other)
-		this.graph.setParent(pathPermisions, path)
+		var pathPermissions = path + this.permissionsNodeEnd
+		this.graph.setNode(pathPermissions, owner + "" + group + "" + other)
+		this.graph.setParent(pathPermissions, path)
 	}
 }
 

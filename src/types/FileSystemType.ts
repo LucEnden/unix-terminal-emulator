@@ -9,5 +9,5 @@
 	/**
 	 * Prohibited file name charecters for this file system
 	 */
-	prohibitedFileNameCharecters: string[]
+	prohibitedFileNameCharacters: string[]
 }

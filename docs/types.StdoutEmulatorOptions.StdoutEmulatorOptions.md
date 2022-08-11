@@ -38,7 +38,7 @@ The charecter(s) to use as the cursor
 
 #### Defined in
 
-[src/types/CursorElementOptions.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/CursorElementOptions.ts#L9)
+[src/types/CursorElementOptions.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/CursorElementOptions.ts#L9)
 
 ___
 
@@ -60,7 +60,7 @@ The css class to give to the cursor element. There are 2 css classes shipped wit
 
 #### Defined in
 
-[src/types/CursorElementOptions.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/CursorElementOptions.ts#L16)
+[src/types/CursorElementOptions.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/CursorElementOptions.ts#L16)
 
 ___
 
@@ -72,8 +72,8 @@ The CSS class to give to the generated stdout element
 
 **`Default`**
 
-"termminal___emulator___stdout"
+"terminal___emulator___stdout"
 
 #### Defined in
 
-[src/types/StdoutEmulatorOptions.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/StdoutEmulatorOptions.ts#L11)
+[src/types/StdoutEmulatorOptions.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/StdoutEmulatorOptions.ts#L11)

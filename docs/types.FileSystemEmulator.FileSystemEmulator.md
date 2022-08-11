@@ -58,7 +58,7 @@ If the directory exists, returns the new working directory, RangeError otherwise
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:110](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L110)
+[src/types/FileSystemEmulator.ts:110](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L110)
 
 ___
 
@@ -86,7 +86,7 @@ TypeError if the given file doesnt exist or if ```file``` is a directory, otherw
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:65](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L65)
+[src/types/FileSystemEmulator.ts:65](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L65)
 
 ___
 
@@ -100,7 +100,7 @@ The type of file system to use
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:40](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L40)
+[src/types/FileSystemEmulator.ts:40](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L40)
 
 ___
 
@@ -124,7 +124,7 @@ replaced with "~".
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:47](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L47)
+[src/types/FileSystemEmulator.ts:47](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L47)
 
 ___
 
@@ -152,7 +152,7 @@ TypeError if the given file doesnt exist, otherwise a string containing the file
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:71](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L71)
+[src/types/FileSystemEmulator.ts:71](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L71)
 
 ___
 
@@ -166,7 +166,7 @@ The groups within this file system instance
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:36](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L36)
+[src/types/FileSystemEmulator.ts:36](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L36)
 
 ___
 
@@ -182,7 +182,7 @@ The home directory "/home/"
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:18](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L18)
+[src/types/FileSystemEmulator.ts:18](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L18)
 
 ___
 
@@ -210,7 +210,7 @@ True if path ends with /, false otherwise
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:59](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L59)
+[src/types/FileSystemEmulator.ts:59](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L59)
 
 ___
 
@@ -233,7 +233,7 @@ The list of information about each file and folder in the current directory
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:116](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L116)
+[src/types/FileSystemEmulator.ts:116](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L116)
 
 ___
 
@@ -262,7 +262,7 @@ An array of errors that occured during the creation of the directories
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:91](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L91)
+[src/types/FileSystemEmulator.ts:91](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L91)
 
 ___
 
@@ -290,7 +290,7 @@ Checks if the path string exists as a node in the filesystem graph
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:53](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L53)
+[src/types/FileSystemEmulator.ts:53](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L53)
 
 ___
 
@@ -313,7 +313,7 @@ The full absolute path to the current working directory
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:104](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L104)
+[src/types/FileSystemEmulator.ts:104](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L104)
 
 ___
 
@@ -329,7 +329,7 @@ The root directory "/"
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:13](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L13)
+[src/types/FileSystemEmulator.ts:13](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L13)
 
 ___
 
@@ -345,7 +345,7 @@ The root user, which is the default user of the file system
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:28](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L28)
+[src/types/FileSystemEmulator.ts:28](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L28)
 
 ___
 
@@ -374,7 +374,7 @@ TypeError if the given file was actualy a directory, void if writing the content
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:78](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L78)
+[src/types/FileSystemEmulator.ts:78](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L78)
 
 ___
 
@@ -401,7 +401,7 @@ https://ss64.com/bash/touch.html
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:84](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L84)
+[src/types/FileSystemEmulator.ts:84](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L84)
 
 ___
 
@@ -430,7 +430,7 @@ Range error if the user already exists, else the full path to the users home dir
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:98](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L98)
+[src/types/FileSystemEmulator.ts:98](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L98)
 
 ___
 
@@ -444,4 +444,4 @@ The users within this file system instance
 
 #### Defined in
 
-[src/types/FileSystemEmulator.ts:32](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/FileSystemEmulator.ts#L32)
+[src/types/FileSystemEmulator.ts:32](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/FileSystemEmulator.ts#L32)

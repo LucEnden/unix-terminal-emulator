@@ -1,9 +1,9 @@
 import FileSystemUser from "./FileSystemUser"
 
 /**
- * Customization options for the enviroment to be used within the terminal emulator
+ * Customization options for the environment to be used within the terminal emulator
  */
-export default interface EnviromentOptions {
+export default interface EnvironmentOptions {
 	/**
 	 * @param hostname The hostname for this terminal emulator
 	 */
@@ -13,7 +13,7 @@ export default interface EnviromentOptions {
 	 */
 	user: FileSystemUser
 	/**
-	 * Returns the enviroment line to be use at the start of a new empty terminal input line
+	 * Returns the environment line to be use at the start of a new empty terminal input line
 	 * @returns A formated string: ```username@hostname:```
 	 */
 	print: () => string

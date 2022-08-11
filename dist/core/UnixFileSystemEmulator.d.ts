@@ -4,7 +4,7 @@ import FileSystemType from "../types/FileSystemType";
 import FileSystemUser from "../types/FileSystemUser";
 declare const Ext4: FileSystemType;
 /**
- * Emulates a Unix filesystem via methods for managing files and folders, as wel as managing users for permision perposes.
+ * Emulates a Unix filesystem via methods for managing files and folders, as wel as managing users for permission purposes.
  * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixFileSystemEmulator.UnixFileSystemEmulator}
  */
 declare class UnixFileSystemEmulator implements FileSystemEmulator {
@@ -14,7 +14,7 @@ declare class UnixFileSystemEmulator implements FileSystemEmulator {
     private currentDir;
     private contentNodeEnd;
     private modifiedNodeEnd;
-    private permisionsNodeEnd;
+    private permissionsNodeEnd;
     private ownerNodeEnd;
     private groupNodeEnd;
     constructor(user?: FileSystemUser | undefined);
@@ -37,12 +37,12 @@ declare class UnixFileSystemEmulator implements FileSystemEmulator {
     cd: (dir: string) => string | RangeError;
     ls: () => string[];
     /**
-     * Replaces any instance of repetetive forward slashes with a single forward slash:
+     * Replaces any instance of repetitive forward slashes with a single forward slash:
      * ////a///b////// => /a/b/
      * @param {string} dir the directory string to validate
-     * @returns {string} the directory string containing no repetetive forward slashes
+     * @returns {string} the directory string containing no repetitive forward slashes
      */
-    private replaceRepetetiveForwardslashes;
+    private replaceRepetitiveForwardslashes;
     /**
      * Resolves path strings with relative paths and returns the absolute path.
      * If ```path``` starts with ./, it will be replaced with ```this.currentDir```.
@@ -91,7 +91,7 @@ declare class UnixFileSystemEmulator implements FileSystemEmulator {
      */
     private newFile;
     /**
-     * Sets the modified date for the current path node and all its parrents
+     * Sets the modified date for the current path node and all its parents
      * @param {string} path 	The path to set the modified date for, will always be the current date in a UTC format
      * @param {string} parent 	The parent of the current path
      */
@@ -109,11 +109,11 @@ declare class UnixFileSystemEmulator implements FileSystemEmulator {
     /**
      * Sets the permissions for the given path
      * @param path Path to set the permissions for
-     * @param owner The numeric represantation of the permisions for the owner this path belongs to
-     * @param group The numeric represantation of the permisions for the group this path belongs to
-     * @param other The numeric represantation of the permisions for the world
+     * @param owner The numeric representation of the permissions for the owner this path belongs to
+     * @param group The numeric representation of the permissions for the group this path belongs to
+     * @param other The numeric representation of the permissions for the world
      */
-    private setPermisions;
+    private setPermissions;
 }
 export default UnixFileSystemEmulator;
 export { Ext4 };

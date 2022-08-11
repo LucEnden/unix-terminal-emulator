@@ -12,23 +12,23 @@
 ![Preview](preview.gif)
 
 ![NPM Repository](https://www.npmjs.com/package/unix-terminal-emulator) -
-![Codesandbox example](https://codesandbox.io/s/unix-terminal-emulator-example-5n9ylu?file=index.html)
+![CodeSandbox example](https://codesandbox.io/s/unix-terminal-emulator-example-5n9ylu?file=index.html)
 
 Inspired by ![TypewriterJS](https://www.npmjs.com/package/typewriter-effect).
 
 ---
 
-- [Instalation](#instalation)
+- [Installation](#installation)
 - [Documentation](#documentation)
 - [Example usage](#example-usage)
-  - [Browser](#browser)
-  - [React](#react)
-- [Do's and dont's](#dos-and-donts)
-- [Perfomance](#perfomance)
+	- [Browser](#browser)
+	- [React](#react)
+- [Do's and don'ts](#dos-and-donts)
+- [Performance](#performance)
 
-## Instalation
+## Installation
 
-You can install it via your prefered package manager:
+You can install it via your preferred package manager:
 
 ```shell
 npm i --save unix-terminal-emulator
@@ -97,9 +97,9 @@ export default function App() {
 }
 ```
 
-## Do's and dont's
+## Do's and don'ts
 
-Below are a few examples of do's and dont's regarding building a command sequence.
+Below are a few examples of do's and don'ts regarding building a command sequence.
 
 ```javascript
 const terminal = new UnixTerminalEmulator()
@@ -151,7 +151,7 @@ terminal.run()
 
 ---
 
-:warning: Adding commands to the sequence BEFORE run has finished will queue them for the current sequence (this is timing depentend and not recomended).
+:warning: Adding commands to the sequence BEFORE run has finished will queue them for the current sequence (this is timing dependent and not recommended).
 
 ```javascript
 terminal
@@ -182,7 +182,7 @@ setTimeout(() => {
 
 ---
 
-:x: Calling the run method on a terminal instance before the previous call has finished will result in unexpected behaviour
+:x: Calling the run method on a terminal instance before the previous call has finished will result in unexpected behavior
 
 ```javascript
 terminal
@@ -199,12 +199,12 @@ terminal
 		pauseBeforeOutput: 500,
 	})
 	.run()
-terminal.run() // this brakes the sequence and will result in unexpected behaviour
+terminal.run() // this brakes the sequence and will result in unexpected behavior
 ```
 
 ---
 
-:x: Creating 2 terminal instances with the same wrapper and cursor ID will result in unexpected behaviour
+:x: Creating 2 terminal instances with the same wrapper and cursor ID will result in unexpected behavior
 
 ```javascript
 const terminal1 = new UnixTerminalEmulator({
@@ -233,7 +233,7 @@ terminal2
 	.run()
 ```
 
-## Perfomance
+## Performance
 
 Bellow are performance charts based on different versions of the app. [Click here](tests/performance/performance_testing.md) for a detailed explanation about how the performance was tested. [Click here](https://docs.google.com/spreadsheets/d/e/2PACX-1vSAKSUTB6fm6-PQNgSEpBtxe9h_v1m2JiYnl--0hHiyvHMK8Yrdz16e5Y8X9kPmBm0HvIJPgchSufp4/pubhtml) for an interactive version of the graphs.
 

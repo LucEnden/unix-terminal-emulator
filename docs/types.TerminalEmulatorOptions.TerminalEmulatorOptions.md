@@ -22,7 +22,7 @@ Options that allow customization for the TerminalEmulator instance
 
 - [cursorChar](../wiki/types.TerminalEmulatorOptions.TerminalEmulatorOptions#cursorchar)
 - [cursorCss](../wiki/types.TerminalEmulatorOptions.TerminalEmulatorOptions#cursorcss)
-- [enviroment](../wiki/types.TerminalEmulatorOptions.TerminalEmulatorOptions#enviroment)
+- [environment](../wiki/types.TerminalEmulatorOptions.TerminalEmulatorOptions#environment)
 - [stdoutCss](../wiki/types.TerminalEmulatorOptions.TerminalEmulatorOptions#stdoutcss)
 - [vimBarCss](../wiki/types.TerminalEmulatorOptions.TerminalEmulatorOptions#vimbarcss)
 - [vimBarLeftCss](../wiki/types.TerminalEmulatorOptions.TerminalEmulatorOptions#vimbarleftcss)
@@ -49,7 +49,7 @@ The charecter(s) to use as the cursor
 
 #### Defined in
 
-[src/types/CursorElementOptions.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/CursorElementOptions.ts#L9)
+[src/types/CursorElementOptions.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/CursorElementOptions.ts#L9)
 
 ___
 
@@ -71,17 +71,17 @@ The css class to give to the cursor element. There are 2 css classes shipped wit
 
 #### Defined in
 
-[src/types/CursorElementOptions.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/CursorElementOptions.ts#L16)
+[src/types/CursorElementOptions.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/CursorElementOptions.ts#L16)
 
 ___
 
-### enviroment
+### environment
 
-• `Optional` **enviroment**: [`EnviromentOptions`](../wiki/types.EnviromentOptions.EnviromentOptions)
+• `Optional` **environment**: [`EnvironmentOptions`](../wiki/types.EnvironmentOptions.EnvironmentOptions)
 
 #### Defined in
 
-[src/types/TerminalEmulatorOptions.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/TerminalEmulatorOptions.ts#L11)
+[src/types/TerminalEmulatorOptions.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/TerminalEmulatorOptions.ts#L11)
 
 ___
 
@@ -93,7 +93,7 @@ The CSS class to give to the generated stdout element
 
 **`Default`**
 
-"termminal___emulator___stdout"
+"terminal___emulator___stdout"
 
 #### Inherited from
 
@@ -101,7 +101,7 @@ The CSS class to give to the generated stdout element
 
 #### Defined in
 
-[src/types/StdoutEmulatorOptions.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/StdoutEmulatorOptions.ts#L11)
+[src/types/StdoutEmulatorOptions.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/StdoutEmulatorOptions.ts#L11)
 
 ___
 
@@ -119,7 +119,7 @@ The CSS to apply to the vim commandbar wrapper element
 
 #### Defined in
 
-[src/types/VimCommandBarOptions.ts:6](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/VimCommandBarOptions.ts#L6)
+[src/types/VimCommandBarOptions.ts:6](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/VimCommandBarOptions.ts#L6)
 
 ___
 
@@ -137,7 +137,7 @@ The CSS to apply to the left inner elements of the vim commandba element
 
 #### Defined in
 
-[src/types/VimCommandBarOptions.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/VimCommandBarOptions.ts#L11)
+[src/types/VimCommandBarOptions.ts:11](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/VimCommandBarOptions.ts#L11)
 
 ___
 
@@ -155,7 +155,7 @@ The CSS to apply to the right inner elements of the vim commandba element
 
 #### Defined in
 
-[src/types/VimCommandBarOptions.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/VimCommandBarOptions.ts#L16)
+[src/types/VimCommandBarOptions.ts:16](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/VimCommandBarOptions.ts#L16)
 
 ___
 
@@ -173,7 +173,7 @@ The CSS to apply to the vim element
 
 #### Defined in
 
-[src/types/VimOptions.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/VimOptions.ts#L14)
+[src/types/VimOptions.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/VimOptions.ts#L14)
 
 ___
 
@@ -193,7 +193,7 @@ The CSS class to give to the wrapper element
 
 #### Defined in
 
-[src/types/WrapperElementOptions.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/WrapperElementOptions.ts#L14)
+[src/types/WrapperElementOptions.ts:14](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/WrapperElementOptions.ts#L14)
 
 ___
 
@@ -213,4 +213,4 @@ The ID to give to the wrapper element
 
 #### Defined in
 
-[src/types/WrapperElementOptions.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/types/WrapperElementOptions.ts#L9)
+[src/types/WrapperElementOptions.ts:9](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/types/WrapperElementOptions.ts#L9)

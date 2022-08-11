@@ -6,7 +6,7 @@ import CursorElementOptions from "./CursorElementOptions";
 export default interface StdoutEmulatorOptions extends CursorElementOptions {
 	/**
 	 * The CSS class to give to the generated stdout element
-	 * @default "termminal___emulator___stdout"
+	 * @default "terminal___emulator___stdout"
 	 */
 	 stdoutCss: string
 }

@@ -2,7 +2,7 @@
 
 [react/UnixTerminalEmulator](../wiki/react.UnixTerminalEmulator).UnixTerminalEmulator
 
-Emulates a unix terminal by building an event sequence of commands and timings which gets excecuted when the run method is called.
+Emulates a unix terminal by building an event sequence of commands and timings which gets executed when the run method is called.
 [https://github.com/LucEnden/unix-terminal-emulator/wiki/react.UnixTerminalEmulator.UnixTerminalEmulator](https://github.com/LucEnden/unix-terminal-emulator/wiki/react.UnixTerminalEmulator.UnixTerminalEmulator)
 
 ## Hierarchy
@@ -369,7 +369,7 @@ React.Component.componentDidMount
 
 #### Defined in
 
-[src/react/UnixTerminalEmulator.tsx:10](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/react/UnixTerminalEmulator.tsx#L10)
+[src/react/UnixTerminalEmulator.tsx:10](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/react/UnixTerminalEmulator.tsx#L10)
 
 ___
 
@@ -612,7 +612,7 @@ React.Component.render
 
 #### Defined in
 
-[src/react/UnixTerminalEmulator.tsx:17](https://github.com/LucEnden/unix-terminal-emulator/blob/1afca6c/src/react/UnixTerminalEmulator.tsx#L17)
+[src/react/UnixTerminalEmulator.tsx:17](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/react/UnixTerminalEmulator.tsx#L17)
 
 ___
 

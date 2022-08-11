@@ -16,7 +16,7 @@ import UnixStdoutEmulator from "./UnixStdoutEmulator"
 // TODO: add support for pipeline commands
 
 /**
- * Emulates a unix terminal by building an event sequence of commands and timings which gets excecuted when the run method is called.
+ * Emulates a unix terminal by building an event sequence of commands and timings which gets executed when the run method is called.
  * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixTerminalEmulator.UnixTerminalEmulator}
  */
 class UnixTerminalEmulator implements TerminalEmulator {
@@ -40,7 +40,7 @@ class UnixTerminalEmulator implements TerminalEmulator {
 		}
 		if (this.options.wrapperCss.length > 0) this.wrapperElement.classList.add(this.options.wrapperCss)
 
-		this.fileSystem = new UnixFileSystemEmulator(this.options.enviroment?.user)
+		this.fileSystem = new UnixFileSystemEmulator(this.options.environment?.user)
 		this.stdout = new UnixStdoutEmulator(this.wrapperElement, this.options)
 		this.vimEmulator = new UnixVimEmulator(this.options)
 
@@ -58,7 +58,7 @@ class UnixTerminalEmulator implements TerminalEmulator {
 		wrapperCss: "terminal___emulator___wrapper",
 		cursorChar: "|",
 		cursorCss: "terminal___cursor___static",
-		stdoutCss: "termminal___emulator___stdout",
+		stdoutCss: "terminal___emulator___stdout",
 		vimCss: "vim___emulator___wrapper",
 		vimBarCss: "vim___emulator___bar",
 		vimBarLeftCss: "vim___emulator___bar___left",
@@ -457,8 +457,8 @@ class UnixTerminalEmulator implements TerminalEmulator {
 	private writeNewInputLineToStdout = (callback: () => void) => {
 		this.stdout.removeCursor()
 		var envTxt = ""
-		if (this.options.enviroment !== undefined && this.options.enviroment.hostname.length > 0 && this.options.enviroment.user.name.length > 0) {
-			envTxt = this.options.enviroment.user.name + "@" + this.options.enviroment.hostname + ":"
+		if (this.options.environment !== undefined && this.options.environment.hostname.length > 0 && this.options.environment.user.name.length > 0) {
+			envTxt = this.options.environment.user.name + "@" + this.options.environment.hostname + ":"
 		}
 		this.writer.writeToElement(this.stdout.element, envTxt, 0, undefined, undefined, () => {
 			this.writer.writeToElement(this.stdout.element, this.fileSystem.getCurrentDirectory(), 0, undefined, undefined, () => {

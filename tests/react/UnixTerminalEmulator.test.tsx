@@ -24,7 +24,7 @@ test("constructor => test if custom ID gets passed down properly", done => {
 	)
 })
 
-test("writeCommand + run => test if text apears on screen", done => {
+test("writeCommand + run => test if text appears on screen", done => {
     const cmd = {
         text: "echo Hello, World!",
         writeSpeed: "neutral",

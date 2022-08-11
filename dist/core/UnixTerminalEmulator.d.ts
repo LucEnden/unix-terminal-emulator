@@ -8,7 +8,7 @@ import TerminalEmulatorOptions from "../types/TerminalEmulatorOptions";
 import FileSystemUser from "../types/FileSystemUser";
 import VimEmulator from "../types/VimEmulator";
 /**
- * Emulates a unix terminal by building an event sequence of commands and timings which gets excecuted when the run method is called.
+ * Emulates a unix terminal by building an event sequence of commands and timings which gets executed when the run method is called.
  * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/core.UnixTerminalEmulator.UnixTerminalEmulator}
  */
 declare class UnixTerminalEmulator implements TerminalEmulator {
@@ -43,7 +43,7 @@ declare class UnixTerminalEmulator implements TerminalEmulator {
     vimQuit: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     vimWriteQuit: (writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     grep: (pattern: RegExp, file: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
-    pipeline: (commands: Array<() => string | string>, output?: string, writeSpeed?: "neutral" | number, pauseBeforeOutput?: number) => UnixTerminalEmulator;
+    pipeline: (commands: Array<(() => string) | string>, writeSpeed?: "neutral" | number, output?: string, pauseBeforeOutput?: number) => UnixTerminalEmulator;
     run: (callback?: () => void) => void;
     /**
      * Adds an event to the event queue which writes the command and its output if specified to the stdout.
