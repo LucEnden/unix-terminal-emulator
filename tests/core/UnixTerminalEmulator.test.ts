@@ -10,14 +10,14 @@ const defaultTerminalCursorCss = "terminal___cursor___static"
 jest.useRealTimers()
 // jest.setTimeout(6000000)		// 1 hour
 // jest.setTimeout(600000)		// 10 minutes
-jest.setTimeout(360000) 		// 5 minutes
+jest.setTimeout(360000) // 5 minutes
 // jest.setTimeout(60000)		// 1 minute
 
 // fix: jsdom Doesn't seem to have TextEncoder defined in global for the DOM
 // https://stackoverflow.com/questions/57712235/referenceerror-textencoder-is-not-defined-when-running-react-scripts-test#answer-57713960
-if (typeof global.TextEncoder === 'undefined') {
-	const { TextEncoder } = require('util');
-	global.TextEncoder = TextEncoder;
+if (typeof global.TextEncoder === "undefined") {
+	const { TextEncoder } = require("util")
+	global.TextEncoder = TextEncoder
 }
 
 // WRAPPER TESTS
@@ -508,13 +508,16 @@ test("vim + vimInsert => expect wrapper element to contain '-- INSERT --' and 't
 		wrapperId: randomUUID(),
 	} as TerminalEmulatorOptions)
 
-	terminal.vim(fileName).vimInsert(textToWrite).run(() => {
-		done()
+	terminal
+		.vim(fileName)
+		.vimInsert(textToWrite)
+		.run(() => {
+			done()
 
-		expect(terminal.wrapperElement.innerHTML).not.toContain(fileName)
-		expect(terminal.wrapperElement.innerHTML).toContain(textToWrite)
-		expect(terminal.wrapperElement.innerHTML).toContain(expectedInsertText)
-	})
+			expect(terminal.wrapperElement.innerHTML).not.toContain(fileName)
+			expect(terminal.wrapperElement.innerHTML).toContain(textToWrite)
+			expect(terminal.wrapperElement.innerHTML).toContain(expectedInsertText)
+		})
 })
 
 test("vim + vimInsert + vimWrite => expect wrapper element to contain 'text' and to contain 'filename' and to contain 'written'", done => {
@@ -525,13 +528,17 @@ test("vim + vimInsert + vimWrite => expect wrapper element to contain 'text' and
 		wrapperId: randomUUID(),
 	} as TerminalEmulatorOptions)
 
-	terminal.vim(fileName).vimInsert(textToWrite).vimWrite().run(() => {
-		done()
+	terminal
+		.vim(fileName)
+		.vimInsert(textToWrite)
+		.vimWrite()
+		.run(() => {
+			done()
 
-		expect(terminal.wrapperElement.innerHTML).toContain(textToWrite)
-		expect(terminal.wrapperElement.innerHTML).toContain(fileName)
-		expect(terminal.wrapperElement.innerHTML).toContain(expectedWrittenText)
-	})
+			expect(terminal.wrapperElement.innerHTML).toContain(textToWrite)
+			expect(terminal.wrapperElement.innerHTML).toContain(fileName)
+			expect(terminal.wrapperElement.innerHTML).toContain(expectedWrittenText)
+		})
 })
 
 test("vim + vimInsert + vimWrite => expect filesystem to have file after writing with content", done => {
@@ -541,13 +548,17 @@ test("vim + vimInsert + vimWrite => expect filesystem to have file after writing
 		wrapperId: randomUUID(),
 	} as TerminalEmulatorOptions)
 
-	terminal.vim(fileName).vimInsert(textToWrite).vimWrite().run(() => {
-		done()
+	terminal
+		.vim(fileName)
+		.vimInsert(textToWrite)
+		.vimWrite()
+		.run(() => {
+			done()
 
-		expect(terminal.fileSystem.pathExists(fileName)).toBeTruthy()
-		expect(terminal.fileSystem.fileHasContent(fileName)).toBeTruthy()
-		expect(terminal.fileSystem.getFileContent(fileName)).toBe(textToWrite)
-	})
+			expect(terminal.fileSystem.pathExists(fileName)).toBeTruthy()
+			expect(terminal.fileSystem.fileHasContent(fileName)).toBeTruthy()
+			expect(terminal.fileSystem.getFileContent(fileName)).toBe(textToWrite)
+		})
 })
 
 test("vim + vimInsert + vimWrite + vimQuit => expect wrapper to contain 'vim' + fileName not to contain written text after quit", done => {
@@ -557,12 +568,17 @@ test("vim + vimInsert + vimWrite + vimQuit => expect wrapper to contain 'vim' + 
 		wrapperId: randomUUID(),
 	} as TerminalEmulatorOptions)
 
-	terminal.vim(fileName).vimInsert(textToWrite).vimWrite().vimQuit().run(() => {
-		done()
+	terminal
+		.vim(fileName)
+		.vimInsert(textToWrite)
+		.vimWrite()
+		.vimQuit()
+		.run(() => {
+			done()
 
-		expect(terminal.wrapperElement.innerHTML).toContain("vim " + fileName)
-		expect(terminal.wrapperElement.innerHTML).not.toContain(textToWrite)
-	})
+			expect(terminal.wrapperElement.innerHTML).toContain("vim " + fileName)
+			expect(terminal.wrapperElement.innerHTML).not.toContain(textToWrite)
+		})
 })
 
 test("vim + vimInsert + vimWriteQuit => expect wrapper to contain 'vim' + fileName not to contain written text after quit", done => {
@@ -572,12 +588,16 @@ test("vim + vimInsert + vimWriteQuit => expect wrapper to contain 'vim' + fileNa
 		wrapperId: randomUUID(),
 	} as TerminalEmulatorOptions)
 
-	terminal.vim(fileName).vimInsert(textToWrite).vimWriteQuit().run(() => {
-		done()
+	terminal
+		.vim(fileName)
+		.vimInsert(textToWrite)
+		.vimWriteQuit()
+		.run(() => {
+			done()
 
-		expect(terminal.wrapperElement.innerHTML).toContain("vim " + fileName)
-		expect(terminal.wrapperElement.innerHTML).not.toContain(textToWrite)
-	})
+			expect(terminal.wrapperElement.innerHTML).toContain("vim " + fileName)
+			expect(terminal.wrapperElement.innerHTML).not.toContain(textToWrite)
+		})
 })
 
 test("touch + clear + ls => expect all files touched to be in the stdout", done => {
@@ -587,13 +607,17 @@ test("touch + clear + ls => expect all files touched to be in the stdout", done 
 		wrapperId: randomUUID(),
 	} as TerminalEmulatorOptions)
 
-	terminal.touch(filesToTouch, 0).clear(0).ls(0).run(() => {
-		done()
+	terminal
+		.touch(filesToTouch, 0)
+		.clear(0)
+		.ls(0)
+		.run(() => {
+			done()
 
-		expectedFilesInStdout.forEach(fileToBeExpected => {
-			expect(terminal.stdout.element.innerHTML).toContain(fileToBeExpected)
+			expectedFilesInStdout.forEach(fileToBeExpected => {
+				expect(terminal.stdout.element.innerHTML).toContain(fileToBeExpected)
+			})
 		})
-	})
 })
 
 test("grep => expect no match when non existing file is used", done => {
@@ -634,5 +658,25 @@ test("touch + grep => expect match when existing file is used with content", don
 	terminal.grep(pattern, "foo").run(() => {
 		done()
 		expect(terminal.stdout.element.innerHTML).toContain('<span style="color: brown;">')
+	})
+})
+
+test("pipeline => expect 'cmd1 | cmd2 | cmd3' to be in stdout innerHTML", done => {
+	const commandsToPipe = [
+		"cmd1",
+		"cmd2",
+		() => {
+			return "cmd3"
+		},
+	]
+	const expectedText = "cmd1 | cmd2 | cmd3"
+	const terminal = new UnixTerminalEmulator({
+		wrapperId: randomUUID(),
+	} as TerminalEmulatorOptions)
+
+	terminal.pipeline(commandsToPipe).run(() => {
+		done()
+
+		expect(terminal.stdout.element.innerHTML).toContain(expectedText)
 	})
 })

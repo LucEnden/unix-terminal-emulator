@@ -217,6 +217,16 @@ export default interface TerminalEmulator {
 	 */
 	grep: (pattern: RegExp, file: string, writeSpeed: "neutral" | number, pauseBeforeOutput?: number) => TerminalEmulator
 	/**
+	 * Emulates command pipelining.
+	 * https://ss64.com/bash/grep.html
+	 * @param {Array<(() => string) | string>} commands 	The commands to pipe
+	 * @param {"neutral"|number} writeSpeed 				The speed at which to write each character of the command
+	 * @param {string|undefined} output						The output to write to stdout
+	 * @param {number|undefined} pauseBeforeOutput 			The time to pause before writing the output in miliseconds
+	 * @returns {TerminalEmulator} 							The current instance of TerminalEmulator, which enables method chaining.
+	 */
+	pipeline: (commands: Array<(() => string) | string>, writeSpeed: "neutral" | number, output?: string, pauseBeforeOutput?: number) => TerminalEmulator
+	/**
 	 * Excecutes the created event sequence
 	 * @param callback Gets called when the sequence has finished
 	 */

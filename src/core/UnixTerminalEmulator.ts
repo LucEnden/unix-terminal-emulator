@@ -335,6 +335,24 @@ class UnixTerminalEmulator implements TerminalEmulator {
 		})
 		return this
 	}
+	public pipeline = (commands: Array<(() => string) | string>, writeSpeed: "neutral" | number = "neutral", output?: string, pauseBeforeOutput?: number): UnixTerminalEmulator => {
+		var text: string[] = []
+		for (var i = 0; i < commands.length; i++) {
+			var nextCmd = commands[i]
+			if (typeof nextCmd === "string") {
+				text.push(nextCmd)
+			} else {
+				text.push(nextCmd())
+			}
+		}
+		this.addWriteCommandEvent({
+			text: text.join(" | "),
+			writeSpeed: writeSpeed,
+			output: output,
+			pauseBeforeOutput: pauseBeforeOutput
+		})
+		return this
+	}
 	public run = (callback?: () => void) => {
 		this.currentEvent = this.eventQueue.shift()
 		if (this.currentEvent !== undefined) {
