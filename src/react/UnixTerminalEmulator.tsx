@@ -14,10 +14,12 @@ class UnixTerminalEmulator extends React.Component<Props> {
 		}
 	}
 
-	componentDidUpdate() {
-		if (this.props.onInit) {
-			this.instance = new Core.default(this.props.options)
-			this.props.onInit(this.instance)
+	componentDidUpdate(prevProps: Props) {
+		if (prevProps !== this.props) {
+			if (this.props.onInit) {
+				this.instance = new Core.default(this.props.options)
+				this.props.onInit(this.instance)
+			}
 		}
 	}
 
