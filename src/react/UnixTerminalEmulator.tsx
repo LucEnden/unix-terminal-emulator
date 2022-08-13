@@ -9,23 +9,27 @@ import * as Core from "../core"
 class UnixTerminalEmulator extends React.Component<Props> {
 	state = {
 		// optional second annotation for better type inference
-		instance: new Core.default(this.props.options)
-	  };
-	
+		instance: {} as Core.default | undefined,
+	}
+
 	componentDidMount() {
 		if (this.props.onInit) {
-			this.props.onInit(this.state.instance)
+			const instance = new Core.default(this.props.options)
+			this.setState({
+				instance: instance,
+			})
+			this.props.onInit(instance)
 		}
 	}
 
 	componentDidUpdate(prevProps: Props) {
 		if (prevProps !== this.props) {
 			if (this.props.onInit) {
-				const newInstance = new Core.default(this.props.options)
-				this.props.onInit(newInstance)
+				const instance = new Core.default(this.props.options)
 				this.setState({
-					instance: newInstance
+					instance: instance,
 				})
+				this.props.onInit(instance)
 			}
 		}
 	}
