@@ -21,7 +21,9 @@ class UnixTerminalEmulator extends React.Component<Props> {
 	componentDidUpdate(prevProps: Props) {
 		if (prevProps !== this.props) {
 			if (this.props.onInit) {
-				this.state.instance = new Core.default(this.props.options)
+				this.setState({
+					instance: new Core.default(this.props.options)
+				})
 				this.props.onInit(this.state.instance)
 			}
 		}
