@@ -7,18 +7,22 @@ import * as Core from "../core"
  * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/react.UnixTerminalEmulator.UnixTerminalEmulator}
  */
 class UnixTerminalEmulator extends React.Component<Props> {
-	instance = new Core.default(this.props.options)
+	state = {
+		// optional second annotation for better type inference
+		instance: new Core.default(this.props.options)
+	  };
+	
 	componentDidMount() {
 		if (this.props.onInit) {
-			this.props.onInit(this.instance)
+			this.props.onInit(this.state.instance)
 		}
 	}
 
 	componentDidUpdate(prevProps: Props) {
 		if (prevProps !== this.props) {
 			if (this.props.onInit) {
-				this.instance = new Core.default(this.props.options)
-				this.props.onInit(this.instance)
+				this.state.instance = new Core.default(this.props.options)
+				this.props.onInit(this.state.instance)
 			}
 		}
 	}
