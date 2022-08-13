@@ -5,6 +5,8 @@ import StdoutEmulatorOptions from "../types/StdoutEmulatorOptions"
 
 // TODO: implement a read() method which returns the stdout elements innerHTML, but in a UTF-8 formatted matter (eg: <br> to \n, etc...)
 // TODO: implement a write() method which updates cursor automatically and uses TextWriter in order to standardize stdout writing (currently handled by classes that implement both TextWriter and StdoutEmulator)
+// TODO: implement apt install
+// TODO: implement hide cursor method
 
 /**
  * Emulates stdout by allowing for writing and erasing of text to an HTML element. Also has methods for controlling a cursor like element.
