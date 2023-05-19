@@ -6,11 +6,15 @@ import TerminalEmulatorOptions from "../types/TerminalEmulatorOptions"
  */
 export default interface Props {
 	/**
+	 * @param instance The pre initialized instanced to be used by this component
+	 */
+	instance?: TerminalEmulator
+	/**
 	 * @param options The options to pass down to the terminal instance used by this component
 	 */
 	options?: TerminalEmulatorOptions
 	/**
 	 * @param onInit When specified, it uses the passed instance of TerminalEmulator and runs its event sequence.
 	 */
-	onInit?: (instance: TerminalEmulator) => void
+	onInit?: (instance?: TerminalEmulator) => void
 }

@@ -1,6 +1,6 @@
 {
 	"name": "unix-terminal-emulator",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Emulates a Unix terminal inside the DOM!",
 	"type": "commonjs",
 	"main": "dist/react.js",
