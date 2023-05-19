@@ -8,14 +8,11 @@ import TerminalEmulator from "../types/TerminalEmulator"
  */
 class UnixTerminalEmulatorComponent extends React.Component<Props> {
 	state = {
-		// optional second annotation for better type inference
-		instance: {} as TerminalEmulator,
 		id: "" as string
 	}
 
 	componentDidMount() {
 		this.setState({
-			instance: this.props.instance,
 			id: this.props.instance.options.wrapperId
 		})
 		this.props.run()
@@ -24,7 +21,6 @@ class UnixTerminalEmulatorComponent extends React.Component<Props> {
 	componentDidUpdate(prevProps: Props) {
 		if (prevProps !== this.props) {
 			this.setState({
-				instance: this.props.instance,
 				id: this.props.instance.options.wrapperId
 			})
 			this.props.run()
