@@ -8,13 +8,17 @@ export default interface Props {
 	/**
 	 * @param instance The pre initialized instanced to be used by this component
 	 */
-	instance?: TerminalEmulator
+	instance: TerminalEmulator
+	// /**
+	//  * @param options The options used by the instance
+	//  */
+	// options: TerminalEmulatorOptions
 	/**
-	 * @param options The options to pass down to the terminal instance used by this component
+	 * @param run When specified, it runs the instance's event sequence.
 	 */
-	options?: TerminalEmulatorOptions
-	/**
-	 * @param onInit When specified, it uses the passed instance of TerminalEmulator and runs its event sequence.
-	 */
-	onInit?: (instance?: TerminalEmulator) => void
+	run: (callback: void) => void
+	// /**
+	//  * @param callback Callback to pass to the run method
+	//  */
+	// callback: () => void
 }

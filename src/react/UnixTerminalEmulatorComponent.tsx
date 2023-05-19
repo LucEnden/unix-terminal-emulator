@@ -2,6 +2,8 @@ import React from "react"
 import Props from "./Props"
 import * as Core from "../core"
 import TerminalEmulator from "../types/TerminalEmulator"
+import UnixTerminalEmulator from "../core/UnixTerminalEmulator"
+import TerminalEmulatorOptions from "../types/TerminalEmulatorOptions"
 
 /**
  * Emulates a unix terminal by building an event sequence of commands and timings which gets executed when the run method is called.
@@ -10,46 +12,30 @@ import TerminalEmulator from "../types/TerminalEmulator"
 class UnixTerminalEmulatorComponent extends React.Component<Props> {
 	state = {
 		// optional second annotation for better type inference
-		instance: {} as TerminalEmulator | undefined,
+		instance: {} as UnixTerminalEmulator,
+		id: "" as string
 	}
 
 	componentDidMount() {
-		if (this.props.onInit) {
-			if (this.props.instance) {
-				this.setState({
-					instance: this.props.instance,
-				})
-			} else {
-				const instance = new Core.default(this.props.options)
-				this.setState({
-					instance: instance,
-				})
-			}
-			this.props.onInit(this.state.instance)
-		}
+		this.setState({
+			instance: this.props.instance,
+			id: this.props.instance.options.wrapperId
+		})
+		this.props.run()
 	}
 
 	componentDidUpdate(prevProps: Props) {
 		if (prevProps !== this.props) {
-			if (this.props.instance) {
-				this.setState({
-					instance: this.props.instance,
-				})
-			} else {
-				const instance = new Core.default(this.props.options)
-				this.setState({
-					instance: instance,
-				})
-			}
-		}
-		
-		if (this.props.onInit) {
-			this.props.onInit(this.state.instance)
+			this.setState({
+				instance: this.props.instance,
+				id: this.props.instance.options.wrapperId
+			})
+			this.props.run()
 		}
 	}
 
 	render() {
-		return <div id={this.props.options ? this.props.options.wrapperId : "terminal___emulator___wrapper"}></div>
+		return <div id={this.state.id}></div>
 	}
 }
 
