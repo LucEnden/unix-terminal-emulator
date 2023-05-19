@@ -1,9 +1,6 @@
 import React from "react"
 import Props from "./Props"
-import * as Core from "../core"
 import TerminalEmulator from "../types/TerminalEmulator"
-import UnixTerminalEmulator from "../core/UnixTerminalEmulator"
-import TerminalEmulatorOptions from "../types/TerminalEmulatorOptions"
 
 /**
  * Emulates a unix terminal by building an event sequence of commands and timings which gets executed when the run method is called.
@@ -12,7 +9,7 @@ import TerminalEmulatorOptions from "../types/TerminalEmulatorOptions"
 class UnixTerminalEmulatorComponent extends React.Component<Props> {
 	state = {
 		// optional second annotation for better type inference
-		instance: {} as UnixTerminalEmulator,
+		instance: {} as TerminalEmulator,
 		id: "" as string
 	}
 

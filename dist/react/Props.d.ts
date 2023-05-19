@@ -1,15 +1,14 @@
 import TerminalEmulator from "../types/TerminalEmulator";
-import TerminalEmulatorOptions from "../types/TerminalEmulatorOptions";
 /**
  * The properties for this UnixTerminalEmulator component.
  */
 export default interface Props {
     /**
-     * @param options The options to pass down to the terminal instance used by this component
+     * @param instance The pre initialized instanced to be used by this component
      */
-    options?: TerminalEmulatorOptions;
+    instance: TerminalEmulator;
     /**
-     * @param onInit When specified, it uses the passed instance of TerminalEmulator and runs its event sequence.
+     * @param run When specified, it runs the instance's event sequence.
      */
-    onInit?: (instance: TerminalEmulator) => void;
+    run: (callback: void) => void;
 }

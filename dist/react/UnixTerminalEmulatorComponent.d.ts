@@ -7,7 +7,8 @@ import TerminalEmulator from "../types/TerminalEmulator";
  */
 declare class UnixTerminalEmulatorComponent extends React.Component<Props> {
     state: {
-        instance: TerminalEmulator | undefined;
+        instance: TerminalEmulator;
+        id: string;
     };
     componentDidMount(): void;
     componentDidUpdate(prevProps: Props): void;
