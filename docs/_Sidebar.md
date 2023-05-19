@@ -13,7 +13,7 @@
 - [core/UnixVimEmulator](../wiki/core.UnixVimEmulator)
 - [react](../wiki/react)
 - [react/Props](../wiki/react.Props)
-- [react/UnixTerminalEmulator](../wiki/react.UnixTerminalEmulator)
+- [react/UnixTerminalEmulatorComponent](../wiki/react.UnixTerminalEmulatorComponent)
 - [types/CursorElement](../wiki/types.CursorElement)
 - [types/CursorElementOptions](../wiki/types.CursorElementOptions)
 - [types/EnvironmentOptions](../wiki/types.EnvironmentOptions)

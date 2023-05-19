@@ -1,1 +1,1 @@
-export { default } from './UnixTerminalEmulator'
+export { default } from './UnixTerminalEmulatorComponent'

@@ -1,5 +1,5 @@
 import React from "react"
-import UnixTerminalEmulator from "../../src/react/UnixTerminalEmulator"
+import UnixTerminalEmulatorComponent from "../../src/react/UnixTerminalEmulatorComponent"
 import { render } from "@testing-library/react"
 import TerminalCommand from "../../src/types/TerminalCommand"
 import TerminalEmulatorOptions from "../../src/types/TerminalEmulatorOptions"
@@ -10,7 +10,7 @@ test("constructor => test if custom ID gets passed down properly", done => {
         wrapperId: randomUUID()
     } as TerminalEmulatorOptions
 	render(
-		<UnixTerminalEmulator
+		<UnixTerminalEmulatorComponent
             options={options}
 			onInit={terminal => {
 				terminal
@@ -32,7 +32,7 @@ test("writeCommand + run => test if text appears on screen", done => {
         pauseBeforeOutput: 500,
     } as TerminalCommand
 	render(
-		<UnixTerminalEmulator
+		<UnixTerminalEmulatorComponent
 			onInit={terminal => {
 				terminal
 					.writeCommand(cmd)

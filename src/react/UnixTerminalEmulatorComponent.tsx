@@ -7,7 +7,7 @@ import TerminalEmulator from "../types/TerminalEmulator"
  * Emulates a unix terminal by building an event sequence of commands and timings which gets executed when the run method is called.
  * {@link https://github.com/LucEnden/unix-terminal-emulator/wiki/react.UnixTerminalEmulator.UnixTerminalEmulator}
  */
-class UnixTerminalEmulator extends React.Component<Props> {
+class UnixTerminalEmulatorComponent extends React.Component<Props> {
 	state = {
 		// optional second annotation for better type inference
 		instance: {} as TerminalEmulator | undefined,
@@ -40,4 +40,4 @@ class UnixTerminalEmulator extends React.Component<Props> {
 	}
 }
 
-export default UnixTerminalEmulator
+export default UnixTerminalEmulatorComponent

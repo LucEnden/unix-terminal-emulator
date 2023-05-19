@@ -10,4 +10,4 @@
 
 ### default
 
-Renames and re-exports [UnixTerminalEmulator](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator)
+Renames and re-exports [UnixTerminalEmulatorComponent](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent)

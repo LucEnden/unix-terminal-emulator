@@ -18,4 +18,4 @@
 
 #### Defined in
 
-[src/core/UnixFileSystemEmulator.ts:7](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/core/UnixFileSystemEmulator.ts#L7)
+[src/core/UnixFileSystemEmulator.ts:7](https://github.com/LucEnden/unix-terminal-emulator/blob/6b6ca89/src/core/UnixFileSystemEmulator.ts#L7)

@@ -1,6 +1,6 @@
-# Class: UnixTerminalEmulator
+# Class: UnixTerminalEmulatorComponent
 
-[react/UnixTerminalEmulator](../wiki/react.UnixTerminalEmulator).UnixTerminalEmulator
+[react/UnixTerminalEmulatorComponent](../wiki/react.UnixTerminalEmulatorComponent).UnixTerminalEmulatorComponent
 
 Emulates a unix terminal by building an event sequence of commands and timings which gets executed when the run method is called.
 [https://github.com/LucEnden/unix-terminal-emulator/wiki/react.UnixTerminalEmulator.UnixTerminalEmulator](https://github.com/LucEnden/unix-terminal-emulator/wiki/react.UnixTerminalEmulator.UnixTerminalEmulator)
@@ -9,45 +9,45 @@ Emulates a unix terminal by building an event sequence of commands and timings w
 
 - `Component`<[`Props`](../wiki/react.Props.Props)\>
 
-  ↳ **`UnixTerminalEmulator`**
+  ↳ **`UnixTerminalEmulatorComponent`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#constructor)
+- [constructor](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#constructor)
 
 ### Properties
 
-- [context](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#context)
-- [props](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#props)
-- [refs](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#refs)
-- [state](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#state)
-- [contextType](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#contexttype)
+- [context](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#context)
+- [props](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#props)
+- [refs](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#refs)
+- [state](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#state)
+- [contextType](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#contexttype)
 
 ### Methods
 
-- [UNSAFE\_componentWillMount](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#unsafe_componentwillmount)
-- [UNSAFE\_componentWillReceiveProps](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#unsafe_componentwillreceiveprops)
-- [UNSAFE\_componentWillUpdate](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#unsafe_componentwillupdate)
-- [componentDidCatch](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#componentdidcatch)
-- [componentDidMount](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#componentdidmount)
-- [componentDidUpdate](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#componentdidupdate)
-- [componentWillMount](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#componentwillmount)
-- [componentWillReceiveProps](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#componentwillreceiveprops)
-- [componentWillUnmount](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#componentwillunmount)
-- [componentWillUpdate](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#componentwillupdate)
-- [forceUpdate](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#forceupdate)
-- [getSnapshotBeforeUpdate](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#getsnapshotbeforeupdate)
-- [render](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#render)
-- [setState](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#setstate)
-- [shouldComponentUpdate](../wiki/react.UnixTerminalEmulator.UnixTerminalEmulator#shouldcomponentupdate)
+- [UNSAFE\_componentWillMount](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#unsafe_componentwillmount)
+- [UNSAFE\_componentWillReceiveProps](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#unsafe_componentwillreceiveprops)
+- [UNSAFE\_componentWillUpdate](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#unsafe_componentwillupdate)
+- [componentDidCatch](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#componentdidcatch)
+- [componentDidMount](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#componentdidmount)
+- [componentDidUpdate](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#componentdidupdate)
+- [componentWillMount](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#componentwillmount)
+- [componentWillReceiveProps](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#componentwillreceiveprops)
+- [componentWillUnmount](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#componentwillunmount)
+- [componentWillUpdate](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#componentwillupdate)
+- [forceUpdate](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#forceupdate)
+- [getSnapshotBeforeUpdate](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#getsnapshotbeforeupdate)
+- [render](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#render)
+- [setState](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#setstate)
+- [shouldComponentUpdate](../wiki/react.UnixTerminalEmulatorComponent.UnixTerminalEmulatorComponent#shouldcomponentupdate)
 
 ## Constructors
 
 ### constructor
 
-• **new UnixTerminalEmulator**(`props`)
+• **new UnixTerminalEmulatorComponent**(`props`)
 
 #### Parameters
 
@@ -61,15 +61,15 @@ React.Component<Props\>.constructor
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:472
+node_modules/@types/react/ts5.0/index.d.ts:451
 
-• **new UnixTerminalEmulator**(`props`, `context`)
+• **new UnixTerminalEmulatorComponent**(`props`, `context`)
 
 **`Deprecated`**
 
 **`See`**
 
-https://reactjs.org/docs/legacy-context.html
+https://legacy.reactjs.org/docs/legacy-context.html
 
 #### Parameters
 
@@ -84,7 +84,7 @@ React.Component<Props\>.constructor
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:477
+node_modules/@types/react/ts5.0/index.d.ts:456
 
 ## Properties
 
@@ -106,7 +106,7 @@ declare context: React.ContextType<typeof MyContext>
 
 **`See`**
 
-https://reactjs.org/docs/context.html
+https://react.dev/reference/react/Component#context
 
 #### Inherited from
 
@@ -114,7 +114,7 @@ React.Component.context
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:470
+node_modules/@types/react/ts5.0/index.d.ts:449
 
 ___
 
@@ -128,7 +128,7 @@ React.Component.props
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:490
+node_modules/@types/react/ts5.0/index.d.ts:469
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 **`Deprecated`**
 
-https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
+https://legacy.reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs
 
 #### Index signature
 
@@ -150,21 +150,27 @@ React.Component.refs
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:496
+node_modules/@types/react/ts5.0/index.d.ts:475
 
 ___
 
 ### state
 
-• **state**: `Readonly`<{}\>
+• **state**: `Object`
 
-#### Inherited from
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `instance` | `undefined` \| [`TerminalEmulator`](../wiki/types.TerminalEmulator.TerminalEmulator) |
+
+#### Overrides
 
 React.Component.state
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:491
+src/react/UnixTerminalEmulatorComponent.tsx:11
 
 ___
 
@@ -191,7 +197,7 @@ class Foo extends React.Component {
 
 **`See`**
 
-https://reactjs.org/docs/context.html#classcontexttype
+https://react.dev/reference/react/Component#static-contexttype
 
 #### Inherited from
 
@@ -199,7 +205,7 @@ React.Component.contextType
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:453
+node_modules/@types/react/ts5.0/index.d.ts:432
 
 ## Methods
 
@@ -221,8 +227,8 @@ prevents this from being invoked.
 
 **`See`**
 
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
 
 #### Returns
 
@@ -234,7 +240,7 @@ React.Component.UNSAFE\_componentWillMount
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:687
+node_modules/@types/react/ts5.0/index.d.ts:666
 
 ___
 
@@ -259,8 +265,8 @@ prevents this from being invoked.
 
 **`See`**
 
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
 
 #### Parameters
 
@@ -279,7 +285,7 @@ React.Component.UNSAFE\_componentWillReceiveProps
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:719
+node_modules/@types/react/ts5.0/index.d.ts:698
 
 ___
 
@@ -302,8 +308,8 @@ prevents this from being invoked.
 
 **`See`**
 
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
 
 #### Parameters
 
@@ -323,7 +329,7 @@ React.Component.UNSAFE\_componentWillUpdate
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:747
+node_modules/@types/react/ts5.0/index.d.ts:726
 
 ___
 
@@ -351,7 +357,7 @@ React.Component.componentDidCatch
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:616
+node_modules/@types/react/ts5.0/index.d.ts:595
 
 ___
 
@@ -369,37 +375,31 @@ React.Component.componentDidMount
 
 #### Defined in
 
-[src/react/UnixTerminalEmulator.tsx:10](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/react/UnixTerminalEmulator.tsx#L10)
+src/react/UnixTerminalEmulatorComponent.tsx:16
 
 ___
 
 ### componentDidUpdate
 
-▸ `Optional` **componentDidUpdate**(`prevProps`, `prevState`, `snapshot?`): `void`
-
-Called immediately after updating occurs. Not called for the initial render.
-
-The snapshot is only present if getSnapshotBeforeUpdate is present and returns non-null.
+▸ **componentDidUpdate**(`prevProps`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `prevProps` | `Readonly`<[`Props`](../wiki/react.Props.Props)\> |
-| `prevState` | `Readonly`<{}\> |
-| `snapshot?` | `any` |
+| `prevProps` | [`Props`](../wiki/react.Props.Props) |
 
 #### Returns
 
 `void`
 
-#### Inherited from
+#### Overrides
 
 React.Component.componentDidUpdate
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:658
+src/react/UnixTerminalEmulatorComponent.tsx:26
 
 ___
 
@@ -419,8 +419,8 @@ prevents this from being invoked.
 
 **`See`**
 
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#initializing-state
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
 
 #### Returns
 
@@ -432,7 +432,7 @@ React.Component.componentWillMount
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:673
+node_modules/@types/react/ts5.0/index.d.ts:652
 
 ___
 
@@ -455,8 +455,8 @@ prevents this from being invoked.
 
 **`See`**
 
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
 
 #### Parameters
 
@@ -475,7 +475,7 @@ React.Component.componentWillReceiveProps
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:702
+node_modules/@types/react/ts5.0/index.d.ts:681
 
 ___
 
@@ -496,7 +496,7 @@ React.Component.componentWillUnmount
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:611
+node_modules/@types/react/ts5.0/index.d.ts:590
 
 ___
 
@@ -517,8 +517,8 @@ prevents this from being invoked.
 
 **`See`**
 
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update
- - https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update
+ - https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
 
 #### Parameters
 
@@ -538,7 +538,7 @@ React.Component.componentWillUpdate
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:732
+node_modules/@types/react/ts5.0/index.d.ts:711
 
 ___
 
@@ -562,7 +562,7 @@ React.Component.forceUpdate
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:487
+node_modules/@types/react/ts5.0/index.d.ts:466
 
 ___
 
@@ -594,7 +594,7 @@ React.Component.getSnapshotBeforeUpdate
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:652
+node_modules/@types/react/ts5.0/index.d.ts:631
 
 ___
 
@@ -612,7 +612,7 @@ React.Component.render
 
 #### Defined in
 
-[src/react/UnixTerminalEmulator.tsx:17](https://github.com/LucEnden/unix-terminal-emulator/blob/70224fc/src/react/UnixTerminalEmulator.tsx#L17)
+src/react/UnixTerminalEmulatorComponent.tsx:38
 
 ___
 
@@ -643,7 +643,7 @@ React.Component.setState
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:482
+node_modules/@types/react/ts5.0/index.d.ts:461
 
 ___
 
@@ -678,4 +678,4 @@ React.Component.shouldComponentUpdate
 
 #### Defined in
 
-node_modules/@types/react/index.d.ts:606
+node_modules/@types/react/ts5.0/index.d.ts:585
