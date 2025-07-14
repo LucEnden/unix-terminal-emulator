@@ -1,3 +1,8 @@
+> This package is no longer being maintained. Feel free to copy, modify and distribute all the files from this repository without restrictions!
+> (PS: a small shoutout would be much appreasiated)
+
+---
+
 # Terminal Emulator
 
 ![ci (build and test)](https://img.shields.io/github/workflow/status/LucEnden/unix-terminal-emulator/CI?label=CI%20%28build%20and%20test%29&style=flat-square)
